@@ -1,0 +1,71 @@
+\documentclass{article}
+\usepackage{graphicx}
+\usepackage{geometry}
+\usepackage{fancyhdr}
+\usepackage[style=verbose]{biblatex}
+\usepackage{subfiles}
+\usepackage{makecell}
+\usepackage{fancyhdr}
+\usepackage{titlesec}
+
+%Header for the first page
+\pagestyle{fancy}
+\fancyhf{}
+\setlength{\headheight}{45pt}
+
+\lhead{
+  \includegraphics[width=3cm]{img/htlwrn_logo}  
+}
+\chead{\Large HTBLuVA Wiener Neustadt \\ \normalsize Höhere Lehranstalt für Informatik}
+\rhead{
+  \includegraphics[width=3cm]{img/htlwrn_logo2}
+}
+
+\newcommand{\parseauthor}[3]{\makecell{#1 \\ #2} & #3}
+
+%definitions for easier costumization
+\def \title {DIPLOMARBEIT}
+\def \subtitle {Localisation via ML Methods}
+\def \year {2019/20}
+\def \authors { \parseauthor{Rolle x}{Ida Hönigmann}{5AHIF}\\
+                \parseauthor{Rolle y}{Peter Kain}{5AHIF}}
+\def \supervisor {MMag. Dr. Michael Stifter}
+\def \declauthors{ Ida HÖNIGMANN & Peter KAIN}
+
+\graphicspath{ {img/} }
+
+\setlength{\parindent}{0em}
+
+\geometry{
+ a4paper,
+ left=30mm,
+ top=50mm,
+ }
+
+\addbibresource{main.bib}
+
+
+\begin{document}
+  %include titlepage
+  \input{sections/titlepage}
+  
+  %include acknowledgements, abstract and documentation
+  \pagestyle{plain}
+  \pagenumbering{roman}
+  \input{sections/declarationof}
+  \newpage
+  \tableofcontents
+  \newpage
+  \input{sections/acknowledgement}
+  \newpage
+  \input{sections/abstract}
+  \newpage
+  \input{sections/introduction_hoenigmann}
+  \newpage
+    \input{sections/introduction_kain}
+  \newpage
+  
+  %include thesis
+  \pagenumbering{arabic}
+  \newpage
+\end{document}
