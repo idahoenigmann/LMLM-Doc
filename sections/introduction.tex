@@ -2,18 +2,23 @@
 
 \textbf{Author:}
 
-Robots are getting more and more mobile. While a few years ago their usage was mostly limited to aid atomization in factories, they now can be found as self driving cars or autonomous delivery drones.
-One of the main challenges all mobile robots must face is navigation. To overcome this challenge it often is necessary to sense the environment, in order to accomplish a robust working navigation towards a given target.
+\vspace{2mm}
 
-The problem of navigation has been looked at from many different angles. One popular approach in mobile robotics when navigating outdoor is to use GPS, an external positioning system. [TODO: erklärung GPS]
+Robots are getting more and more mobile. While a few years ago their usage was mostly limited to aid factory automation, robots have found widespread adoption in a multitude of industries, such as self driving cars and autonomous delivery drones.
+A challenge frequently encountered is navigating in unknown environments, which either requires the robot to sense specific characteristics of its surroundings or to communicate with some external system.
 
-In our work, however, we focus on a system that has different use cases. A typical use case for our system is a drone which should land next to some target object. If the absolute position of the object is not known to the needed precision GPS can not be used.
-Landing next to this object can be done by retrieving the relative position of the robot to the object from some sensor mounted on the robot.
-Another difference to GPS is that we want our system to work outdoor as well as indoor.
+The problem of navigation has been looked at from many different angles. One popular approach in mobile robotics is to use GPS, an external positioning system. In order to determine the position of a robot using GPS it has to establish communication with at least four satellites. The exact position of each satellite as well as the current time is broadcasted by the satellites. By measuring the time needed for the signal to reach the robot the position can be calculated up to three meters accuracy.
+However, in some cases positioning a robot using external positioning methods is no possible. In the case of GPS this can be due to obstacles interfering with the radio signals send by the satellites.
+In comparison, we focus on a system that can navigate outdoor as well as indoor. 
 
 \section{Goal}
-The goal of this diploma thesis is to show the possibilities and advantages of using machine learning for localization, and to provide an API for easy use by future robotics students. In order to do localization a neural network will evaluate two images with different points of view. From these two points of view it will return the relative distance from the point of view of the second image to any given object visible in both images. Machine Learning will be used in order to not be dependent on a specific situation or setup. The localization should hereby work on, for example, objects varying in size and/or in different situations of lighting.
+The goal of this diploma thesis is to implement a system which can localize a robot using no other sensors than a camera. We not only want to implement an easy to use API for future robotic students, but to also show the possibilities and advantages of using machine learning for this challenge.
+
+[alles todo]
+In order to accomplish this localization, a neural network will evaluate two images with different points of view. From these two points of view it will return the relative distance from the point of view of the second image to any given object visible in both images. Machine Learning will be used in order to not be dependent on a specific situation or setup. The localization should hereby work on, for example, objects varying in size and/or in different situations of lighting.
 
 \textbf{[TODO: länger, und nicht das werden wir machen, sondern das ist unser Ziel]}
+
+\lipsum[1-5]
 
 \filbreak

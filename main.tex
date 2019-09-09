@@ -1,4 +1,4 @@
-\documentclass[12pt,a4paper]{report}
+\documentclass[12pt,a4paper,openany]{book}
 \usepackage{graphicx}
 \usepackage{geometry}
 \usepackage{fancyhdr}
@@ -51,35 +51,29 @@
 	\input{sections/titlepage}
 	
 	%include acknowledgements, abstract and documentation
+	
 	\pagestyle{plain}
+	
+	\frontmatter
+	
 	\pagenumbering{roman}
 	\input{sections/declarationof}
-	\newpage
 	\tableofcontents
 	\newpage
 	\input{sections/acknowledgement}
-	\newpage
 	\input{sections/abstract}
-	\newpage  
 	
 	%include thesis
 	
+	\mainmatter
 	\pagenumbering{arabic}
 	\input{sections/introduction}
-	\newpage
 	\input{sections/study_of_literature}
-	\newpage
 	\input{sections/methodology}
-	\newpage
 	\input{sections/ros2}
-	\newpage
 	\input{sections/experiment1}
-	\newpage
 	\input{sections/lessons_learned}
-	\newpage
 	\input{sections/experiment2}
-	\newpage
 	\input{sections/conclusion}
-	\newpage
 
 \end{document}
