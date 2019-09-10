@@ -1,6 +1,6 @@
 \chapter{Introduction}
 
-\textbf{Author:}
+\textbf{Author: Ida Hönigmann}
 
 \vspace{2mm}
 
@@ -12,13 +12,10 @@ However, in some cases positioning a robot using external positioning methods is
 In comparison, we focus on a system that can navigate outdoor as well as indoor. 
 
 \section{Goal}
-The goal of this diploma thesis is to implement a system which can localize a robot using no other sensors than a camera. We not only want to implement an easy to use API for future robotic students, but to also show the possibilities and advantages of using machine learning for this challenge.
+The goal of this diploma thesis is to implement a system which can localize a robot using no other sensors than a camera. This limitation was purposely chosen as our system will be used by future robotic students at our school and many robot systems used in the field of education are only poorly equipped with sensors that are able to detect its environment. One sensor, that many robots used for educational purposes are either already equipped with, or that can be easily mounted is a camera.
 
-[alles todo]
-In order to accomplish this localization, a neural network will evaluate two images with different points of view. From these two points of view it will return the relative distance from the point of view of the second image to any given object visible in both images. Machine Learning will be used in order to not be dependent on a specific situation or setup. The localization should hereby work on, for example, objects varying in size and/or in different situations of lighting.
+As part of our work we not only want to implement an easy to use API for future robotic students, but to also show the possibilities and advantages of using machine learning for this challenge.
 
-\textbf{[TODO: länger, und nicht das werden wir machen, sondern das ist unser Ziel]}
-
-\lipsum[1-5]
+In order to accomplish precise localization in various different surroundings, we plan on implementing a neural network. The neural network should take images, taken by the camera as an input, and output the relative distance of any object shown in the images. By using machine learning we hope to be less dependent on a specific situation or setup in comparison to different camera based localisation methods. For example the localization should work on objects varying in size and shape, as well as in different situations of lighting.
 
 \filbreak
