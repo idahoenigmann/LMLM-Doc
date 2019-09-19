@@ -18,14 +18,20 @@ Blender allows for relatively easy generation of training data by providing a Py
 [TODO: Codebeispiele?]
 
 \section{Neural Network}
+The authors decided to use Tensorflow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
 
-[TODO: Erklärung - zuerst Tensorflow, dann selbst implementiert in C++]
+After it has been shown that the challenge of detecting the distance to an object can be solved using machine learning, the authors plan on implementing a neural network in C++ on their own. The knowledge gained in the Tensorflow implementation will be used in the C++ implementation, which hopefully will make the work less time consuming.
 
 \subsection{Tensorflow}
+TensorFlow,  in  the  most  general  terms,  is  a  software  framework  for  numerical  computations based on dataflow graphs. \footcite[page ]{Hope_Learning_TensorFlow}
+
+As machine learning has gained popularity in recent years many frameworks have started appearing. One of the most popular is called Tensorflow. It was developed by Google for internal use and made available to the public on the \nth{9} of November 2015.
 
 [TODO: was ist Tenserflow, welche Sprachen werden unterstützt, wie wird es (sonst noch) verwendet?]
 
 \subsection{Alternatives to Tensorflow}
+
+Abstraction libraries such as Keras and TF-Slim offer simpli‐fied  high-level  access  to  the  “LEGO  bricks”  in  the  lower-level  library,  helping  tostreamline the construction of the dataflow graphs, training them, and running infer‐ence. \footcite[page 7]{Hope_Learning_TensorFlow}
 
 [+ warum verwenden wir ausgerechnet Tenserflow]
 

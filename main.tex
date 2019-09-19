@@ -8,6 +8,7 @@
 \usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{lipsum}
+\usepackage[super]{nth}
 
 %Header for the first page
 \pagestyle{fancy}
@@ -45,6 +46,14 @@
 
 \addbibresource{main.bib}
 
+\renewbibmacro*{bibindex}{%
+	\ifbibindex
+	{\indexnames{author}%
+		\indexnames{editor}%
+		\indexnames{translator}%
+		\indexnames{commentator}%
+		\indexfield{indextitle}}
+	{}}
 
 \begin{document}
 	%include titlepage
