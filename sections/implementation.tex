@@ -3,35 +3,39 @@
 \textbf{Author: } 
 
 \section{Generating test data}
-Good test data is one of the most important things in machine learning. The system knows only what is depicted in the training data, which is why it is important to include as many aspects of the problem as possible in this data.
+Good test data is of utmost importance in machine learning. The system can only know information that is depicted in the training data, which is why it is important to include as many aspects of the problem as possible in this data.
 
-Since machine learning needs a lot of data in order to solve the given task it can be tiresome to generate and label all this data by hand. Therefore we decided to simulate some objects using a computer graphics software called Blender.
+Since machine learning needs a lot of data in order to solve the given task it can be tiresome to generate and label all this data by hand. Therefore the authors decided to simulate the objects and the camera using a computer graphics software called Blender.
 
 Blender allows for relatively easy generation of training data by providing a Python API.
 
 [TODO: Image camera setup, lightning, objects in Blender]
+
 [TODO: Renders and labels for example objects]
 
 \section{OpenCV}
 
 [TODO: was ist das? wofür wird es allgemein verwendet? wofür verwenden wir es?]
+
 [TODO: Codebeispiele?]
 
 \section{Neural Network}
-The authors decided to use Tensorflow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
+The authors decided to use a software framework called Tensorflow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
 
 After it has been shown that the challenge of detecting the distance to an object can be solved using machine learning, the authors plan on implementing a neural network in C++ on their own. The knowledge gained in the Tensorflow implementation will be used in the C++ implementation, which hopefully will make the work less time consuming.
 
 \subsection{Tensorflow}
-TensorFlow,  in  the  most  general  terms,  is  a  software  framework  for  numerical  computations based on dataflow graphs. \footcite[page ]{Hope_Learning_TensorFlow}
-
-As machine learning has gained popularity in recent years many frameworks have started appearing. One of the most popular is called Tensorflow. It was developed by Google for internal use and made available to the public on the \nth{9} of November 2015.
+As machine learning has gained popularity in recent years many frameworks have started appearing. One of the most popular is called Tensorflow. It was developed by Google for internal use and was published under the Apache License 2.0 on the \nth{9} of November 2015.
 
 [TODO: was ist Tenserflow, welche Sprachen werden unterstützt, wie wird es (sonst noch) verwendet?]
 
+[INFO: TensorFlow,  in  the  most  general  terms,  is  a  software  framework  for  numerical  computations based on dataflow graphs. \footcite[page ]{Hope_Learning_TensorFlow}]
+
+[INFO: tensorflow api for python and C. Without backwards compatibility: C++, Go, Java, JavaScript, Swift. Third party: C\#, Haskell, Julia, R, Scala, Rust, OCaml and Crystal.]
+
 \subsection{Alternatives to Tensorflow}
 
-Abstraction libraries such as Keras and TF-Slim offer simpli‐fied  high-level  access  to  the  “LEGO  bricks”  in  the  lower-level  library,  helping  tostreamline the construction of the dataflow graphs, training them, and running infer‐ence. \footcite[page 7]{Hope_Learning_TensorFlow}
+[INFO: Abstraction libraries such as Keras and TF-Slim offer simpli‐fied  high-level  access  to  the  “LEGO  bricks”  in  the  lower-level  library,  helping  tostreamline the construction of the dataflow graphs, training them, and running infer‐ence. \footcite[page 7]{Hope_Learning_TensorFlow}]
 
 [+ warum verwenden wir ausgerechnet Tenserflow]
 
