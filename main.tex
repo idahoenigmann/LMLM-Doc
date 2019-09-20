@@ -108,6 +108,17 @@ url=true]{biblatex}
 \def\cbx@cite{}
 \makeatother
 
+% makes quotes work
+\newif\ifquoteopen
+\catcode`\"=\active % lets you define `"` as a macro
+\DeclareRobustCommand*{"}{%
+	\ifquoteopen
+	\quoteopenfalse ''%
+	\else
+	\quoteopentrue ``%
+	\fi
+}
+
 \begin{document}
 	%include titlepage
 	\input{sections/titlepage}
