@@ -13,14 +13,13 @@ minbibnames=999,
 refsection=section,
 doi=true,
 url=true]{biblatex}
-\usepackage{subfiles}
+%\usepackage{subfiles}
 \usepackage{makecell}
-\usepackage{fancyhdr}
 \usepackage{titlesec}
 \usepackage{lipsum}
 \usepackage[super]{nth}
 \usepackage{imakeidx}
-%\usepackage{hyperref}
+\usepackage{hyperref}
 
 %Header for the first page
 \pagestyle{fancy}
@@ -61,7 +60,8 @@ url=true]{biblatex}
 
 \makeindex[title=Index]
 \makeindex[name=allgemein, title=Common Index]
-\makeindex[name=name,title={Authors Index}]	% do not even think about changing this from name to author
+\makeindex[name=name,title={Authors Index}]
+	% do not even think about changing this from name to author
 \makeindex[name=title,columns=1,title={Literature Index}]
 \indexsetup{level=\subsection*, toclevel=subsection, noclearpage}
 
@@ -109,15 +109,15 @@ url=true]{biblatex}
 \makeatother
 
 % makes quotes work
-\newif\ifquoteopen
-\catcode`\"=\active % lets you define `"` as a macro
-\DeclareRobustCommand*{"}{%
-	\ifquoteopen
-	\quoteopenfalse ''%
-	\else
-	\quoteopentrue ``%
-	\fi
-}
+%\newif\ifquoteopen
+%\catcode`\"=\active % lets you define `"` as a macro
+%\DeclareRobustCommand*{"}{%
+%	\ifquoteopen
+%	\quoteopenfalse ''%
+%	\else
+%	\quoteopentrue ``%
+%	\fi
+%}
 
 \begin{document}
 	%include titlepage
@@ -154,7 +154,7 @@ url=true]{biblatex}
 	\input{sections/conclusion}
 	
 	
-
+	% Index
 	\newpage
 	\chapter*{Index}
 	\printindex[name]
