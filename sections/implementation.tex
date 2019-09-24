@@ -35,7 +35,7 @@ Due to its popularity third party APIs for C\#, R, Scala, Rust and many more wer
 
 Its use cases reach from categorizing handwritten digits to YouTube video recommendations, one of the many applications Google use it for.
 
-Tom Hope et al. describe TensorFlow as a software framework for numerical computations based on dataflow graphs \footcite{Hope_Learning_TensorFlow}.
+Tom Hope et al. describe TensorFlow as a software framework for numerical computations based on dataflow graphs \footcite[page 6]{Hope_Learning_TensorFlow}.
 
 \subsection{Nodes and graphs}
 To compute a value using TensorFlow a computation graph has to be constructed. In this graph each node corresponds to an operation, such as subtraction or division. By connecting these nodes via edges the output of one node can be fed as input into another node. One example of such a computation graph can be seen in Figure~\ref{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}.
@@ -47,11 +47,55 @@ To compute a value using TensorFlow a computation graph has to be constructed. I
 	\label{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}
 \end{figure}
 
+\filbreak
 
+The implementation of the computation graph, shown in Figure~\ref{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}, in Python could look as follows:
+
+\begin{lstlisting}[language=python]
+import tensorflow as tf
+
+a = tf.constant(28)
+b = tf.constant(2)
+
+c = tf.multiply(a, b)
+d = tf.add(a, c)
+e = tf.divide(d, b)
+
+with tf.Session() as sess:
+    out = sess.run(e)
+
+print(out)
+
+\end{lstlisting}
+
+The first line specifies that the TensorFlow functionality should be imported. Line 3 and 4 define the two constant values and assigns them the values 28 and 2 respectively. In line 6 to 8 the other nodes of the graph are specified. E.g. in line 6 a new node, named $c$, is created and the output of node $a$ and node $b$ are connected as its input. To perform the calculation described by the graph a new session is created in line 10. Finally the output of the graph (node $e$) is specified in line 11, the result is calculated and printed in line 13.
 
 \subsection{Alternatives to Tensorflow}
+[INFO: Abstraction libraries such as Keras and TF-Slim offer simplified  high-level  access  to  the  "LEGO  bricks"  in  the  lower-level  library,  helping  to streamline the construction of the dataflow graphs, training them, and running inference. \footcite[page 7]{Hope_Learning_TensorFlow}]
 
-[INFO: Abstraction libraries such as Keras and TF-Slim offer simpli‐fied  high-level  access  to  the  "LEGO  bricks"  in  the  lower-level  library,  helping  tostreamline the construction of the dataflow graphs, training them, and running infer‐ence. \footcite[page 7]{Hope_Learning_TensorFlow}]
+\begin{center}
+\begin{tabular}{| l | l | l | l | l |}
+	\hline
+	\bfseries & \bfseries Open Source & \bfseries Actively & \bfseries Parallelization & \bfseries Interface \\
+	 & & \bfseries developed & & \\
+	\hline
+	\bfseries TensorFlow & Yes & Yes & Yes & Python, C, C++, \\
+	& & & & Go, Java, JavaScript, \\
+	& & & & Swift, R, Julia \\
+	\hline
+	\bfseries Keras & Yes & Yes & Yes & Python \\
+	\hline
+	\bfseries PyTorch & Yes & Yes & Yes & Python, C++ \\
+	\hline
+	\bfseries Torch & Yes & No & Yes & Lua, LuaJIT, C, \\
+	& & & & C++, OpenGL \\
+	\hline
+	\bfseries Wolfram & No & Yes & Yes & Wolfram Language \\
+	\bfseries Mathematica & & & & \\
+	\hline
+\end{tabular}
+\label{tab:implementation_tensorflow_alternativesToTensorflow_comparision}
+\end{center}
 
 [+ warum verwenden wir ausgerechnet Tenserflow]
 
