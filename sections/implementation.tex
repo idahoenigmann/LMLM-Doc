@@ -70,6 +70,25 @@ print(out)
 
 The first line specifies that the TensorFlow functionality should be imported. Line 3 and 4 define the two constant values and assigns them the values 28 and 2 respectively. In line 6 to 8 the other nodes of the graph are specified. E.g. in line 6 a new node, named $c$, is created and the output of node $a$ and node $b$ are connected as its input. To perform the calculation described by the graph a new session is created in line 10. Finally the output of the graph (node $e$) is specified in line 11, the result is calculated and printed in line 13.
 
+TensorFlow allows for another way of specifying a graph with these arithmetic operations:
+
+\begin{lstlisting}[language=python]
+import tensorflow as tf
+
+a = tf.constant(28)
+b = tf.constant(2)
+
+e = (a * b + a) / b
+
+with tf.Session() as sess:
+	out = sess.run(e)
+
+print(out)
+
+\end{lstlisting}
+
+This code is equivalent to the first one, but uses syntactic sugar to shorten line 6 to 8 in the first code block into line 6. At this point it should be noted that while it might look like it line 6 does not calculate anything. It simply describes how the computational graph should look. The answer (42) is calculated in the session in line 9.
+
 \subsection{Alternatives to Tensorflow}
 [INFO: Abstraction libraries such as Keras and TF-Slim offer simplified  high-level  access  to  the  "LEGO  bricks"  in  the  lower-level  library,  helping  to streamline the construction of the dataflow graphs, training them, and running inference. \footcite[page 7]{Hope_Learning_TensorFlow}]
 
