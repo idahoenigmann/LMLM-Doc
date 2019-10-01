@@ -37,7 +37,7 @@ Its use cases reach from categorizing handwritten digits to YouTube video recomm
 
 Tom Hope et al. describe TensorFlow as a software framework for numerical computations based on dataflow graphs \footcite[page 6]{Hope_Learning_TensorFlow}.
 
-\subsection{Nodes and graphs}
+\subsection{Computation graph}
 To compute a value using TensorFlow a computation graph has to be constructed. In this graph each node corresponds to an operation, such as subtraction or division. By connecting these nodes via edges the output of one node can be fed as input into another node. One example of such a computation graph can be seen in Figure~\ref{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}.
 
 \begin{figure}[h!]
@@ -88,6 +88,8 @@ print(out)
 \end{lstlisting}
 
 This code is equivalent to the first one, but uses syntactic sugar to shorten line 6 to 8 in the first code block into line 6. At this point it should be noted that while it might look like it line 6 does not calculate anything. It simply describes how the computational graph should look. The answer (42) is calculated in the session in line 9.
+
+\subsection{Convonutional Neural Networks?}
 
 \subsection{Alternatives to Tensorflow}
 [INFO: Abstraction libraries such as Keras and TF-Slim offer simplified  high-level  access  to  the  "LEGO  bricks"  in  the  lower-level  library,  helping  to streamline the construction of the dataflow graphs, training them, and running inference. \footcite[page 7]{Hope_Learning_TensorFlow}]
