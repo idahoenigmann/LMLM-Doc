@@ -143,6 +143,20 @@ url=true]{biblatex}
 %	\fi
 %}
 
+%Messbox zur Druckkontrolle:
+\newcommand{\Messbox}[2]{% Parameters: #1=Breite, #2=Hoehe
+	\setlength{\unitlength}{1.0mm}%
+	\begin{picture}(#1,#2)%
+	\linethickness{0.05mm}%
+	\put(0,0){\dashbox{0.2}(#1,#2)%
+		{\parbox{#1mm}{%
+				\centering\footnotesize 
+				%{\bf MESSBOX}\\ 
+				Breite $ = #1 {\rm\ mm}$\\
+				H\"ohe $ = #2 {\rm\ mm}$
+	}}}\end{picture}
+}
+
 \begin{document}
 	%include titlepage
 	\input{sections/titlepage}
@@ -186,6 +200,6 @@ url=true]{biblatex}
 	
 	\printbibliography
 	
-	\include{messbox}
+	\include{sections/messbox}
 
 \end{document}
