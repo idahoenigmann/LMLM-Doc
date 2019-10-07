@@ -22,6 +22,42 @@ OpenCV is a framework for image manipulation. Some of its use cases are changing
 
 [TODO: Codebeispiele?]
 
+\subsection{Greyscale}
+
+\begin{figure}[h!]
+	\centering
+	%\includegraphics[width=4.5in]{img/implementation_opencv_greyscale.png}
+	\caption{Comparison between normal and greyscale image.}
+	\label{pic:implementation_opencv_greyscale}
+\end{figure}
+
+\subsection{Saturated}
+
+\begin{figure}[h!]
+	\centering
+	%\includegraphics[width=4.5in]{img/implementation_opencv_saturated.png}
+	\caption{Comparison between normal and saturated image.}
+	\label{pic:implementation_opencv_saturated}
+\end{figure}
+
+\subsection{Resolution}
+
+\begin{figure}[h!]
+	\centering
+	%\includegraphics[width=4.5in]{img/implementation_opencv_resolution.png}
+	\caption{Comparison between normal and resolution image.}
+	\label{pic:implementation_opencv_resolution}
+\end{figure}
+
+\subsection{Brightness}
+
+\begin{figure}[h!]
+	\centering
+	%\includegraphics[width=4.5in]{img/implementation_opencv_brightness.png}
+	\caption{Comparison between normal and brightness image.}
+	\label{pic:implementation_opencv_brightness}
+\end{figure}
+
 \section{Neural Network}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
 
@@ -46,8 +82,6 @@ To compute a value using TensorFlow a computation graph has to be constructed. I
 	\caption{Each node represents an operation, where $const$ stands for a constant value, $add$ for addition, $mul$ for multiplication and $div$ for division. Edges, represented by arrows, connect nodes. The information shared between the nodes is described by the numbers written next to the edges. This computational graph calculates the result of the arithmetic expression $(28 * 2) + 28 / 2$.}
 	\label{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}
 \end{figure}
-
-\filbreak
 
 The implementation of the computation graph, shown in Figure~\ref{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}, in Python could look as follows:
 
