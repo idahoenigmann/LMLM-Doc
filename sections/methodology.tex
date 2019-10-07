@@ -3,9 +3,45 @@
 \textbf{Author: } 
 
 \section{Stereo Camera}
-[warum verwenden wir keine stereo kamera?, weil keine vorhanden]
+The challenge of sensing distances to various objects has been solved using stereo vision cameras. Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to gather the information on the depth of the images. This process can be rather complicated as the distortions (more specifically the barrel distortion and the tangential distortion) of the images have to be undone, before the two images are projected onto a common plane, a disparity map can be created by comparison of the two images and a 3d point cloud can be generated from it. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
+
+\subsection{Distortion}
+
+\subsection{Image Rectification}
+
+\subsection{Disparity Map}
+
+\subsection{3d point cloud}
+
+\subsection{Challenges}
+Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the drone has to take the first image, fly to a second position located horizontally next to the first one and take the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliable. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images can have an effect on the accuracy.
+
+Therefore the authors try to approach this challenge from the machine learning point of view. Neural networks can be taught to work with different changes in the environment and still return results with a superior quality to conventional implementation.
+
+\section{Generating data}
+Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the 2 cameras, which point to a specific object in the scene. This enables the authors to use and train a neural network, since shooting the amount of pictures needed by hand would take too long to consider this idea.
+
+\subsection{Blender}
+Besides 3D-modelling Blender enables the user to perform various different actions, such as laying out scenes, UV-Editing, shading, animating and rendering. Additionally scenes can be modified by executing Python scripts. Figure~\ref{pic:methodology_generatingData_blender_startscreen} shows the interface of Blender 2.8 with the default file loaded.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6.5in]{img/methodology_generatingData_blender_startscreen.png}
+	\caption{Blender interface after startup. The default scene features a grey cube, a camera (left of the cube) and a light source (black dot and circle positioned on the top right of the cube).}
+	\label{pic:methodology_generatingData_blender_startscreen}
+\end{figure}
+
+The authors decided to extensively use the scripting function in their work. One example of a Python script, that can be executed in blender is the following code:
+
+\begin{lstlisting}[language=python]
+python code
+\end{lstlisting}
+
+It modifies ...
 
 \section{Image preprocessing}
+
+
 [
 schwarz-weiß?
 auflösung?
@@ -106,27 +142,5 @@ This code is equivalent to the first one, but uses syntactic sugar to shorten li
 \end{center}
 
 [+ warum verwenden wir ausgerechnet Tenserflow]
-
-
-\section{Generating data}
-Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the 2 cameras, which point to a specific object in the scene. This enables the authors to use and train a neural network, since shooting the amount of pictures needed by hand would take too long to consider this idea.
-
-\subsection{Blender}
-Besides 3D-modelling Blender enables the user to perform various different actions, such as laying out scenes, UV-Editing, shading, animating and rendering. Additionally scenes can be modified by executing Python scripts. Figure~\ref{pic:methodology_generatingData_blender_startscreen} shows the interface of Blender 2.8 with the default file loaded.
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=6.5in]{img/methodology_generatingData_blender_startscreen.png}
-	\caption{Blender interface after startup. The default scene features a grey cube, a camera (left of the cube) and a light source (black dot and circle positioned on the top right of the cube).}
-	\label{pic:methodology_generatingData_blender_startscreen}
-\end{figure}
-
-The authors decided to extensively use the scripting function in their work. One example of a Python script, that can be executed in blender is the following code:
-
-\begin{lstlisting}[language=python]
-python code
-\end{lstlisting}
-
-It modifies ...
 
 \filbreak
