@@ -116,6 +116,16 @@ schwarz-weiß?
 \subsection{Greyscale}
 A greyscale image is an image with only one value for the red, green and blue colour channels, resulting in different shades of grey instead of usual colours. This can easily be achieved by the following OpenCV code:
 
+\begin{lstlisting}[language=python]
+import cv2
+
+image = cv2.imread('path/to/image')
+image_greyscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+cv2.imwrite('path/for/saving/greyscale/image', image_greyscale)
+\end{lstlisting}
+
+This code first reads the image into 'image'. Then it converts the color of 'image' and stores the result into 'image_greyscale', which is then written to the specified path.
+
 auflösung?
 filter?
 object detection?
