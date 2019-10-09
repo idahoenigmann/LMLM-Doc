@@ -45,6 +45,19 @@ Tangential distortion in comparison to barrel distortion displaces points along 
 The radius of the circle in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion} is dependent on the point $P$. It can be calculated as the length between $P$ and $C$. The length of the vector $PP'$ is not uniform for all points and therefore depends on point $P$.
 
 \subsection{Image Rectification}
+Image Rectification projects multiple images taken from different points of view onto a common plane. 
+
+[TODO: Image explaining image rectification (and epipoles)?]
+
+Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_Rectification_Algorithm}, which follows this sequence of events:
+
+\begin{enumerate}
+	\item At least seven matching points visible on both images are found.
+	\item The fundamental matrix (as well as the epipoles) are estimated.
+	\item The common region is identified (using epipolar geometry constraints).
+	\item The epipolar line is transferred and the Bresenham algorithm\footcite{Bresenham_Linear_Algorithm_For_Incremental_Digital_Display_Of_Circular_Arcs} is used to extract pixel values.
+	\item The rectified image is resampled.
+\end{enumerate}
 
 \subsection{Disparity Map}
 
