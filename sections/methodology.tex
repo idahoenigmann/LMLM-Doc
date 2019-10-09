@@ -38,9 +38,11 @@ Tangential distortion in comparison to barrel distortion displaces points along 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=2in]{img/methodology_stereoCamera_distortion_tangentialDistortion.png}
-	\caption{A point $P$ is distorted along the tangent $t$ of a circle placed at the middle of the image $C$ with a radius $r$ to a point $P'$. Distortions of this form are called tangential distortions. [TODO: add labels such as $P$, ...]}
+	\caption{A point $P$ is distorted along the tangent $t$ of a circle placed at the middle of the image $C$ with a radius $r$ to a point $P'$. Distortions of this form are called tangential distortions.}
 	\label{pic:methodology_stereoCamera_distortion_tangentialDistortion}
 \end{figure}
+
+The radius of the circle in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion} is dependent on the point $P$. It can be calculated as the length between $P$ and $C$. The length of the vector $PP'$ is not uniform for all points and therefore depends on point $P$.
 
 \subsection{Image Rectification}
 
