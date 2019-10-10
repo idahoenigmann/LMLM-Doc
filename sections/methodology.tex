@@ -84,10 +84,29 @@ Besides 3D-modelling Blender enables the user to perform various different actio
 The authors decided to extensively use the scripting function in their work. One example of a Python script, that can be executed in blender is the following code:
 
 \begin{lstlisting}[language=python]
-python code
+import bpy
+
+# Selects all cubes and deletes them
+bpy.ops.object.select_all(action='DESELECT')
+bpy.ops.object.select_by_type(type='MESH')
+bpy.ops.object.delete()
+
+# Adds a new cube
+bpy.ops.mesh.primitive_cube_add(size=3, enter_editmode=False, location=(4, 2, 0))
+
+# Adds a new material representing the colour red
+bpy.ops.material.new()
+material = bpy.data.materials[-1]
+material.name = 'Red'
+material.diffuse_color = (0.8, 0.1, 0.1, 1)
+
+# Apply material onto the newly created cube object
+bpy.context.active_object.data.materials.append(material)
 \end{lstlisting}
 
-It modifies ...
+This code first clears the scene from other meshes (because running the script twice would place the new cube inside the old cube). Then it adds a new mesh in form of a cube at the given location. Then we want to add some color to the cube. For this to work a material is needed, which is basically a specification how the surface of the object will look like. Advanced materials can represent raw or reflective surfaces, but in order to keep it simple this material will just represent a red surface (represented in red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255)). Lastly the created material is applied to the object. The final result can be seen below:
+
+IMAGE 
 
 \section{Image preprocessing}
 After the test images have been rendered with the help of Blender, the authors decided to experiment if manipulating these test images would result in differences of distance perception by the neural network. This manipulation is done with OpenCV in Python3. OpenCV provides a lot of image manipulation tools; for this experiment the authors chose the following methods of image manipulation:
@@ -96,6 +115,16 @@ After the test images have been rendered with the help of Blender, the authors d
 schwarz-weiß?
 \subsection{Greyscale}
 A greyscale image is an image with only one value for the red, green and blue colour channels, resulting in different shades of grey instead of usual colours. This can easily be achieved by the following OpenCV code:
+
+\begin{lstlisting}[language=python]
+import cv2
+
+image = cv2.imread('path/to/image')
+image_greyscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
+cv2.imwrite('path/for/saving/greyscale/image', image_greyscale)
+\end{lstlisting}
+
+This code first reads the image into 'image'. Then it converts the color of 'image' and stores the result into 'image_greyscale', which is then written to the specified path.
 
 auflösung?
 filter?
