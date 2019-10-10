@@ -47,7 +47,12 @@ The radius of the circle in Figure~\ref{pic:methodology_stereoCamera_distortion_
 \subsection{Image Rectification}
 Image Rectification projects multiple images taken from different points of view onto a common plane. 
 
-[TODO: Image explaining image rectification (and epipoles)?]
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4in]{img/methodology_stereoCamera_imageRectification.png}
+	\caption{Two images containing some point $P$ are taken from the two points $O_L$ and $O_R$. Point $P$ is projected in the image planes as points $P_L$ and $P_R$. $E_L$ and $E_R$ depict the epipoles. [TODO: change image to own]}
+	\label{pic:methodology_stereoCamera_imageRectification}
+\end{figure}
 
 Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_Rectification_Algorithm}, which follows this sequence of events:
 
@@ -106,13 +111,11 @@ bpy.context.active_object.data.materials.append(material)
 
 This code first clears the scene from other meshes (because running the script twice would place the new cube inside the old cube). Then it adds a new mesh in form of a cube at the given location. Then we want to add some color to the cube. For this to work a material is needed, which is basically a specification how the surface of the object will look like. Advanced materials can represent raw or reflective surfaces, but in order to keep it simple this material will just represent a red surface (represented in red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255)). Lastly the created material is applied to the object. The final result can be seen below:
 
-IMAGE 
+[TODO: Add image]
 
 \section{Image preprocessing}
 After the test images have been rendered with the help of Blender, the authors decided to experiment if manipulating these test images would result in differences of distance perception by the neural network. This manipulation is done with OpenCV in Python3. OpenCV provides a lot of image manipulation tools; for this experiment the authors chose the following methods of image manipulation:
 
-[
-schwarz-weiß?
 \subsection{Greyscale}
 A greyscale image is an image with only one value for the red, green and blue colour channels, resulting in different shades of grey instead of usual colours. This can easily be achieved by the following OpenCV code:
 
@@ -124,12 +127,7 @@ image_greyscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
 cv2.imwrite('path/for/saving/greyscale/image', image_greyscale)
 \end{lstlisting}
 
-This code first reads the image into 'image'. Then it converts the color of 'image' and stores the result into 'image_greyscale', which is then written to the specified path.
-
-auflösung?
-filter?
-object detection?
-]
+This code first reads the image into 'image'. Then it converts the color of 'image' and stores the result into 'image\_greyscale', which is then written to the specified path.
 
 \section{Neural Network}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
@@ -147,16 +145,16 @@ Its use cases reach from categorizing handwritten digits to YouTube video recomm
 Tom Hope et al. describe TensorFlow as a software framework for numerical computations based on dataflow graphs \footcite[page 6]{Hope_Learning_TensorFlow}.
 
 \subsection{Computation graph}
-To compute a value using TensorFlow a computation graph has to be constructed. In this graph each node corresponds to an operation, such as subtraction or division. By connecting these nodes via edges the output of one node can be fed as input into another node. One example of such a computation graph can be seen in Figure~\ref{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}.
+To compute a value using TensorFlow a computation graph has to be constructed. In this graph each node corresponds to an operation, such as subtraction or division. By connecting these nodes via edges the output of one node can be fed as input into another node. One example of such a computation graph can be seen in Figure~\ref{pic:methodology_tensorflow_computationGraph}.
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/implementation_tensorflow_nodesAndGraphs_computationGraph.png}
+	\includegraphics[width=4.5in]{img/methodology_tensorflow_computationGraph.png}
 	\caption{Each node represents an operation, where $const$ stands for a constant value, $add$ for addition, $mul$ for multiplication and $div$ for division. Edges, represented by arrows, connect nodes. The information shared between the nodes is described by the numbers written next to the edges. This computational graph calculates the result of the arithmetic expression $(28 * 2) + 28 / 2$.}
-	\label{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}
+	\label{pic:methodology_tensorflow_computationGraph}
 \end{figure}
 
-The implementation of the computation graph, shown in Figure~\ref{pic:implementation_tensorflow_nodesAndGraphs_computationGraph}, in Python could look as follows:
+The implementation of the computation graph, shown in Figure~\ref{pic:methodology_tensorflow_computationGraph}, in Python could look as follows:
 
 \begin{lstlisting}[language=python]
 import tensorflow as tf
@@ -220,7 +218,7 @@ This code is equivalent to the first one, but uses syntactic sugar to shorten li
 		\bfseries Mathematica & & & & \\
 		\hline
 	\end{tabular}
-	\label{tab:implementation_tensorflow_alternativesToTensorflow_comparision}
+	\label{tab:methodology_tensorflow_alternativesToTensorflow_comparision}
 \end{center}
 
 [+ warum verwenden wir ausgerechnet Tenserflow]
