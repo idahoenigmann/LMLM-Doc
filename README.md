@@ -15,3 +15,10 @@
 * Blender für Testdatengenerierung
 * TensorFlow, dann erst C++
 * bis Ende November muss feststehen ob airtems (und wer davon) zur ECER fährt
+
+### 14.10.2019
+
+* getane Arbeit: Blender-Datengenerierung implementiert, OpenCV-Bildbearbeitung begonnen
+* StereoCamera Kapitel Rückmeldung von Michael
+* in Herbstferien arbeiten!
+* Arbeit zu tun: TensorFLow
