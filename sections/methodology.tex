@@ -114,7 +114,16 @@ This code first clears the scene from other meshes (because running the script t
 [TODO: Add image]
 
 \section{Image preprocessing}
-After the test images have been rendered with the help of Blender, the authors decided to experiment if manipulating these test images would result in differences of distance perception by the neural network. This manipulation is done with OpenCV in Python3. OpenCV provides a lot of image manipulation tools; for this experiment the authors chose the following methods of image manipulation:
+After the test images have been rendered with the help of Blender some image preprocessing is required. For example the machine learning component of this project should take two images as an input. To simplify the input the two images will simply be placed next to each other to form a new image twice as wide as the original images. This process is visualized in Figure~\ref{pic:methodology_imagePreprocessing_imageMerge}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6.5in]{img/methodology_imagePreprocessing_imageMerge.png}
+	\caption{Two greyscale renders showing the same object from two different camera positions in Blender are merged into one picture which can be feed into the neural network component.}
+	\label{pic:methodology_imagePreprocessing_imageMerge}
+\end{figure}
+
+Additionally, the authors decided to experiment if manipulating these test images would result in differences of distance perception by the neural network. This manipulation is done with OpenCV in Python3. OpenCV provides a lot of image manipulation tools; for this experiment the authors chose the following methods of image manipulation:
 
 \subsection{Greyscale}
 A greyscale image is an image with only one value for the red, green and blue colour channels, resulting in different shades of grey instead of usual colours. This can easily be achieved by the following OpenCV code:
