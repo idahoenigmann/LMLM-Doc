@@ -33,7 +33,7 @@ The second challenge the participants at the tournament faced was flying from on
 The drones used at this aerial tournament are equipped with a camera, while lacking any other sensor that can be used to detect the obstacles and game items. Therefore the participants needed to be able to detect the distance to the object and the cardboard boxes using only the camera. At the Global Conference on Educational Robotics the authors of this work decided to detect the object based on its colour, but had to invest quite some time tweaking the values to get the localisation working correctly. Therefore the authors want to research and implement a method that is more robust than the colour based one.
 
 \section{Outlook / Perspective}
-The objective of this work is to create a system which uses machine learning methods in localising objects. After having trained the system, it should reliably return the x, y and z distances to an object, shown in two pictures taken from different angles.
+The objective of this work is to create a system which uses machine learning methods in localising objects. After having trained the system, it should reliably return the x, y and z distances to an object, shown in two pictures taken from different angles. If this task turns out to be too complex the system should be simplified by only returning one output number corresponding to distance from the drone to the object.
 
 It is planned that the distance will be measured from the second camera position to the centre of object, as seen in Figure~\ref{pic:introduction_outlookPerspective_pointsOfView}.
 
@@ -45,8 +45,21 @@ It is planned that the distance will be measured from the second camera position
 \end{figure}
 
 \section{Equipment}
+Testing of the functionality of the localisation is to be performed on a Parrot Bebop 2. This drone was chosen as it is available to the authors during their time of research on this subject. This drone offers 1080p full HD video, which is believed be more than sufficient for this project.
 
+The Parrot Bebop 2 weighs 500g. The drone was not designed to carry any additional weight, therefore mounting a stereo camera, a LIDAR sensor or any other method of localisation using additional hardware is not recommended.
 
-[TODO: Mit welcher Drohne soll das System funktionieren?, Kamera auf der Drohne]
+A wide-angle 14 megapixel fish-eye lens is mounted as a camera on the Parrot Bebop 2\footcite{parrotBebop2}. It films 180 degrees vertically and horizontally and returns a 16:9 section which can be selected by specifying the vertical and horizontal angle of the virtual 16:9 camera. While the video resolution is limited to 1920 x 1080 pixels at 30 fps, the photo resolution is 4096 x 3072 pixels.
+
+A picture of the Parrot Bebop 2 can be seen in Figure~\ref{pic:introduction_equipment_parrotBebop2}.
+
+\begin{figure}[h]
+	\centering
+	\includegraphics[width=4.5in]{img/introduction_equipment_parrotBebop2.jpg}
+	\caption{The drone chosen for testing of the localisation system is a Parrot Bebop 2. It consists of four propellers each attached to a motor, a camera in the front, a battery located on the rear, some processors and a plastic frame to hold everything together. [TODO: change image to own.]}
+	\label{pic:introduction_equipment_parrotBebop2}
+\end{figure}
+
+It is assumed that the distance estimation using the system described in this thesis will work on various robotic systems. However, it will only be tested on this specific drone as other drones with a similar camera setup will behave similarly.
 
 \filbreak
