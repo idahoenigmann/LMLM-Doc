@@ -2,74 +2,8 @@
 
 \textbf{Author: } 
 
-\section{Stereo Camera}
-The challenge of sensing distances to various objects has been solved using stereo vision cameras. Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to gather the information on the depth of the images. This process can be rather complicated as the distortions (more specifically the barrel distortion and the tangential distortion) of the images have to be undone, before the two images are projected onto a common plane, a disparity map can be created by comparison of the two images and a 3d point cloud can be generated from it. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
-
-\subsection{Distortion}
-Barrel distortion occurs when the lens used by the camera has a higher magnification at the centre of the image than at the sides. This distortion can be visualized as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_barrelDistortion}.
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_stereoCamera_distortion_barrelDistortion.png}
-	\caption{The left shows the original image composed of straight horizontal and vertical lines. On the right image the effect of the barrel distortion can be perceived, which causes the lines to curve toward the outside of the image, causing the lines to appear in a barrel like shape.[TODO: change image to own]}
-	\label{pic:methodology_stereoCamera_distortion_barrelDistortion}
-\end{figure}
-
-To undo this distortion the pixel values in an undistorted image have to be calculated based on the pixel values in the distorted image.
-
-\begin{equation}
-r_u = r_d(1+k r_d^2)
-\end{equation}
-
-describes the calculation which computes the distance from the centre in the undistorted image ($r_u$) based on the distance from the centre in the distorted image ($r_d$) and some distortion parameter $k$, which is specific to the lens used. Gribbon et.al. note in their work \footcite{Gribbon_Barrel_Distortion_Correction_Algorithm} that this rarely is an integer value, therefore different equations are proposed:
-
-\begin{equation}
-x_d = x_u M(k,r_u^2) \hspace{30pt} y_d = y_u M(k, r_u^2)
-\end{equation}
-
-where the magnification factor $M(k,r_u^2)$ is
-
-\begin{equation}
-M(k,r_u^2) = \frac{1}{1+k * M(k,r_u^2)^2 * r_u^2}
-\end{equation}
-
-Tangential distortion in comparison to barrel distortion displaces points along the tangent of a circle placed at the centre of the image as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion}.
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=2in]{img/methodology_stereoCamera_distortion_tangentialDistortion.png}
-	\caption{A point $P$ is distorted along the tangent $t$ of a circle placed at the middle of the image $C$ with a radius $r$ to a point $P'$. Distortions of this form are called tangential distortions.}
-	\label{pic:methodology_stereoCamera_distortion_tangentialDistortion}
-\end{figure}
-
-The radius of the circle in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion} is dependent on the point $P$. It can be calculated as the length between $P$ and $C$. The length of the vector $PP'$ is not uniform for all points and therefore depends on point $P$.
-
-\subsection{Image Rectification}
-Image Rectification projects multiple images taken from different points of view onto a common plane. 
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4in]{img/methodology_stereoCamera_imageRectification.png}
-	\caption{Two images containing some point $P$ are taken from the two points $O_L$ and $O_R$. Point $P$ is projected in the image planes as points $P_L$ and $P_R$. $E_L$ and $E_R$ depict the epipoles.}
-	\label{pic:methodology_stereoCamera_imageRectification}
-\end{figure}
-
-Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_Rectification_Algorithm}, which follows this sequence of events:
-
-\begin{enumerate}
-	\item At least seven matching points visible on both images are found.
-	\item The fundamental matrix (as well as the epipoles) are estimated.
-	\item The common region is identified (using epipolar geometry constraints).
-	\item The epipolar line is transferred and the Bresenham algorithm\footcite{Bresenham_Linear_Algorithm_For_Incremental_Digital_Display_Of_Circular_Arcs} is used to extract pixel values.
-	\item The rectified image is resampled.
-\end{enumerate}
-
-\subsection{Disparity Map}
-
-\subsection{3d point cloud}
-
-\subsection{Challenges}
-Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the drone has to take the first image, fly to a second position located horizontally next to the first one and take the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliable. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images can have an effect on the accuracy.
+\section{Challenges in the use of Stereo Cameras}
+Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the functionality of a stereo camera on such a drone system can be mimicked by taking the first image, flying to a second position, located horizontally next to the first one and taking the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliable. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images can have an effect on the accuracy.
 
 Therefore the authors try to approach this challenge from the machine learning point of view. Neural networks can be taught to work with different changes in the environment and still return results with a superior quality to conventional implementation.
 
@@ -127,18 +61,27 @@ After the test images have been rendered with the help of Blender some image pre
 
 Additionally, the authors decided to experiment if manipulating these test images further would result in differences of distance perception by the neural network or if they would speed up or slow down the learning phase. These manipulations are done using OpenCV and Python3. OpenCV provides many image manipulation tools. For this project the authors chose the following methods of image manipulation:
 
-\subsection{Greyscale}
-A greyscale image is an image with only one value for the red, green and blue colour channels, resulting in different shades of grey instead of usual colours. This can easily be achieved by the following OpenCV code:
-
-\begin{lstlisting}[language=python]
-import cv2
-
-image = cv2.imread('path/to/image')
-image_greyscale = cv2.cvtColor(image, cv2.COLOR_BGR2GRAY)
-cv2.imwrite('path/for/saving/greyscale/image', image_greyscale)
-\end{lstlisting}
-
-This code first reads the image into 'image'. Then it converts the color of 'image' and stores the result into 'image\_greyscale', which is then written to the specified path.
+\begin{table}[h!]
+	\begin{tabular}{|l|l|}
+		\hline
+		\bfseries Name & \bfseries Description \\
+		\hline
+		Greyscale & A greyscale image is an image with only one value for the red, green and \\
+		& blue colour channels, resulting in different shades of grey instead of usual \\
+		& colours. \\
+		\hline
+		Cropping & When cropping an image an unwanted part located at the peripheral areas \\
+		& of the image is removed. \\
+		\hline
+		Resolution & Resolution refers to the number of pixels placed in each dimension \\
+		& (width and height). \\
+		\hline
+		Saturated & \\
+		\hline
+		Brightness & \\
+		\hline
+	\end{tabular}
+\end{table}
 
 \section{Neural Network}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
@@ -208,6 +151,7 @@ This code is equivalent to the first one, but uses syntactic sugar to shorten li
 \subsection{Alternatives to Tensorflow}
 [INFO: Abstraction libraries such as Keras and TF-Slim offer simplified  high-level  access  to  the  "LEGO  bricks"  in  the  lower-level  library,  helping  to streamline the construction of the dataflow graphs, training them, and running inference. \footcite[page 7]{Hope_Learning_TensorFlow}]
 
+\begin{table}
 \begin{center}
 	\begin{tabular}{| l | l | l | l | l |}
 		\hline
@@ -231,6 +175,7 @@ This code is equivalent to the first one, but uses syntactic sugar to shorten li
 	\end{tabular}
 	\label{tab:methodology_tensorflow_alternativesToTensorflow_comparision}
 \end{center}
+\end{table}
 
 [+ warum verwenden wir ausgerechnet Tenserflow]
 
