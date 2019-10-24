@@ -77,7 +77,7 @@ The output image of this code can be found in Figure~\ref{pic:implementation_ope
 
 \subsection{Cropping}
 
-Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo. and shift the view of the viewer to specific areas. However, the author's guess is, that cropping an image will worsen performance of the neural network, because information of the relative sizes are partly lost. It basically compares to zooming into the image.
+Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo and to shift the view of the viewer to specific areas. However, the author's guess is, that cropping an image will worsen performance of the neural network, because information of the relative sizes are partly lost. It basically compares to zooming into the image.
 
 \begin{figure}[h!]
 	\centering
@@ -87,6 +87,8 @@ Cropping an image can remove unnecessary or unwanted parts of an image by simply
 \end{figure}
 
 \subsection{Saturated}
+
+A saturated image has greater strength of colours, basically making them more distinguishable from each other. If an image is not saturated enough, colours appear as "washed out" and differences in colour are difficult to determine. Therefore, in order to help the neural network, the authors decided to also test with saturated versions of these images.
 
 \begin{figure}[h!]
 	\centering
