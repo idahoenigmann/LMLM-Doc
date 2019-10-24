@@ -21,4 +21,11 @@
 * getane Arbeit: Blender-Datengenerierung implementiert, OpenCV-Bildbearbeitung begonnen
 * StereoCamera Kapitel Rückmeldung von Michael
 * in Herbstferien arbeiten!
-* Arbeit zu tun: TensorFLow
+* Arbeit zu tun: TensorFlow
+
+### 21.10.2019
+
+* getane Arbeit: TensorFlow begonnen, OpenCV Bilder gemerged (wegen Problemen in Tensorflow)
+* Distortion Kapitel Rückmeldung von Michael nach den Herbstferien
+* in Herbstferien mehr arbeiten!
+* Arbeit zu tun: TensorFlow
