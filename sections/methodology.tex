@@ -87,7 +87,28 @@ Additionally, the authors decided to experiment if manipulating these test image
 	\end{tabular}
 \end{table}
 
+
 \section{Neural Network}
+A Neural Network consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. A Neural Network consists of multiple layers, where each node receives all output values of all nodes in the previous layer as an input. A visualization of a Neural Network can be seen in Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN}. By manipulating the weights associated to each input value the network can learn to solve some given task.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_visualizationOfANN.png}
+	\caption{.}
+	\label{pic:methodology_neuralNetwork_visualizationOfANN}
+\end{figure}
+
+\subsection{Convolutional Neural Network}
+One of the disadvantages of Neural Networks is that they need huge amounts of data in order to optimize the values of all weights. Therefore a modified version of Neural Networks was invented. Convolutional Neural Networks simplify the optimization of the weights by stating that some weights are shared between multiple connections between nodes. This results in fewer weights having to be optimized. Additionally Convolutional Neural Networks contribute to the fact that often problems require to perform similar actions in multiple parts of the input data, e.g. search for edges in all sections of an image.
+
+\begin{figure}[h!]
+	\centering
+	%\includegraphics[width=4.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
+	\caption{.}
+	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
+\end{figure}
+
+\section{Neural Network Implementations}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
 
 After it has been shown that the challenge of detecting the distance to an object can be solved using machine learning, the authors plan on implementing a neural network in C++ on their own. The knowledge gained in the TensorFlow implementation will be used in the C++ implementation, which hopefully will make the work less time consuming.
@@ -150,7 +171,6 @@ print(out)
 
 This code is equivalent to the first one, but uses syntactic sugar to shorten line 6 to 8 in the first code block into line 6. At this point it should be noted that while it might look like it line 6 does not calculate anything. It simply describes how the computational graph should look. The answer (42) is calculated in the session in line 9.
 
-\subsection{Convonutional Neural Networks?}
 
 \subsection{Alternatives to Tensorflow}
 [INFO: Abstraction libraries such as Keras and TF-Slim offer simplified  high-level  access  to  the  "LEGO  bricks"  in  the  lower-level  library,  helping  to streamline the construction of the dataflow graphs, training them, and running inference. \footcite[page 7]{Hope_Learning_TensorFlow}]
