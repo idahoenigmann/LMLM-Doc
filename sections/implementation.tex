@@ -77,6 +77,8 @@ The output image of this code can be found in Figure~\ref{pic:implementation_ope
 
 \subsection{Cropping}
 
+Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo. and shift the view of the viewer to specific areas. However, the author's guess is, that cropping an image will worsen performance of the neural network, because information of the relative sizes are partly lost. It basically compares to zooming into the image.
+
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.5in]{img/implementation_opencv_cropping.jpg}
