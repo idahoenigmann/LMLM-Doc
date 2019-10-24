@@ -75,20 +75,51 @@ The output image of this code can be found in Figure~\ref{pic:implementation_ope
 	\label{pic:implementation_opencv_resolution}
 \end{figure}
 
-\subsection{Cropping}
+Downscaling the images before they are passed into the Neural Network can be profitable, because the number of weights in the first layer of the network is reduced. This can advance the learning speed.
 
+\subsection{Cropping}
 Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo and to shift the view of the viewer to specific areas. However, the author's guess that cropping an image will worsen performance of the neural network, because information of the relative sizes are partly lost. It basically compares to zooming into the image.
+
+Such a cropped image produced by the following code can be found in Figure~\ref{pic:implementation_opencv_cropping}.
+
+\begin{lstlisting}[language=python]
+import cv2
+
+image = cv2.imread('path/to/image')
+
+crop_margin_percent = 5
+crop_margin_width = int(image.shape[1] * crop_margin_percent / 100)
+crop_margin_height = int(image.shape[0] * crop_margin_percent / 100)
+
+crop_img = image[crop_margin_width:-crop_margin_width, crop_margin_height:-crop_margin_height]
+cv2.imwrite('{}/{}'.format(newdir_path, filename), crop_img)
+\end{lstlisting}
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.5in]{img/implementation_opencv_cropping.jpg}
-	\caption{Comparison between normal and a cropped image.}
+	\caption{In this image five percent of each side was removed, therefore the object appears closer if the image is displayed in the same size. Some information positioned in the outer areas of the image are lost during the cropping process.}
 	\label{pic:implementation_opencv_cropping}
 \end{figure}
 
 \subsection{Saturated}
-
 A saturated image means stronger colours, basically making them more distinguishable from each other. If an image is not saturated enough, colours appear as "washed out" and differences in colour are difficult to determine. Therefore, in order to help the neural network, the authors decided to also test with saturated versions of these images.
+
+\begin{lstlisting}[language=python]
+import cv2
+
+image = cv2.imread('path/to/image')
+
+hsv = cv2.cvtColor(image, cv2.COLOR_BGR2HSV).astype('float32')
+(h, s, v) = cv2.split(hsv)
+s *= 1.5
+s = np.clip(s, 0, 255)
+hsv = cv2.merge([h, s, v])
+saturated = cv2.cvtColor(hsv.astype('uint8'), cv2.COLOR_HSV2BGR)
+cv2.imwrite('{}/{}'.format(newdir_path, filename), saturated)
+\end{lstlisting}
+
+To saturate an image using OpenCV it has to be converted into the HSV colour representation. The HSV representation specifies each colour as a hue, a saturation and a value. Therefore changing the saturation in this model is relatively easy, as the saturation value of each pixel can simply be multiplied by a constant. Before the image can be converted back into the bgr colour representation the saturation values are restricted between 0 and 255, the lowest and highest saturation possible. The result achieved by this code can be seen in Figure~\ref{pic:implementation_opencv_saturated}.
 
 \begin{figure}[h!]
 	\centering
@@ -97,15 +128,25 @@ A saturated image means stronger colours, basically making them more distinguish
 	\label{pic:implementation_opencv_saturated}
 \end{figure}
 
-
 \subsection{Brightness}
-
 Because the neural network should also work in different environment, where other methods could have problems, the authors also tested with overly bright images. This makes it very hard to notice dark areas, such as shadows, to help with distances between objects and scaling of objects.
+
+\begin{lstlisting}[language=python]
+import cv2
+
+image = cv2.imread('path/to/image')
+
+alpha = 1  # contrast
+beta = 60  # brightness
+bright_img = cv2.convertScaleAbs(image, alpha=alpha, beta=beta)
+
+cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
+\end{lstlisting}
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.5in]{img/implementation_opencv_brightness.jpg}
-	\caption{Comparison between normal and brightness image.}
+	\caption{The original image (Figure~\ref{pic:implementation_opencv_original}) modified by the brightening code. The image appears more washed out, as all colours are move similar due to them having moved closer to white.}
 	\label{pic:implementation_opencv_brightness}
 \end{figure}
 
