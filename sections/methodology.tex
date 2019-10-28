@@ -89,12 +89,12 @@ Additionally, the authors decided to experiment if manipulating these test image
 
 
 \section{Neural Network}
-A Neural Network consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. A Neural Network consists of multiple layers, where each node receives all output values of all nodes in the previous layer as an input. A visualization of a Neural Network can be seen in Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN}. By manipulating the weights associated to each input value the network can learn to solve some given task.
+A Neural Network consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. A vanilla Neural Network consists of multiple layers, where each node receives all output values of all nodes in the previous layer as an input. A visualization of a Neural Network can be seen in Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN}. By manipulating the weights associated to each input value the network can learn to solve some given task.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_visualizationOfANN.png}
-	\caption{.}
+	\caption{Depiction af a vanilla Neural Network. Each circle represents a node and the arrows show the flow of information. All nodes on the same level are collectively called a layer.}
 	\label{pic:methodology_neuralNetwork_visualizationOfANN}
 \end{figure}
 
@@ -103,8 +103,8 @@ One of the disadvantages of Neural Networks is that they need huge amounts of da
 
 \begin{figure}[h!]
 	\centering
-	%\includegraphics[width=4.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
-	\caption{.}
+	\includegraphics[width=1.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
+	\caption{Segment of a Convolutional Neural Network. In comparison to a vanilla Neural Network each node is only connected to its closest neighbours. Additionally all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
 
