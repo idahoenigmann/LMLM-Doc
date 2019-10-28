@@ -7,12 +7,19 @@ Good test data is of utmost importance in machine learning. The system can only 
 
 Since machine learning needs a lot of data in order to solve the given task it can be tiresome to generate and label all this data by hand. Therefore the authors decided to simulate the objects and the camera using a computer graphics modelling software called Blender.
 
-Blender allows for relatively easy generation of training data by providing a Python API.
+Blender allows for relatively easy generation of training data by providing a Python API. With this API almost anything that can be done using the blender user interface can also be done using Python.
 
-[TODO: Image camera setup, lightning, objects in Blender]
+For generating data the first step for the authors was to model a scene, as seen in Figure~\ref{pic:implementation_generatingData_blenderSetup}. This scene would contain a building containing rooms. Each of the rooms is home to one object. And this object was rendered using two cameras, representing two points of view. The first camera is positioned relative to the object, whereas the second camera is positioned relative to the first camera, guaranteeing a somewhat different view on the object. Lastly, the two renders formed one input for the neural network.
 
-[TODO: Renders and labels for example objects]
+%[TODO: Image camera setup, lightning, objects in Blender]
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=5in]{img/implementation_generatingData_blenderSetup.png}
+	\caption{The test scene for generating data. Each object is placed in a room and is separated by walls.}
+	\label{pic:implementation_generatingData_blenderSetup}
+\end{figure}
 
+%[TODO: Renders and labels for example objects]
 \section{OpenCV}
 OpenCV is a framework for image manipulation. Some of its use cases are changing the colour spectrum, filtering the image by colour and cropping images. The authors use OpenCV to test whether there are differences between filters for the images in the training data, for example greyscale images compared to coloured images. An example render, which OpenCV gets as an input can be seen in Figure~\ref{pic:implementation_opencv_original}.
 
