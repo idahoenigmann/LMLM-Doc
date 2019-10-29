@@ -20,6 +20,22 @@ For generating data the first step for the authors was to model a scene, as seen
 \end{figure}
 
 %[TODO: Renders and labels for example objects]
+For the test objects the authors used two objects. One is a already existing monkey head in blender, the other one has been self-modelled and represents a vase with some decorating sticks in it. Both objects can be seen in Figure~\ref{pic:implementation_generatingData_testObject1} and in Figure~\ref{pic:implementation_generatingData_testObject2}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=5in]{img/implementation_generatingData_testObject1.jpg}
+	\caption{One of the test objects - a monkey head.}
+	\label{pic:implementation_generatingData_testObject1}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=5in]{img/implementation_generatingData_testObject2.jpg}
+	\caption{One of the test objects - a decorative vase.}
+	\label{pic:implementation_generatingData_testObject2}
+\end{figure}
+
 \section{OpenCV}
 OpenCV is a framework for image manipulation. Some of its use cases are changing the colour spectrum, filtering the image by colour and cropping images. The authors use OpenCV to test whether there are differences between filters for the images in the training data, for example greyscale images compared to coloured images. An example render, which OpenCV gets as an input can be seen in Figure~\ref{pic:implementation_opencv_original}.
 
@@ -85,7 +101,7 @@ The output image of this code can be found in Figure~\ref{pic:implementation_ope
 Downscaling the images before they are passed into the Neural Network can be profitable, because the number of weights in the first layer of the network is reduced. This can advance the learning speed.
 
 \subsection{Cropping}
-Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo and to shift the view of the viewer to specific areas. However, the author's guess that cropping an image will worsen performance of the neural network, because information of the relative sizes are partly lost. It basically compares to zooming into the image.
+Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo and to shift the view of the viewer to specific areas. However, the authors guess that cropping an image will worsen performance of the neural network, because information of the relative sizes are partly lost. It basically compares to zooming into the image.
 
 Such a cropped image produced by the following code can be found in Figure~\ref{pic:implementation_opencv_cropping}.
 
