@@ -45,7 +45,12 @@ bpy.context.active_object.data.materials.append(material)
 
 This code first clears the scene from other meshes (because running the script twice would place the new cube inside the old cube). Then it adds a new mesh in form of a cube at the given location. Next we want to add some color to the cube. For this to work a material is needed, which is basically a specification of how the surface of the object will look like. Advanced materials can represent raw or reflective surfaces, but in order to keep it simple this material will just represent a red surface (represented in red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255)). Lastly the created material is applied to the object. The final result can be seen below:
 
-[TODO: Add image]
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=6.5in]{img/methodology_generatingData_blender_exampleScriptResult.png}
+	\caption{Result of the above code. The default cube is deleted, a new one is added with a red material and translated via the 'location' argument.).}
+	\label{pic:methodology_generatingData_blender_exampleScriptResult}
+\end{figure}
 
 Using similar Python scripts the authors will generate the image data necessary as well as perform the calculation of the distance which will be specified as the correct values to train the neural network on.
 
