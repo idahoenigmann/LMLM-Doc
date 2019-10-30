@@ -179,12 +179,42 @@ This code is equivalent to the first one, but uses syntactic sugar to shorten li
 Using the same principle, but different functions TensorFlow allows the creation of complex Neural Networks in a simple fashion.
 
 \subsection{Alternatives to Tensorflow}
-TensorFlow offers some abstraction libraries, such as Keras. Frequently used TensorFlow code can be 
+TensorFlow offers some abstraction libraries, such as Keras. As some code snippets of are used very frequently and with only slight variation when implementing a Neural Network, Keras offers these code blocks as predefined functions, making development easier for ``standard'' use cases.
+
+For example Keras provides several different layers, that can be used to put together a Neural Network. Table~\ref{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers} describes some of the available layers.
+
+\begin{table}[h!]
+	\begin{center}
+		\begin{tabular}{| l | l |}
+			\hline
+			\bfseries Name & \bfseries Description \\
+			\hline
+			Dense & regular densely connected layer \\
+			\hline
+			Activation & Applies an activation function to an output \\
+			\hline
+			Dropout & Applies Dropout to the input \\
+			\hline
+			Flatten & Flattens the input down to shape \verb|(None, <number of elements>)| \\
+			\hline
+			Conv1D & 1D convolution layer (e.g. temporal convolution)  \\
+			\hline
+			MaxPooling1D & Max pooling operation for temporal data \\
+			\hline
+			LocallyConnected1D & Locally-connected layer for 1D inputs \\
+			\hline
+			SimpleRNN & Fully-connected RNN where the output is to be fed back to input \\
+			\hline
+		\end{tabular}
+		\label{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers}
+		\caption{Short description of layers available in Keras, that can be used to assemble a Neural Network, with little effort\footcite{kerasDocumentation}.}
+	\end{center}
+\end{table}
 
 
 [INFO: Abstraction libraries such as Keras and TF-Slim offer simplified  high-level  access  to  the  "LEGO  bricks"  in  the  lower-level  library,  helping  to streamline the construction of the dataflow graphs, training them, and running inference. \footcite[page 7]{Hope_Learning_TensorFlow}]
 
-\begin{table}
+\begin{table}[h!]
 \begin{center}
 	\begin{tabular}{| l | l | l | l | l |}
 		\hline
