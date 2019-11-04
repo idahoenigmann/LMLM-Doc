@@ -29,3 +29,9 @@
 * Distortion Kapitel Rückmeldung von Michael nach den Herbstferien
 * in Herbstferien mehr arbeiten!
 * Arbeit zu tun: TensorFlow
+
+### 04.11.2019
+
+* Distortion einfacher beschreiben (Stichwort: tonnenförmige Verzeichnung)
+* TensorFlow Fehler möglich durch fehlerhafte Normierung
+* Diplomschrift heute noch schicken (markieren was sich geändert hat)
