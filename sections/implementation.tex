@@ -9,7 +9,7 @@ Since machine learning needs a lot of data in order to solve the given task it c
 
 Blender allows for relatively easy generation of training data by providing a Python API. With this API almost anything that can be done using the blender user interface can also be done using Python.
 
-For generating data the first step for the authors was to model a scene, as seen in Figure~\ref{pic:implementation_generatingData_blenderSetup}. This scene would contain a building containing rooms. Each of the rooms is home to one object. And this object was rendered using two cameras, representing two points of view. The first camera is positioned relative to the object, whereas the second camera is positioned relative to the first camera, guaranteeing a somewhat different view on the object. Lastly, the two renders formed one input for the neural network.
+For generating data the first step for the authors was to model a scene, as seen in Figure~\ref{pic:implementation_generatingData_blenderSetup}. This scene would contain a building split into multiple rooms. Each of the rooms is home to one object, which was rendered using two cameras, representing two points of view. The first camera is positioned relative to the object, whereas the second camera is positioned relative to the first camera, guaranteeing a different view on the object. Lastly, the two renders formed one input for the neural network.
 
 %[TODO: Image camera setup, lightning, objects in Blender]
 \begin{figure}[h!]

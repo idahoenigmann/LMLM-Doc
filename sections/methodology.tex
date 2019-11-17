@@ -5,10 +5,96 @@
 \section{Challenges in the use of Stereo Cameras}
 Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the functionality of a stereo camera on such a drone system can be mimicked by taking the first image, flying to a second position, located horizontally next to the first one and taking the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliable. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images can have an effect on the accuracy.
 
-Therefore the authors try to approach this challenge from the machine learning point of view. Neural networks can be taught to work with different changes in the environment and still return results with a superior quality to conventional implementation.
+Therefore the authors try to approach this challenge from the machine learning point of view. Neural networks can be taught to work with different changes in the environment and still return results with a superior quality to a conventional implementation.
 
 \section{Generating data}
-Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the 2 cameras, which point to a specific object in the scene. This enables the authors to use and train a neural network, since shooting the amount of pictures needed by hand would take too long to consider this idea.
+Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the 2 cameras, which point to a specific object in the scene. This enables the authors to use and train a neural network, since shooting the amount of pictures needed by hand would take too long to consider this idea. 
+The following code generates two renders for one object:
+
+\newpage
+
+\begin{lstlisting}[language=python]
+# Generate for 1 object
+def generate_1(renderpath, infopath, target_name, iterations):
+    target_loc = bpy.data.objects[target_name].location
+
+    XMIN = target_loc.x - 0.6 if target_loc.x > 0 else target_loc.x + 0.6
+    XMAX = target_loc.x - 8.6 if target_loc.x > 0 else target_loc.x + 8.6
+    YMIN = target_loc.y - 1.85
+    YMAX = target_loc.y + 1.85
+    ZMIN = 0.75
+    ZMAX = 2
+    
+    RENDERPATH = renderpath + target_name
+    INFOPATH = infopath + target_name
+
+    RENDERFILEPATH = RENDERPATH + "/{}-{}.jpg"
+    INFOFILEPATH = INFOPATH + "/{}-{}.txt"
+    
+    make_dirs(RENDERPATH, INFOPATH)
+    
+    for i in range(0, iterations):
+        # Calculate values
+        X = random.uniform(XMIN, XMAX)
+        Y1 = random.uniform(YMIN, YMAX)
+        Y2 = Y1 + 1 if (Y1 - target_loc.y) < 0 else Y1 - 1
+        Z = random.uniform(ZMIN, ZMAX)
+        
+        # Add first camera
+        add_camera(X, Y1, Z, target_name)
+        write_dist_info(INFOFILEPATH, target_name, i, 1)
+        render(RENDERFILEPATH, i, 1)
+        del_cameras()
+        
+        # Add second camera
+        add_camera(X, Y2, Z, target_name)
+        write_dist_info(INFOFILEPATH, target_name, i, 2)
+        render(RENDERFILEPATH, i, 2)
+        del_cameras()
+\end{lstlisting}
+
+This code can seem overwhelming at first, so the authors decided to explain each part of it. The first code block
+
+\begin{lstlisting}[language=python]
+	target_loc = bpy.data.objects[target_name].location
+
+    XMIN = target_loc.x - 0.6 if target_loc.x > 0 else target_loc.x + 0.6
+    XMAX = target_loc.x - 8.6 if target_loc.x > 0 else target_loc.x + 8.6
+    YMIN = target_loc.y - 1.85
+    YMAX = target_loc.y + 1.85
+    ZMIN = 0.75
+    ZMAX = 2
+\end{lstlisting}
+
+stores the location of the given target, or object, in the variable 'target\_loc'. Relative to this location the min/max values for the X/Y/Z coordinates are being calculated. These coordinates are used for the camera placement, so the camera is placed relatively to the object. 'YMIN', for example means, that the camera's Y value can be no further than 1.85m to the left of the object. 'YMAX' clamps this value so there is a border on the right side as well.
+
+\begin{lstlisting}[language=python]
+	# Calculate values
+    X = random.uniform(XMIN, XMAX)
+    Y1 = random.uniform(YMIN, YMAX)
+    Y2 = Y1 + 1 if (Y1 - target_loc.y) < 0 else Y1 - 1
+    Z = random.uniform(ZMIN, ZMAX)
+\end{lstlisting}
+
+This code block right here does exactly what described before. A random value for X/Y/Z is chosen. Notice that the Y value is split in two, where 'Y1' uses 'YMIN' and 'YMAX' and 'Y2' uses 'Y1' for calculation. This is to guarantee a different angle to the object, because camera one will use 'Y1' and the second camera will use 'Y2'.
+
+[TODO: Maybe add image illustrating above text]
+
+\begin{lstlisting}[language=python]
+	# Add first camera
+    add_camera(X, Y1, Z, target_name)
+    write_dist_info(INFOFILEPATH, target_name, i, 1)
+    render(RENDERFILEPATH, i, 1)
+    del_cameras()
+        
+    # Add second camera
+    add_camera(X, Y2, Z, target_name)
+    write_dist_info(INFOFILEPATH, target_name, i, 2)
+    render(RENDERFILEPATH, i, 2)
+    del_cameras()
+\end{lstlisting}
+
+This last code block is basically the same for each camera. The first camera uses 'Y1' for its placement, centered on 'target\_name' (the object). Then, from the location of the first camera, the distance to the object is calculated and written to a file. After the calculation of the actual distance blender renders an image from the first camera's point of view, after which the first camera is being deleted. This is the same for the second camera, except it uses 'Y2' for its placement.
 
 \subsection{Blender}
 Besides 3D-modelling Blender enables the user to perform various different actions, such as laying out scenes, UV-Editing, shading, animating and rendering. Additionally scenes can be modified by executing Python scripts. Figure~\ref{pic:methodology_generatingData_blender_startscreen} shows the interface of Blender 2.8 with the default file loaded.
