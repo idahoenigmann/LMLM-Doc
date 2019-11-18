@@ -237,68 +237,119 @@ where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is t
 \subsection{Activation Function}
 The activation function defines the output of a node based on the input values it receives. Some of the most widely used activation functions are displayed from Figure~\ref{pic:methodology_neuralNetwork_activationFunction_elu} to Figure~\ref{pic:methodology_neuralNetwork_activationFunction_linear}.
 
-\begin{figure}[h!]
+\begin{figure*}[t!]
 	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_elu.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_elu}
-\end{figure}
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_elu.png}
+		\caption{...}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_softplus.png}
+		\caption{...}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_softsign.png}
+		\caption{...}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
+		\caption{...}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_tanh.png}
+		\caption{...}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_sigmoid.png}
+		\caption{...}
+	\end{subfigure}
+\end{figure*}
 
-\begin{figure}[h!]
+\begin{figure*}[t!]
 	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_selu.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_selu}
-\end{figure}
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_exponential.png}
+		\caption{...}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.5\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_linear.png}
+		\caption{...}
+	\end{subfigure}
+	\caption{Caption place holder}
+\end{figure*}
+%
+%	\begin{subfigure}[b]{.45\linewidth}
+%		\includegraphics[width=\linewidth]{img/methodology_neuralNetwork_activationFunction_softsign.png}
+%		\caption{...}
+%		\label{pic:methodology_neuralNetwork_activationFunction_softsign}
+%	\end{subfigure}
+%	
+%	\begin{subfigure}[b]{.45\linewidth}
+%		\includegraphics[width=\linewidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
+%		\caption{...}
+%		\label{pic:methodology_neuralNetwork_activationFunction_relu}
+%	\end{subfigure}
+%	
+%	\begin{subfigure}[b]{.45\linewidth}
+%		\includegraphics[width=\linewidth]{img/methodology_neuralNetwork_activationFunction_tanh.png}
+%		\caption{...}
+%		\label{pic:methodology_neuralNetwork_activationFunction_tanh}
+%	\end{subfigure}
+%	
+%	\begin{subfigure}[b]{.45\linewidth}
+%		\includegraphics[width=\linewidth]{img/methodology_neuralNetwork_activationFunction_sigmoid.png}
+%		\caption{...}
+%		\label{pic:methodology_neuralNetwork_activationFunction_sigmoid}
+%	\end{subfigure}
+%	
+%	\begin{subfigure}[b]{.45\linewidth}
+%		\includegraphics[width=\linewidth]{img/methodology_neuralNetwork_activationFunction_exponential.png}
+%		\caption{...}
+%		\label{pic:methodology_neuralNetwork_activationFunction_exponential}
+%	\end{subfigure}
+%	
+%	\begin{subfigure}[b]{.45\linewidth}
+%		\includegraphics[width=\linewidth]{img/methodology_neuralNetwork_activationFunction_linear.png}
+%		\caption{...}
+%		\label{pic:methodology_neuralNetwork_activationFunction_linear}
+%	\end{subfigure}
+%	
+%\end{figure}
+%
+%
 
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_softplus.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_softplus}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_softsign.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_softsign}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_relu.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_relu}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_tanh.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_tanh}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_sigmoid.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_sigmoid}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_exponential.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_exponential}
-\end{figure}
-
-\begin{figure}[h!]
-	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_linear.png}
-	\caption{...}
-	\label{pic:methodology_neuralNetwork_activationFunction_linear}
-\end{figure}
+\subsection{Initializer}
+\begin{itemize}
+	\item zeros
+	\item ones
+	\item constant
+	\item randomnormal
+	\item randomuniform
+	\item trucatednormal
+	\item variancescaling
+	\item orthogonal
+	\item identity
+	\item lecun\_uniform
+	\item glorot\_normal
+	\item glorot\_uniform
+	\item he\_normal
+	\item lecun\_normal
+	\item he\_uniform
+\end{itemize}
 
 \section{Neural Network Implementations}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
