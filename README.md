@@ -35,3 +35,13 @@
 * Distortion einfacher beschreiben (Stichwort: tonnenförmige Verzeichnung)
 * TensorFlow Fehler möglich durch fehlerhafte Normierung
 * Diplomschrift heute noch schicken (markieren was sich geändert hat)
+
+### 18.11.2019
+
+* Probleme in DA aufnehmen + warum und was hat nicht funktioniert?
+* 10k Testdaten generiert
+* kernel killed process because of ressource starvation
+* NN verändern (insbesondere Conv Layers) -> weniger RAM Verbrauch
+* wenn noch nicht genug: weniger Bilder
+* noch immer nicht funktionierend: Bilder weiter downscalen oder croppen
+* Wunsch: bis Weihnachen 90% Diplomschrift fertig
