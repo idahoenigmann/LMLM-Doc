@@ -194,10 +194,12 @@ One of the disadvantages of Neural Networks is that they need huge amounts of da
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=1.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
+	\includegraphics[width=3.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
 	\caption{Segment of a Convolutional Neural Network. In comparison to a vanilla Neural Network each node is only connected to its closest neighbours. Additionally all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
+
+\newpage
 
 \subsection{Loss Function}
 A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some loss functions commonly used loss functions are:
@@ -235,9 +237,9 @@ where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is t
 \subsubsection{Kullback Leibler Divergence}
 
 \subsection{Activation Function}
-The activation function defines the output of a node based on the input values it receives. Some of the most widely used activation functions are displayed from Figure~\ref{pic:methodology_neuralNetwork_activationFunction_elu} to Figure~\ref{pic:methodology_neuralNetwork_activationFunction_linear}.
+The activation function defines the output of a node based on the input values it receives. Some of the most widely used activation functions are displayed in Figures~\ref{pic:methodology_neuralNetwork_activationFunction}.
 
-\begin{figure*}[t!]
+\begin{figure*}[h!]
 	\centering
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
@@ -262,7 +264,10 @@ The activation function defines the output of a node based on the input values i
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
 		\caption{Rectified Linear Unit can be described as $f(x) = \begin{cases} x & x \geq 0 \\ 0 & x < 0 \end{cases}$}
 	\end{subfigure}
-	~
+\end{figure*}
+
+\begin{figure*}[h!]
+\centering
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_tanh.png}
@@ -274,10 +279,7 @@ The activation function defines the output of a node based on the input values i
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_sigmoid.png}
 		\caption{The Sigmoid function is defines as $f(x) = \frac{1}{1 + e^{-x}}$.}
 	\end{subfigure}
-\end{figure*}
-
-\begin{figure*}[t!]
-	\centering
+	~
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_exponential.png}
@@ -290,9 +292,15 @@ The activation function defines the output of a node based on the input values i
 		\caption{The Linear activation function, also called identity function, is defined as $f(x) = x$.}
 	\end{subfigure}
 	\caption{Caption place holder}
+	\label{pic:methodology_neuralNetwork_activationFunction}
 \end{figure*}
 
+\newpage
+
 \subsection{Initializer}
+In Neural Networks the initial weights of all layers has to be set before training can begin. These weights can either be set to some constant value or initialized by some random distribution. Some commonly used initializer distributions are:
+
+\begin{multicols}{2}
 \begin{itemize}
 	\item zeros
 	\item ones
@@ -309,6 +317,20 @@ The activation function defines the output of a node based on the input values i
 	\item he\_normal
 	\item lecun\_normal
 	\item he\_uniform
+\end{itemize}
+\end{multicols}
+
+\subsection{Optimizer}
+The objective of an optimizer is to optimize (find a local minimum of) the loss function. Some of the most widely used optimizers are:
+
+\begin{itemize}
+	\item Stochastic gradient descent (SGD)
+	\item Root Mean Square Propagation (RMSProp)
+	\item Adaptive Gradient Algorithm (Adagrad)
+	\item Adadelta
+	\item Adaptive Moment Estimation (Adam)
+	\item Adamax
+	\item Nesterov Adam (Nadam)
 \end{itemize}
 
 \section{Neural Network Implementations}
