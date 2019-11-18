@@ -36,6 +36,92 @@ For the test objects the authors used two objects. One is a already existing mon
 	\label{pic:implementation_generatingData_testObject2}
 \end{figure}
 
+\subsection{Generating the Render-Pairs}
+The following code generates the two needed renders for one of the test objects:
+
+\begin{lstlisting}[language=python]
+# Generate for 1 object
+def generate_1(renderpath, infopath, target_name, iterations):
+target_loc = bpy.data.objects[target_name].location
+
+XMIN = target_loc.x - 0.6 if target_loc.x > 0 else target_loc.x + 0.6
+XMAX = target_loc.x - 8.6 if target_loc.x > 0 else target_loc.x + 8.6
+YMIN = target_loc.y - 1.85
+YMAX = target_loc.y + 1.85
+ZMIN = 0.75
+ZMAX = 2
+
+RENDERPATH = renderpath + target_name
+INFOPATH = infopath + target_name
+
+RENDERFILEPATH = RENDERPATH + "/{}-{}.jpg"
+INFOFILEPATH = INFOPATH + "/{}-{}.txt"
+
+make_dirs(RENDERPATH, INFOPATH)
+
+for i in range(0, iterations):
+# Calculate values
+X = random.uniform(XMIN, XMAX)
+Y1 = random.uniform(YMIN, YMAX)
+Y2 = Y1 + 1 if (Y1 - target_loc.y) < 0 else Y1 - 1
+Z = random.uniform(ZMIN, ZMAX)
+
+# Add first camera
+add_camera(X, Y1, Z, target_name)
+write_dist_info(INFOFILEPATH, target_name, i, 1)
+render(RENDERFILEPATH, i, 1)
+del_cameras()
+
+# Add second camera
+add_camera(X, Y2, Z, target_name)
+write_dist_info(INFOFILEPATH, target_name, i, 2)
+render(RENDERFILEPATH, i, 2)
+del_cameras()
+\end{lstlisting}
+
+This code can seem overwhelming at first, so the authors decided to explain each part of it. The first code block
+
+\begin{lstlisting}[language=python]
+target_loc = bpy.data.objects[target_name].location
+
+XMIN = target_loc.x - 0.6 if target_loc.x > 0 else target_loc.x + 0.6
+XMAX = target_loc.x - 8.6 if target_loc.x > 0 else target_loc.x + 8.6
+YMIN = target_loc.y - 1.85
+YMAX = target_loc.y + 1.85
+ZMIN = 0.75
+ZMAX = 2
+\end{lstlisting}
+
+stores the location of the given target, or object, in the variable 'target\_loc'. Relative to this location the min/max values for the X/Y/Z coordinates are being calculated. These coordinates are used for the camera placement, so the camera is placed relatively to the object. 'YMIN', for example means, that the camera's Y value can be no further than 1.85m to the left of the object. 'YMAX' clamps this value so there is a border on the right side as well.
+
+\begin{lstlisting}[language=python]
+# Calculate values
+X = random.uniform(XMIN, XMAX)
+Y1 = random.uniform(YMIN, YMAX)
+Y2 = Y1 + 1 if (Y1 - target_loc.y) < 0 else Y1 - 1
+Z = random.uniform(ZMIN, ZMAX)
+\end{lstlisting}
+
+This code block right here does exactly what described before. A random value for X/Y/Z is chosen. Notice that the Y value is split in two, where 'Y1' uses 'YMIN' and 'YMAX' and 'Y2' uses 'Y1' for calculation. This is to guarantee a different angle to the object, because camera one will use 'Y1' and the second camera will use 'Y2'.
+
+[TODO: Maybe add image illustrating above text]
+
+\begin{lstlisting}[language=python]
+# Add first camera
+add_camera(X, Y1, Z, target_name)
+write_dist_info(INFOFILEPATH, target_name, i, 1)
+render(RENDERFILEPATH, i, 1)
+del_cameras()
+
+# Add second camera
+add_camera(X, Y2, Z, target_name)
+write_dist_info(INFOFILEPATH, target_name, i, 2)
+render(RENDERFILEPATH, i, 2)
+del_cameras()
+\end{lstlisting}
+
+This last code block is basically the same for each camera. The first camera uses 'Y1' for its placement, centered on 'target\_name' (the object). Then, from the location of the first camera, the distance to the object is calculated and written to a file. After the calculation of the actual distance blender renders an image from the first camera's point of view, after which the first camera is being deleted. This is the same for the second camera, except it uses 'Y2' for its placement.
+
 \section{OpenCV}
 OpenCV is a framework for image manipulation. Some of its use cases are changing the colour spectrum, filtering the image by colour and cropping images. The authors use OpenCV to test whether there are differences between filters for the images in the training data, for example greyscale images compared to coloured images. An example render, which OpenCV gets as an input can be seen in Figure~\ref{pic:implementation_opencv_original}.
 
@@ -48,8 +134,6 @@ OpenCV is a framework for image manipulation. Some of its use cases are changing
 
 \subsection{Greyscale}
 Converting an image into greyscale can easily be achieved by the following OpenCV code:
-
-[TODO: How is the image converted? (Average of all three channels?, ...)]
 
 \begin{lstlisting}[language=python]
 import cv2
@@ -174,6 +258,10 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
 \end{figure}
 
 \section{Neural Network}
+\subsection{Testing the structure of the Neural Network}
+
+
+
 \subsection{Structure of our Neural Network}
 
 [wie lesen wir Daten ein, wie viele layer, was ist der output (maximale entfernung? z.B. 10m)]
