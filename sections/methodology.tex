@@ -113,6 +113,107 @@ One of the disadvantages of Neural Networks is that they need huge amounts of da
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
 
+\subsection{Loss Function}
+A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some loss functions commonly used loss functions are:
+
+\subsubsection{Mean Squared Error}
+\begin{displaymath}
+mse = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{x}_i)^2
+\end{displaymath}
+
+where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
+
+\subsubsection{Mean Absolute Error}
+\begin{displaymath}
+mae = \frac{\sum_{i=1}^{n} \abs{\hat{x}_i - x_i}}{n}
+\end{displaymath}
+
+where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
+
+\subsubsection{Mean Absolute Percentage Error}
+\begin{displaymath}
+mape = \frac{100\%}{n}\sum_{i=1}^{n}\abs{\frac{x_i - \hat{x}_i}{x_i}}
+\end{displaymath}
+
+where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
+
+\subsubsection{Mean Squared Logarithmic Error}
+\begin{displaymath}
+msle = \frac{\sum_{i=1}^{n} log(\hat{x}_i + 1) - log(x_i + 1)}{n}
+\end{displaymath}
+
+where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
+
+\subsubsection{Logcosh}
+
+\subsubsection{Kullback Leibler Divergence}
+
+\subsection{Activation Function}
+The activation function defines the output of a node based on the input values it receives. Some of the most widely used activation functions are displayed from Figure~\ref{pic:methodology_neuralNetwork_activationFunction_elu} to Figure~\ref{pic:methodology_neuralNetwork_activationFunction_linear}.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_elu.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_elu}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_selu.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_selu}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_softplus.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_softplus}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_softsign.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_softsign}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_relu.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_relu}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_tanh.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_tanh}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_sigmoid.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_sigmoid}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_exponential.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_exponential}
+\end{figure}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_activationFunction_linear.png}
+	\caption{...}
+	\label{pic:methodology_neuralNetwork_activationFunction_linear}
+\end{figure}
+
 \section{Neural Network Implementations}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
 
