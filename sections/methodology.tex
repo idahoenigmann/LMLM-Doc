@@ -289,6 +289,9 @@ The objective of an optimizer is to optimize (find a local minimum of) the loss 
 	\item Nesterov Adam (Nadam)
 \end{itemize}
 
+\subsection{Overfitting and Underfitting}
+[TODO]
+
 \section{Neural Network Implementations}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
 
@@ -357,7 +360,7 @@ Using the same principle, but different functions TensorFlow allows the creation
 \subsection{Alternatives to Tensorflow}
 TensorFlow offers some abstraction libraries, such as Keras. As some code snippets of are used very frequently and with only slight variation when implementing a Neural Network, Keras offers these code blocks as predefined functions, making development easier for ``standard'' use cases.
 
-For example Keras provides several different layers, that can be used to put together a Neural Network. Table~\ref{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers} describes some of the available layers.
+For example Keras provides several different layers, that can be used to put together a Neural Network. Table~\ref{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers} describes just some of the available layers.
 
 \begin{center}
 	\begin{table}[h!]
@@ -387,5 +390,9 @@ For example Keras provides several different layers, that can be used to put tog
 		\label{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers}
 	\end{table}
 \end{center}
+
+Another feature Keras offers is image preprocessing. In comparison to the authors use of this phrase, Keras offers transformations of the image that alter the image only slightly, which prevents overfitting, when using only a small input data set of images. Examples of the transformations offered are: rotating the image, shifting the image along the vertical or horizontal axis, changing the brightness of the image, zooming, flipping the image vertically or horizontally and rescaling the image.
+
+
 
 \filbreak
