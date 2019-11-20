@@ -212,46 +212,53 @@ The activation function defines the output of a node based on the input values i
 \newpage
 
 \subsection{Initializer}
-In Neural Networks the initial weights of all layers has to be set before training can begin. These weights can either be set to some constant value or initialized by random values from some distribution. Some commonly used initializer distributions are:
+In Neural Networks the initial weights of all layers has to be set before training can begin. These weights can either be set to some constant value or initialized by random values from some distribution. Some basic initializer distributions are plotted in Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions}.
+
+\newpage
 
 \begin{figure*}[h!]
 	\centering
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_zeros.png}
-		\caption{...}
+		\caption{All output values of this function are zero.}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_ones.png}
-		\caption{...}
+		\caption{All output values of this function are one.}
 	\end{subfigure}
 	~
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_constant.png}
-		\caption{...}
+		\caption{All output values of this function are one constant value. In this example 0.5 was chosen as the output value.}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_randomNormal.png}
-		\caption{...}
+		\caption{A random normal distribution where the mean is set to 0 and the standard deviation is set to 0.05. Values closer to the mean value are more likely.}
 	\end{subfigure}
-	~ 
+\end{figure*}
+
+\newpage
+
+\begin{figure*}[h!]
+\centering
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_randomUniform.png}
-		\caption{...}
+		\caption{In a random uniform function all values between the set minimum and maximum value are equally likely.}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.5\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_truncatedNormal.png}
-		\caption{...}
+		\caption{A distribution based on the normal distribution, where all values outside of two standard deviations away from the mean are redrawn.}
 	\end{subfigure}
-	\caption{...}
+	\caption{These are some of the most basic distribution most initializer functions are based on.}
 	\label{pic:methodology_neuralNetwork_initializerFunctions}
 \end{figure*}
 
