@@ -290,7 +290,16 @@ The objective of an optimizer is to optimize (find a local minimum of) the loss 
 \end{itemize}
 
 \subsection{Overfitting and Underfitting}
-[TODO]
+Overfitting occurs if the data sample is replicated too closely. One example of overfitting can be seen in Figure~\ref{pic:methodology_neuralNetwork_overfitting}. The function used is a high degree polynomial function, which has a very good fit on the noisy data originating from a linear correlation, but when testing this model on other data points, especially far from zero on the x-axis it fails to represent the original relation.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_overfitting.png}
+	\caption{Noisy data points originating in a linear correlation (red crosses) are fitted using a high degree polynomial function (blue line), resulting in overfitting. An linear fit (light blue dashed line) has a worse fit on the given data sample, but gives better results when extrapolating.}
+	\label{pic:methodology_neuralNetwork_overfitting}
+\end{figure}
+
+The goal is to find a function, that has just enough complexity to fit the data points. The opposite of overfitting is called underfitting. When underfitting a more complex problem is approximated using too simple methods, again resulting in poor results.
 
 \section{Neural Network Implementations}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
