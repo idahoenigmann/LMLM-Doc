@@ -45,3 +45,12 @@
 * wenn noch nicht genug: weniger Bilder
 * noch immer nicht funktionierend: Bilder weiter downscalen oder croppen
 * Wunsch: bis Weihnachen 90% Diplomschrift fertig
+
+### 25.11.2019
+
+* ressource starvation behoben
+* aktueller Stand: loss: 0.2483 und mean_absolute_percentage_error: 13.2273
+* 50 Seiten Diplomschrift :-)
+* weights laden; mit 50 Bildern trainieren; weights speichern
+* NN ist gleich geblieben
+* begonnen mit 10k Bildern (von Suzanne_m_greyscale) zu trainieren
