@@ -264,8 +264,29 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
 
 \section{Neural Network}
 \subsection{Testing the structure of the Neural Network}
+Python + Tensorflow (+ Keras) simple to change config
 
+first attempt two convolutional layers + one dense layer
 
+output not normalized at first => acc = 1
+
+after normalizing output => acc = 0
+
+classification vs regression problems
+
+description acc vs metric
+
+sgd chosen (because everything else is linked to sgd anyway)
+
+chosen loss + metric
+
+test with 50 images
+
+resource starvation, because of 10k images
+
+break images into batches, load only batch
+
+save weights all n\% to file
 
 \subsection{Structure of our Neural Network}
 
