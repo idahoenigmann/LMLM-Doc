@@ -264,33 +264,55 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
 
 \section{Neural Network}
 \subsection{Testing the structure of the Neural Network}
-Python + Tensorflow (+ Keras) simple to change config
+Using Python and TensorFlow enabled the authors to exchange the components of the neural network without much effort. This enabled a fast development of a working prove of concept. The structure of the neural network depicted in Figure~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model} was the first one tested and already proved effective.
 
-first attempt two convolutional layers + one dense layer
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=2in]{img/implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model.png}
+	\caption{A sequential model of a neural network. The input layer receives the greyscale images. The image is then processed by two convolutional layers, each followed by a max pooling layer reducing the width in one dimension and therefore reducing the number of weights. The last layer, a dense layer, outputs the number representing the normalized distance the neural network estimated. The input of this dense layer is a unrolled version of the output of the last max pooling layer. This is achieved by the flatten layer.}
+	\label{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model}
+\end{figure}
 
-output not normalized at first => acc = 1
+In the first test run only 50 greyscale images where used. This encourages overfitting and was only intended to test if the neural network was syntactically set up correctly. At this point in time the first problem arose. The accuracy from the beginning always was one, meaning that the distance to the object in all images was estimated correctly, which does not seem plausible. Even if the neural network was overfitted at least in the beginning the accuracy should be less than one.
 
-after normalizing output => acc = 0
+It appeared later that this was due to the fact, that the true as well as the estimated output values were not normalized. In a neural network the output of each node has to be between zero and one. As all true values (the distance to the object outputted by Blender) where above one they where simply converted to a value of one. The neural network was trained to only output one, which it easily managed to do, and therefore received an accuracy of one.
 
-classification vs regression problems
+Normalizing the distances was a simple task as the maximum distance in the generated images was 10 meters. Therefore simply dividing by the maximum possible value reduced the range of the values into the normalized form. This however had the consequence that the accuracy of the neural network was zero, however long it was trained.
 
-description acc vs metric
+At this point it is noteworthy that in machine learning one can distinguish between classification and regression problems. In classification problems the output value can only be one of a discrete set of values. For example image classification, where a machine learning algorithm labels images as either depicting a cat or a dog. In this example two possible output values are defined. Regression problems however are identified by the output value being able to take any continuous value. The distance estimation problem the described in this thesis is a regression problem, as the distance to the object can be any value between zero and ten.
 
-sgd chosen (because everything else is linked to sgd anyway)
+Accuracy is a system of measurement which describes how often the machine learning algorithm ``guessed'' the correct output. If the output differs in the last decimal place (in our case less than a nano meter) the accuracy does not get increased. Therefore accuracy is only used in classification problems, where the accuracy gets increased for example for correctly guessing that an image depicts a cat (the output matching the actual value exactly). The equivalent used in regression problems is called metric. The metric chosen by the authors is the mean absolute percentage error. It represents a difference between the actual and the output value as a percentage. The lower this percentage the better the performance of the neural network.
 
-chosen loss + metric
+As an optimizer the authors chose stochastic gradient descent as the other optimizers available in TensorFlow are only variations of this optimizer.
 
-test with 50 images
+After these modifications the output seemed plausible enough to increase the number of training images from 50 to 10000. Up to this point all images where loaded and converted into tensors before the actual training began. This posed no problem when loading 50 images, however loading 10000 images was not possible with the limited RAM installed on the machine. Since the process was running on a Linux machine, the kernel killed the process due to resource starvation.
 
-resource starvation, because of 10k images
-
-break images into batches, load only batch
-
-save weights all n\% to file
+The most obvious solution was to split the images into smaller sections and only load and process one of these batches at a time. Additionally the authors chose to store the computed weights after each of these batches, enabling the user to stop the training at any given point in time and still have the relatively new weights stored. When starting the program again, the weights are loaded and training can resume.
 
 \subsection{Structure of our Neural Network}
 
-[wie lesen wir Daten ein, wie viele layer, was ist der output (maximale entfernung? z.B. 10m)]
+\begin{figure*}[h!]
+	\centering
+	\begin{subfigure}[t]{0.43\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_1.png}
+		\caption{The already trained weights of the first convolutional layer. Each of the 5x5 pixel matrices displays the weights of one layer of the convolution window.}
+	\end{subfigure}%
+	~
+	\begin{subfigure}[t]{0.43\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_2.png}
+		\caption{The trained weights of the second convolutional layer. Again each of the 5x5 pixel matrices displays the weights of one layer of the second convolution window.}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.43\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_dense_1.png}
+		\caption{The trained weights of the dense layer, which outputs the estimated result. Horizontal stripes appear because the one dimensional weight vector is displayed as a 72x64 matrix for convenience.}
+	\end{subfigure}
+	\caption{In all subplots yellow or lighter colours mean higher numbers or more influence of the values and darker or blue colours stand for lower weights or less influence.}
+	\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights}
+\end{figure*}
 
 \section{C++ Implementation}
 
