@@ -24,13 +24,13 @@ For the test objects the authors used two objects. One is a already existing mon
 
 \begin{figure*}[h!]
 	\centering
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/implementation_generatingData_testObject1.jpg}
 		\caption{One of the test objects - a monkey head.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/implementation_generatingData_testObject2.jpg}
 		\caption{One of the test objects - a decorative vase.}
@@ -132,7 +132,7 @@ OpenCV is a framework for image manipulation. Some of its use cases are changing
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=5in]{img/implementation_opencv_original.png}
+	\includegraphics[width=4in]{img/implementation_opencv_original.png}
 	\caption{One of two original renders produced by Blender, both depicting the same object from different points of view.}	%22_2
 	\label{pic:implementation_opencv_original}
 \end{figure}
@@ -152,7 +152,7 @@ This code first reads the image into 'image'. Then it converts the color of 'ima
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=5in]{img/implementation_opencv_greyscale.png}
+	\includegraphics[width=4in]{img/implementation_opencv_greyscale.png}
 	\caption{The greyscale image produced by OpenCV.}
 	\label{pic:implementation_opencv_greyscale}
 \end{figure}
@@ -182,7 +182,7 @@ The output image of this code can be found in Figure~\ref{pic:implementation_ope
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/implementation_opencv_resolution.jpg}
+	\includegraphics[width=4in]{img/implementation_opencv_resolution.jpg}
 	\caption{Image with lower resolution than the original one. Due to the fact that the image is displayed in the same size as Figure~\ref{pic:implementation_opencv_original}, the pixel size in this image appears larger.}
 	\label{pic:implementation_opencv_resolution}
 \end{figure}
@@ -209,7 +209,7 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), crop_img)
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/implementation_opencv_cropping.jpg}
+	\includegraphics[width=4in]{img/implementation_opencv_cropping.jpg}
 	\caption{In this image five percent of each side was removed, therefore the object appears closer if the image is displayed in the same size. Some information positioned in the outer areas of the image are lost during the cropping process.}
 	\label{pic:implementation_opencv_cropping}
 \end{figure}
@@ -235,7 +235,7 @@ To saturate an image using OpenCV it has to be converted into the HSV colour rep
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/implementation_opencv_saturated.jpg}
+	\includegraphics[width=4in]{img/implementation_opencv_saturated.jpg}
 	\caption{Comparison between normal and saturated image.}
 	\label{pic:implementation_opencv_saturated}
 \end{figure}
@@ -257,7 +257,7 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/implementation_opencv_brightness.jpg}
+	\includegraphics[width=4in]{img/implementation_opencv_brightness.jpg}
 	\caption{The original image (Figure~\ref{pic:implementation_opencv_original}) modified by the brightening code. The image appears more washed out, as all colours are move similar due to them having moved closer to white.}
 	\label{pic:implementation_opencv_brightness}
 \end{figure}
@@ -290,29 +290,48 @@ After these modifications the output seemed plausible enough to increase the num
 The most obvious solution was to split the images into smaller sections and only load and process one of these batches at a time. Additionally the authors chose to store the computed weights after each of these batches, enabling the user to stop the training at any given point in time and still have the relatively new weights stored. When starting the program again, the weights are loaded and training can resume.
 
 \subsection{Structure of our Neural Network}
+The first serious training run was performed on 2500 binocular images of a single object. Therefore it was expected, that the neural network would overfit and not work on any other objects. The setup of layers chosen was the one depicted in Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model}.
+
+While training the loss sank from around 210,000,000 after having ``seen'' 50 images to a value of fluctuating between 0.21 and 0.27 while the mean absolute percentage error sank from around 11,000,000,000\% to a value fluctuating between 11.1\% and 16.5\%.
+
+The weights of this trained neural network are visualized in Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights}. While interpreting weights of a neural network is a vague science, some features of these weights are worth mentioning. For example a few of the matrices shown in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_a} have a dark blue blob appear in the upper middle part, while the bottom left and right pixels show the brightest colours. Since brighter colours mean more influence of the input value received, the authors guess, that the size of objects could be determined by these convolution windows. These convolution windows could for example react to the size of the mount of the object, which is located in the lower part of the image. The second subfigure (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}) is hard to interpret, as the tensors are already quite abstract at this point. The dense layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c}), however, gives a low weight to most input values, only using some for the calculation of the final output. Even more interesting are the horizontal stripes appearing in the weights of the dense layer. To get a better understanding of why these stripes appear the authors decided to group the weights of this layer into the sizes of the output of the last convolutional layer. The resulting image can be found in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}. From this it is apparent, that the neural network is able to work out that the input image consists of two separate renders. Most of these units focus on the two middle part of the two images separately, some on a larger a region, while other only on the exact place where the object is located. Only few units focus on the section where the shadow of the object is located.
+
+\newpage
 
 \begin{figure*}[h!]
 	\centering
-	\begin{subfigure}[t]{0.43\textwidth}
+	\begin{subfigure}[t]{0.585\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_1.png}
 		\caption{The already trained weights of the first convolutional layer. Each of the 5x5 pixel matrices displays the weights of one layer of the convolution window.}
-	\end{subfigure}%
+		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_a}
+	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.43\textwidth}
+	\begin{subfigure}[t]{0.585\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_2.png}
 		\caption{The trained weights of the second convolutional layer. Again each of the 5x5 pixel matrices displays the weights of one layer of the second convolution window.}
+		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.43\textwidth}
+	\begin{subfigure}[t]{0.385\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_dense_1.png}
 		\caption{The trained weights of the dense layer, which outputs the estimated result. Horizontal stripes appear because the one dimensional weight vector is displayed as a 72x64 matrix for convenience.}
+		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c}
 	\end{subfigure}
-	\caption{In all subplots yellow or lighter colours mean higher numbers or more influence of the values and darker or blue colours stand for lower weights or less influence.}
+	~
+	\begin{subfigure}[t]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_dense_1b.png}
+		\caption{The same weights as in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c} regrouped into 64 4x18 units.}
+		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}
+	\end{subfigure}
+	\caption{In all subplots yellow or brighter colours mean higher numbers or more influence of the values and darker or blue colours stand for lower weights or less influence.}
 	\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights}
 \end{figure*}
+
+\newpage
 
 \section{C++ Implementation}
 
