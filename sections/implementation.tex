@@ -263,7 +263,7 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
 \end{figure}
 
 \section{Neural Network}
-\subsection{Testing the structure of the Neural Network}
+\subsection{Setting up the Neural Network}
 Using Python and TensorFlow enabled the authors to exchange the components of the neural network without much effort. This enabled a fast development of a working prove of concept. The structure of the neural network depicted in Figure~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model} was the first one tested and already proved effective.
 
 \begin{figure}[h!]
@@ -289,7 +289,7 @@ After these modifications the output seemed plausible enough to increase the num
 
 The most obvious solution was to split the images into smaller sections and only load and process one of these batches at a time. Additionally the authors chose to store the computed weights after each of these batches, enabling the user to stop the training at any given point in time and still have the relatively new weights stored. When starting the program again, the weights are loaded and training can resume.
 
-\subsection{Structure of our Neural Network}
+\subsection{First results}
 The first serious training run was performed on 2500 binocular images of a single object. Therefore it was expected, that the neural network would overfit and not work on any other objects. The setup of layers chosen was the one depicted in Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model}.
 
 While training the loss sank from around 210,000,000 after having ``seen'' 50 images to a value of fluctuating between 0.21 and 0.27 while the mean absolute percentage error sank from around 11,000,000,000\% to a value fluctuating between 11.1\% and 16.5\%.
@@ -327,11 +327,14 @@ The weights of this trained neural network are visualized in Fig.~\ref{pic:imple
 		\caption{The same weights as in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c} regrouped into 64 4x18 units.}
 		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}
 	\end{subfigure}
-	\caption{In all subplots yellow or brighter colours mean higher numbers or more influence of the values and darker or blue colours stand for lower weights or less influence.}
+	\caption{In all subplots the highest value occurring in a unit of pixels is displayed as a yellow colour and the lowest value occurring is a dark blue colour. All other values are shown as the corresponding colours ranging from yellow over green to dark blue.}
 	\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights}
 \end{figure*}
 
 \newpage
+
+\subsection{Modifications to the Neural Network}
+
 
 \section{C++ Implementation}
 
