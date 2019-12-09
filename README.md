@@ -54,3 +54,12 @@
 * weights laden; mit 50 Bildern trainieren; weights speichern
 * NN ist gleich geblieben
 * begonnen mit 10k Bildern (von Suzanne_m_greyscale) zu trainieren
+
+### 9.12.2019
+
+* Verteilungsfunktion der Entfernungen + kapitel?
+* Todo: mehr Testdaten generieren
+* Beginn der C++ Implementierung
+* Visualisierung der Gewichte
+* Momentum term
+* acc bleibt bei 13%
