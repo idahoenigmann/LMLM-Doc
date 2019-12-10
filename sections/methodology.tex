@@ -151,7 +151,7 @@ where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is t
 \subsubsection{Kullback Leibler Divergence}
 
 \subsection{Activation Function}
-The activation function defines the output of a node based on the input values it receives. Some of the most widely used activation functions are displayed in Figures~\ref{pic:methodology_neuralNetwork_activationFunction}.
+The activation function defines the output of a node based on the input values it receives. Some of the most widely used activation functions are displayed in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction1} and Fig.~\ref{pic:methodology_neuralNetwork_activationFunction2}.
 
 \begin{figure*}[h!]
 	\centering
@@ -178,6 +178,8 @@ The activation function defines the output of a node based on the input values i
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
 		\caption{Rectified Linear Unit can be described as $f(x) = \begin{cases} x & x \geq 0 \\ 0 & x < 0 \end{cases}$}
 	\end{subfigure}
+	\caption{An excerpt of the most common activation functions used in machine learning. The rest can be found in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction2}. Non-linear functions allow the neural network to solve more complex tasks. All activation functions are plotted from -4 to 4 as the most interesting features of these functions often occur around 0.}
+	\label{pic:methodology_neuralNetwork_activationFunction1}
 \end{figure*}
 
 \begin{figure*}[h!]
@@ -205,14 +207,14 @@ The activation function defines the output of a node based on the input values i
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_linear.png}
 		\caption{The Linear activation function, also called identity function, is defined as $f(x) = x$.}
 	\end{subfigure}
-	\caption{These are some of the most common activation functions used in machine learning. Non-linear functions allow the neural network to solve more complex tasks. All activation functions are plotted from -4 to 4 as the most interesting features of these functions often occur around 0.}
-	\label{pic:methodology_neuralNetwork_activationFunction}
+	\caption{Other common activation functions used in machine learning. Once again all activation functions are plotted from -4 to 4 for the same reason.}
+	\label{pic:methodology_neuralNetwork_activationFunction2}
 \end{figure*}
 
 \newpage
 
 \subsection{Initializer}
-In Neural Networks the initial weights of all layers has to be set before training can begin. These weights can either be set to some constant value or initialized by random values from some distribution. Some basic initializer distributions are plotted in Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions}.
+In Neural Networks the initial weights of all layers has to be set before training can begin. These weights can either be set to some constant value or initialized by random values from some distribution. Some basic initializer distributions are plotted in Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions1} and Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions2}.
 
 \newpage
 
@@ -241,6 +243,8 @@ In Neural Networks the initial weights of all layers has to be set before traini
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_randomNormal.png}
 		\caption{A random normal distribution where the mean is set to 0 and the standard deviation is set to 0.05. Values closer to the mean value are more likely.}
 	\end{subfigure}
+	\caption{These are some of the most basic distribution most initializer functions are based on.}
+	\label{pic:methodology_neuralNetwork_initializerFunctions1}
 \end{figure*}
 
 \newpage
@@ -258,23 +262,9 @@ In Neural Networks the initial weights of all layers has to be set before traini
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_truncatedNormal.png}
 		\caption{A distribution based on the normal distribution, where all values outside of two standard deviations away from the mean are redrawn.}
 	\end{subfigure}
-	\caption{These are some of the most basic distribution most initializer functions are based on.}
-	\label{pic:methodology_neuralNetwork_initializerFunctions}
+	\caption{More basic distribution initializer functions of weights and biases are often based on.}
+	\label{pic:methodology_neuralNetwork_initializerFunctions2}
 \end{figure*}
-
-%\begin{multicols}{2}
-%\begin{itemize}
-%	\item variancescaling
-%	\item orthogonal
-%	\item identity
-%	\item lecun\_uniform
-%	\item glorot\_normal
-%	\item glorot\_uniform
-%	\item he\_normal
-%	\item lecun\_normal
-%	\item he\_uniform
-%\end{itemize}
-%\end{multicols}
 
 \subsection{Optimizer}
 The objective of an optimizer is to optimize (find a local minimum of) the loss function. Some of the most widely used optimizers are:
