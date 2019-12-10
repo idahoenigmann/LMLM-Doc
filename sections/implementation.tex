@@ -294,29 +294,22 @@ The first serious training run was performed on 2500 binocular images of a singl
 
 While training the loss sank from around 210,000,000 after having ``seen'' 50 images to a value of fluctuating between 0.21 and 0.27 while the mean absolute percentage error sank from around 11,000,000,000\% to a value fluctuating between 11.1\% and 16.5\%.
 
-The weights of this trained neural network are visualized in Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights}. While interpreting weights of a neural network is a vague science, some features of these weights are worth mentioning. For example a few of the matrices shown in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_a} have a dark blue blob appear in the upper middle part, while the bottom left and right pixels show the brightest colours. Since brighter colours mean more influence of the input value received, the authors guess, that the size of objects could be determined by these convolution windows. These convolution windows could for example react to the size of the mount of the object, which is located in the lower part of the image. The second subfigure (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}) is hard to interpret, as the tensors are already quite abstract at this point. The dense layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c}), however, gives a low weight to most input values, only using some for the calculation of the final output. Even more interesting are the horizontal stripes appearing in the weights of the dense layer. To get a better understanding of why these stripes appear the authors decided to group the weights of this layer into the sizes of the output of the last convolutional layer. The resulting image can be found in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}. From this it is apparent, that the neural network is able to work out that the input image consists of two separate renders. Most of these units focus on the two middle part of the two images separately, some on a larger a region, while other only on the exact place where the object is located. Only few units focus on the section where the shadow of the object is located.
+The weights of this trained neural network are visualized in Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights1} and Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights2}. While interpreting weights of a neural network is a vague science, some features of these weights are worth mentioning. For example a few of the matrices shown in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_a} have a dark blue blob appear in the upper middle part, while the bottom left and right pixels show the brightest colours. Since brighter colours mean more influence of the input value received, the authors guess, that the size of objects could be determined by these convolution windows. These convolution windows could for example react to the size of the mount of the object, which is located in the lower part of the image. The second convolutional layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}) is hard to interpret, as the tensors are already quite abstract at this point. The dense layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c}), however, gives a low weight to most input values, only using some for the calculation of the final output. Even more interesting are the horizontal stripes appearing in the weights of the dense layer. To get a better understanding of why these stripes appear the authors decided to group the weights of this layer into the sizes of the output of the last convolutional layer. The resulting image can be found in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}. From this it is apparent, that the neural network is able to work out that the input image consists of two separate renders. Most of these units focus on the two middle part of the two images separately, some on a larger a region, while other only on the exact place where the object is located. Only few units focus on the section where the shadow of the object is located.
 
 \newpage
 
 \begin{figure*}[h!]
 	\centering
-	\begin{subfigure}[t]{0.585\textwidth}
+	\begin{subfigure}[t]{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_1.png}
+		\includegraphics[width=0.6\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_1.png}
 		\caption{The already trained weights of the first convolutional layer. Each of the 5x5 pixel matrices displays the weights of one layer of the convolution window.}
 		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_a}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.585\textwidth}
+	\begin{subfigure}[t]{\textwidth}
 		\centering
-		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_2.png}
-		\caption{The trained weights of the second convolutional layer. Again each of the 5x5 pixel matrices displays the weights of one layer of the second convolution window.}
-		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}
-	\end{subfigure}
-	~
-	\begin{subfigure}[t]{0.385\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_dense_1.png}
+		\includegraphics[width=0.4\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_dense_1.png}
 		\caption{The trained weights of the dense layer, which outputs the estimated result. Horizontal stripes appear because the one dimensional weight vector is displayed as a 72x64 matrix for convenience.}
 		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c}
 	\end{subfigure}
@@ -328,7 +321,21 @@ The weights of this trained neural network are visualized in Fig.~\ref{pic:imple
 		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}
 	\end{subfigure}
 	\caption{In all subplots the highest value occurring in a unit of pixels is displayed as a yellow colour and the lowest value occurring is a dark blue colour. All other values are shown as the corresponding colours ranging from yellow over green to dark blue.}
-	\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights}
+	\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights1}
+\end{figure*}
+
+\newpage
+
+\begin{figure*}[h!]
+	\centering
+	\begin{subfigure}[t]{\textwidth}
+		\centering
+		\includegraphics[width=0.59\textwidth]{img/implementation_neuralNetwork_structureOfOurNeuralNetwork_conv2D_2.pdf}
+		\caption{The trained weights of the second convolutional layer. Again each of the 5x5 pixel matrices displays the weights of one units that make up the second convolution window.}
+		\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}
+	\end{subfigure}
+	\caption{As in Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights1} all subplots display the values ranging from yellow (high value) to dark blue (low value).}
+	\label{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights2}
 \end{figure*}
 
 \newpage
@@ -357,7 +364,7 @@ The next change to the structure of the neural network was the introduction of a
 	\label{pic:implementation_neuralNetwork_modificationsToTheNN}
 \end{figure*}
 
-
+In the case of the Neural Network described in the previous sections the addition of a momentum term sadly did not produce better results, as the mean absolute percentage error once again reached a value of around 14\% before fluctuating by the same divergence as before.
 
 \section{C++ Implementation}
 
