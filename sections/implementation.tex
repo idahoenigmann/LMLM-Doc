@@ -366,7 +366,14 @@ The next change to the structure of the neural network was the introduction of a
 
 In the case of the Neural Network described in the previous sections the addition of a momentum term sadly did not produce better results, as the mean absolute percentage error once again reached a value of around 14\% before fluctuating by the same divergence as before.
 
-Since the modification of the neural network using a momentum term was not sufficient the authors decided to test whether changing the number and type of layers would change the results. At first the number of convolutional layers was reduced to one
+Since the modification of the neural network using a momentum term was not sufficient the authors decided to test whether changing the number and type of layers would change the results. At first one of the convolutional layers was replaced by a dense layer. This led to a remarkable decrease in the accuracy reached after training on 500 images. Therefore the authors decided to test if the increasing the number of convolutional layers would yield the opposite results. The resulting layer setup of the neural network can be found in Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_model}.
+
+\begin{figure*}[h!]
+	\centering
+	\includegraphics[width=2in]{img/implementation_neuralNetwork_modificationsToTheNN_model.png}
+	\caption{The layer structure from Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model} modified to include an additional convolutional layer.}
+	\label{pic:implementation_neuralNetwork_modificationsToTheNN_model}
+\end{figure*}
 
 \section{C++ Implementation}
 
