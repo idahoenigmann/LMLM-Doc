@@ -3,45 +3,24 @@
 \textbf{Author: } 
 
 \section{Different Approaches to the Problem}
-
-\section{Depth perception}
-[TODO: humans, two eyes - gleich wie bei unserem Aufbau]
-
-\subsection{Depth sensation}
-[TODO: Pigeons, deer, children (visual cliff)]
+Localising a robot in an unknown surrounding can be achieved by a multitude of different sensors. To name a few stereo cameras, LIDAR systems, ultrasonic sensors and time-of-flight cameras all measure the distance to the objects located around the robot. This data can then be used to gather information about the current location of the robot or aid navigation.
 
 \section{Stereo Camera}
-The challenge of sensing distances to various objects has been solved using stereo vision cameras. Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to gather the information on the depth of the images. This process can be rather complicated as the distortions (more specifically the barrel distortion and the tangential distortion) of the images have to be undone, before the two images are projected onto a common plane, a disparity map can be created by comparison of the two images and a 3d point cloud can be generated from it. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
+The challenge of sensing distances to various objects has been solved using stereo vision cameras. Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to gather the information on the depth of the images. This process can be rather complicated as the distortions of the images have to be undone, before the two images can be projected onto a common plane, a disparity map can be created by comparing the two images and a 3d point cloud can be generated from this comparison. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
 
 \subsection{Distortion}
-Barrel distortion occurs when the lens used by the camera has a higher magnification at the centre of the image than at the sides. This distortion can be visualized as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_barrelDistortion}.
+One of the distortions that have to be undone before the images can be processed any further is called barrel distortion. It occurs when the lens used by the camera has a higher magnification at the centre of the image than at the sides. This distortion can be visualized as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_barrelDistortion}.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.5in]{img/methodology_stereoCamera_distortion_barrelDistortion.png}
-	\caption{The left shows the original image composed of straight horizontal and vertical lines. On the right image the effect of the barrel distortion can be perceived, which causes the lines to curve toward the outside of the image, causing the lines to appear in a barrel like shape.[TODO: change image to own]}
+	\caption{The left shows the original image composed of straight horizontal and vertical lines. On the right image the effect of the barrel distortion can be seen. The distortion causes the lines to curve toward the outside of the image, causing the lines to appear in a barrel like shape. [TODO: change image to own]}
 	\label{pic:methodology_stereoCamera_distortion_barrelDistortion}
 \end{figure}
 
-To undo this distortion the pixel values in an undistorted image have to be calculated based on the pixel values in the distorted image.
+Gribbon et.al. \footcite{Gribbon_Barrel_Distortion_Correction_Algorithm} propose equations, which calculate the pixel values in the undistorted image based on the pixel values in the distorted image.
 
-\begin{equation}
-r_u = r_d(1+k r_d^2)
-\end{equation}
-
-describes the calculation which computes the distance from the centre in the undistorted image ($r_u$) based on the distance from the centre in the distorted image ($r_d$) and some distortion parameter $k$, which is specific to the lens used. Gribbon et.al. note in their work \footcite{Gribbon_Barrel_Distortion_Correction_Algorithm} that this rarely is an integer value, therefore different equations are proposed:
-
-\begin{equation}
-x_d = x_u M(k,r_u^2) \hspace{30pt} y_d = y_u M(k, r_u^2)
-\end{equation}
-
-where the magnification factor $M(k,r_u^2)$ is
-
-\begin{equation}
-M(k,r_u^2) = \frac{1}{1+k * M(k,r_u^2)^2 * r_u^2}
-\end{equation}
-
-Tangential distortion in comparison to barrel distortion displaces points along the tangent of a circle placed at the centre of the image as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion}.
+In comparison to barrel distortion tangential distortion displaces points along the tangent of a circle placed at the centre of the image as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion}.
 
 \begin{figure}[h!]
 	\centering
@@ -62,7 +41,7 @@ Image Rectification projects multiple images taken from different points of view
 	\label{pic:methodology_stereoCamera_imageRectification}
 \end{figure}
 
-Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_Rectification_Algorithm}, which follows this sequence of events:
+Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_Rectification_Algorithm}, which follows the following sequence of events:
 
 \begin{enumerate}
 	\item At least seven matching points visible on both images are found.
@@ -107,6 +86,12 @@ Links im Tex file
 \section{Structure from Motion}
 
 \section{Feature Tracking}
+
+\section{Depth perception}
+[TODO: humans, two eyes - gleich wie bei unserem Aufbau]
+
+\subsection{Depth sensation}
+[TODO: Pigeons, deer, children (visual cliff)]
 
 
 \filbreak
