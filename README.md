@@ -63,3 +63,12 @@
 * Visualisierung der Gewichte
 * Momentum term
 * acc bleibt bei 13%
+
+### 16.12.2019
+
+* aktuelle Version spätestens am 19.12.2019 nocheinmal schicken
+* Korrelation zwischen cnt(conv layers) und Anzahl Bilder benötigt?
+* C++ Implementation weitergemacht: Layer werden richtig verbunden
+* mehr Statistik in der Diplomschrift (siehe Korrelation ...)
+* auf Heizhaus PC rendern :-) (ab Freitag?)
+* Bessere Loss-Function?
