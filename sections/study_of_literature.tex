@@ -52,34 +52,12 @@ Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_R
 \end{enumerate}
 
 \subsection{Disparity Map}
+A disparity map represents the depth of an image. It can be calculated by comparing the position of pixels in two images made for example by a stereo camera. Objects, that are closer, have a larger difference in their relative position on the two image, than objects that are farther away.
+
+One approach, which focuses not only on the quality of the disparity, but also on the time needed to compute the result, is described in the work of Mühlmann et.al\footcite{Muehlmann_Calculating_Dense_Disparity_Maps_from_Color_Stereo_Images}.
 
 \subsection{3d point cloud}
-
-
-[Input: Paper (gleiches Problem ohne NN) finden - Peter]
-
-[Input: Video (eine Kamera, Entfernung zu Punkt (größe bekannt)) finden (ohne NN) - Peter]
-
-
-[Vielleicht ist irgendetwas davon spannend:
-Links im Tex file
-%https://ieeexplore.ieee.org/abstract/document/6399589
-%https://ieeexplore.ieee.org/abstract/document/100062
-%https://ieeexplore.ieee.org/abstract/document/6079296
-%https://www.sciencedirect.com/science/article/pii/S0957417414008161
-%http://neuralnetworksanddeeplearning.com/chap1.html
-%https://patents.google.com/patent/US8164628B2/en
-%https://apps.dtic.mil/docs/citations/ADA366182
-%https://ieeexplore.ieee.org/abstract/document/1087003
-%https://digital-library.theiet.org/content/conferences/10.1049/cp.2010.0495
-%https://www.isca-speech.org/archive/interspeech_2010/i10_1045.html
-%https://ieeexplore.ieee.org/abstract/document/6639344
-%https://www.sciencedirect.com/science/article/pii/B9780127412528500108
-%https://en.wikipedia.org/wiki/Visual_cliff#The_study_in_different_species
-%https://science.sciencemag.org/content/145/3634/835
-%https://en.wikipedia.org/wiki/Visual_cliff
-%https://en.wikipedia.org/wiki/Depth_perception
-]
+To generate a 3d point cloud out of the disparity map a two dimensional image has to be converted into a three dimensional space. This is done by extracting the information about the depth for each pixel from the disparity map. In our use case the resulting 3d point cloud then has to be filtered in search of the object, which distance to was sought after.
 
 \section{LIDAR}
 
