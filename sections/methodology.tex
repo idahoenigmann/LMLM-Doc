@@ -8,7 +8,7 @@ Since many drones used in educational robotics can only carry a limited amount o
 Therefore the authors try to approach this challenge from the machine learning point of view. Neural networks can be taught to work with different changes in the environment and still return results with superior quality as opposed to a conventional implementation.
 
 \section{Generating data}
-Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the 2 cameras, which point to a specific object in the scene. This enables the authors to use and train a neural network, since shooting the amount of pictures needed by hand would take too long to consider this idea. 
+Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with Python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the two cameras, which point to a specific object in the scene. This enables the authors create enough images to train a neural network, since shooting the amount of pictures needed by hand would take too long to consider. 
 
 \subsection{Blender}
 Besides 3D-modelling Blender enables the user to perform various different actions, such as laying out scenes, UV-Editing, shading, animating and rendering. Additionally scenes can be modified by executing Python scripts. Figure~\ref{pic:methodology_generatingData_blender_startscreen} shows the interface of Blender 2.8 with the default file loaded.
@@ -20,7 +20,7 @@ Besides 3D-modelling Blender enables the user to perform various different actio
 	\label{pic:methodology_generatingData_blender_startscreen}
 \end{figure}
 
-The authors decided to extensively use the scripting function in their work. One example of a Python script, that can be executed in blender is the following code:
+The authors decided to extensively use the scripting function in their work. One example of a Python script, that can be executed in Blender is the following code:
 
 \begin{lstlisting}[language=python]
 import bpy
@@ -43,19 +43,19 @@ material.diffuse_color = (0.8, 0.1, 0.1, 1)
 bpy.context.active_object.data.materials.append(material)
 \end{lstlisting}
 
-This code first clears the scene from other meshes (because running the script twice would place the new cube inside the old cube). Then it adds a new mesh in form of a cube at the given location. Next we want to add some color to the cube. For this to work a material is needed, which is basically a specification of how the surface of the object will look like. Advanced materials can represent raw or reflective surfaces, but in order to keep it simple this material will just represent a red surface (represented in red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255)). Lastly the created material is applied to the object. The final result can be seen below:
+This code first clears the scene from other meshes (running the script twice would otherwise place the new cube inside the old cube). Then a new mesh in form of a cube is added at the given location. Next colour is added to the new cube by applying a material. A material is a specification of how the surface of the object should look. Advanced materials can represent raw or reflective surfaces, however the authors decided to keep it simple. The chosen material represents a red surface (the red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255) are specified). Lastly the created material is applied to the object. The final result can be seen below:
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=6.5in]{img/methodology_generatingData_blender_exampleScriptResult.png}
-	\caption{Result of the above code. The default cube is deleted, a new one is added with a red material and translated via the 'location' argument.).}
+	\caption{The result of the above code. After the default cube is deleted, a new one is added with a red material and translated via the 'location' argument.}
 	\label{pic:methodology_generatingData_blender_exampleScriptResult}
 \end{figure}
 
 Using similar Python scripts the authors will generate the image data necessary as well as perform the calculation of the distance which will be specified as the correct values to train the neural network on.
 
 \section{Image preprocessing}
-After the test images have been rendered with the help of Blender some image preprocessing is required. For example the machine learning component of this project should take two images as an input. To simplify the input the two images will simply be placed next to each other to form a new image twice as wide as the original images. This process is visualized in Figure~\ref{pic:methodology_imagePreprocessing_imageMerge}. Other preprocessing measures that have to be taken are downscaling the image, as to not have too many weights in the first layer of the neural network.
+After the test images have been rendered with the help of Blender some image preprocessing is required. For example the machine learning component of this project should take two images as an input. To simplify the input the two images will be placed next to each other to form a new image twice as wide as the original images. This process is visualized in Figure~\ref{pic:methodology_imagePreprocessing_imageMerge}. Other preprocessing measures that have to be taken are downscaling the image, as to not have too many weights in the first layer of the neural network.
 
 \begin{figure}[h!]
 	\centering
@@ -94,54 +94,54 @@ Additionally, the authors decided to experiment if manipulating these test image
 
 
 \section{Neural Network}
-A Neural Network consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. A vanilla Neural Network consists of multiple layers, where each node receives all output values of all nodes in the previous layer as an input. A visualization of a Neural Network can be seen in Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN}. By manipulating the weights associated to each input value the network can learn to solve some given task.
+A neural network is a tool used in machine learning. It consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. By forming multiple connections between the nodes the neural network can perform more complex tasks. A vanilla neural network consists of multiple layers, where each node receives all output values of all nodes in the previous layer as an input. A visualization of a vanilla neural network can be seen in Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN}. By manipulating the weights associated to each input value the network can learn to solve a given task.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_visualizationOfANN.png}
-	\caption{Depiction af a vanilla Neural Network. Each circle represents a node and the arrows show the flow of information. All nodes on the same level are collectively called a layer.}
+	\caption{Depiction af a vanilla neural network. Each circle represents a node and the arrows show the flow of information. All nodes on the same level are collectively called a layer.}
 	\label{pic:methodology_neuralNetwork_visualizationOfANN}
 \end{figure}
 
 \subsection{Convolutional Neural Network}
-One of the disadvantages of Neural Networks is that they need huge amounts of data in order to optimize the values of all weights. Therefore a modified version of Neural Networks was invented. Convolutional Neural Networks simplify the optimization of the weights by stating that some weights are shared between multiple connections between nodes. This results in fewer weights having to be optimized. Additionally Convolutional Neural Networks contribute to the fact that often problems require to perform similar actions in multiple parts of the input data, e.g. search for edges in all sections of an image.
+One of the disadvantages of neural networks is that they need huge amounts of data in order to optimize the values of all weights. Therefore a modified version of neural networks was invented. Convolutional neural networks simplify the optimization of the weights by stating that some weights are shared between multiple connections of nodes. This results in fewer weights having to be optimized. Additionally convolutional neural networks perform similar actions in multiple parts of the input data which especially makes sense when working with images, e.g. search for edges in all sections of an image.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=3.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
-	\caption{Segment of a Convolutional Neural Network. In comparison to a vanilla Neural Network each node is only connected to its closest neighbours. Additionally all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
+	\caption{Segment of a convolutional neural network. In comparison to a vanilla neural network each node is only connected to its closest neighbours. Additionally all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
 
 \newpage
 
 \subsection{Loss Function}
-A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some loss functions commonly used loss functions are:
+A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some loss functions commonly used in machine learning are:
 
 \subsubsection{Mean Squared Error}
 \begin{displaymath}
 mse = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{x}_i)^2
 \end{displaymath}
 
-where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
+where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value. Squaring the difference of the correct and estimated value is necessary, as negative and positive differences could otherwise annul each other.
 
 \subsubsection{Mean Absolute Error}
 \begin{displaymath}
-mae = \frac{\sum_{i=1}^{n} \abs{\hat{x}_i - x_i}}{n}
+mae = \frac{1}{n} \sum_{i=1}^{n} \abs{\hat{x}_i - x_i}
 \end{displaymath}
 
-where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
+where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value. In comparison to the mean squared error, this method uses the absolute value of the difference.
 
 \subsubsection{Mean Absolute Percentage Error}
 \begin{displaymath}
 mape = \frac{100\%}{n}\sum_{i=1}^{n}\abs{\frac{x_i - \hat{x}_i}{x_i}}
 \end{displaymath}
 
-where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
+where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value. The mean absolute percentage error returns the average percentage by which the estimated value differs from the actual one.
 
 \subsubsection{Mean Squared Logarithmic Error}
 \begin{displaymath}
-msle = \frac{\sum_{i=1}^{n} log(\hat{x}_i + 1) - log(x_i + 1)}{n}
+msle = \frac{1}{n} \sum_{i=1}^{n} log(\hat{x}_i + 1) - log(x_i + 1)
 \end{displaymath}
 
 where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
@@ -214,7 +214,7 @@ The activation function defines the output of a node based on the input values i
 \newpage
 
 \subsection{Initializer}
-In Neural Networks the initial weights of all layers has to be set before training can begin. These weights can either be set to some constant value or initialized by random values from some distribution. Some basic initializer distributions are plotted in Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions1} and Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions2}.
+In neural networks the initial weights of all layers have to be set before training can begin. These weights can either be set to some constant value or initialized by random values from some distribution. Some basic initializer distributions are plotted in Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions1} and Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions2}.
 
 \newpage
 
@@ -329,7 +329,7 @@ d = tf.add(a, c)
 e = tf.divide(d, b)
 
 with tf.Session() as sess:
-out = sess.run(e)
+    out = sess.run(e)
 
 print(out)
 \end{lstlisting}
@@ -347,19 +347,19 @@ b = tf.constant(2)
 e = (a * b + a) / b
 
 with tf.Session() as sess:
-out = sess.run(e)
+    out = sess.run(e)
 
 print(out)
 \end{lstlisting}
 
 This code is equivalent to the first one, but uses syntactic sugar to shorten line 6 to 8 in the first code block into line 6. At this point it should be noted that while it might look like it line 6 does not calculate anything. It simply describes how the computational graph should look. The answer (42) is calculated in the session in line 9.
 
-Using the same principle, but different functions TensorFlow allows the creation of complex Neural Networks in a simple fashion.
+Using the same principle, but different functions TensorFlow allows the creation of complex neural networks in a simple fashion.
 
 \subsection{Alternatives to Tensorflow}
-TensorFlow offers some abstraction libraries, such as Keras. As some code snippets of are used very frequently and with only slight variation when implementing a Neural Network, Keras offers these code blocks as predefined functions, making development easier for ``standard'' use cases.
+TensorFlow offers some abstraction libraries, such as Keras. As some code snippets are used very frequently and with only slight variation when implementing a Neural Network, Keras offers these code blocks as predefined functions, making development easier for ``standard'' use cases.
 
-For example Keras provides several different layers, that can be used to put together a Neural Network. Table~\ref{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers} describes just some of the available layers.
+For example Keras provides several different layers, that can be used to put together a neural network. Table~\ref{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers} describes just some of the available layers.
 
 \begin{center}
 	\begin{table}[h!]
@@ -385,7 +385,7 @@ For example Keras provides several different layers, that can be used to put tog
 			\hline
 			
 		\end{tabular}
-		\caption{Short description of layers available in Keras, that can be used to assemble a Neural Network, with little effort.}
+		\caption{Short description of layers available in Keras, that can be used to assemble a neural network, with little effort.}
 		\label{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers}
 	\end{table}
 \end{center}

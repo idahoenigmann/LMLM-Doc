@@ -20,7 +20,7 @@ For generating data the first step for the authors was to model a scene, as seen
 \end{figure}
 
 %[TODO: Renders and labels for example objects]
-For the test objects the authors used two objects. One is a already existing monkey head in blender, the other one has been self-modelled and represents a vase with some decorating sticks in it. Both objects can be seen in Figure~\ref{pic:implementation_generatingData_testObject}.
+For the test objects the authors used two objects: a monkey head, which already exists in Blender and a self-modelled object, representing a vase with some decorating sticks in it. Both objects can be seen in Figure~\ref{pic:implementation_generatingData_testObject}.
 
 \begin{figure*}[h!]
 	\centering
@@ -107,7 +107,7 @@ Y2 = Y1 + 1 if (Y1 - target_loc.y) < 0 else Y1 - 1
 Z = random.uniform(ZMIN, ZMAX)
 \end{lstlisting}
 
-This code block right here does exactly what described before. A random value for X/Y/Z is chosen. Notice that the Y value is split in two, where 'Y1' uses 'YMIN' and 'YMAX' and 'Y2' uses 'Y1' for calculation. This is to guarantee a different angle to the object, because camera one will use 'Y1' and the second camera will use 'Y2'.
+This code block does exactly what was described before. A random value for X/Y/Z is chosen. Notice that the Y value is split in two, where 'Y1' uses 'YMIN' and 'YMAX' and 'Y2' uses 'Y1' for calculation. This is to guarantee a different angle to the object, because camera one will use 'Y1' and the second camera will use 'Y2'.
 
 [TODO: Maybe add image illustrating above text]
 
@@ -125,7 +125,7 @@ render(RENDERFILEPATH, i, 2)
 del_cameras()
 \end{lstlisting}
 
-This last code block is basically the same for each camera. The first camera uses 'Y1' for its placement, centered on 'target\_name' (the object). Then, from the location of the first camera, the distance to the object is calculated and written to a file. After the calculation of the actual distance blender renders an image from the first camera's point of view, after which the first camera is being deleted. This is the same for the second camera, except it uses 'Y2' for its placement.
+This last code block is mostly the same for each camera. The first camera uses 'Y1' for its placement, centered on 'target\_name' (the object). Then, from the location of the first camera, the distance to the object is calculated and written to a file. After the calculation of the actual distance blender renders an image from the first camera's point of view, after which the first camera is being deleted. This is the same for the second camera, except 'Y2' is used for its placement.
 
 \section{OpenCV}
 OpenCV is a framework for image manipulation. Some of its use cases are changing the colour spectrum, filtering the image by colour and cropping images. The authors use OpenCV to test whether there are differences between filters for the images in the training data, for example greyscale images compared to coloured images. An example render, which OpenCV gets as an input can be seen in Figure~\ref{pic:implementation_opencv_original}.
@@ -157,7 +157,7 @@ This code first reads the image into 'image'. Then it converts the color of 'ima
 	\label{pic:implementation_opencv_greyscale}
 \end{figure}
 
-The advantage of using greyscale images in Neural Networks is the simplification of the input layer. In greyscale images each pixel can be represented by a single decimal value between 0 and 1. This enables the first layer of the neural network to be two dimensional instead of the three dimensional counterpart, where each pixel is represented by the three decimal values for the red, green and blue colour channels.
+The advantage of using greyscale images in neural networks is the simplification of the input layer. In greyscale images each pixel can be represented by a single decimal value between 0 and 1. This enables the first layer of the neural network to be two dimensional instead of the three dimensional counterpart, where each pixel is represented by the three decimal values for the red, green and blue colour channels.
 
 \subsection{Resolution}
 By reducing the resolution of an image the density of pixels is lessened. In this process information, that can not be regained, is lost. The OpenCV code for downscaling the images used by the authors is the following:
@@ -187,10 +187,10 @@ The output image of this code can be found in Figure~\ref{pic:implementation_ope
 	\label{pic:implementation_opencv_resolution}
 \end{figure}
 
-Downscaling the images before they are passed into the Neural Network can be profitable, because the number of weights in the first layer of the network is reduced. This can advance the learning speed.
+Downscaling the images before they are passed into the neural network can be profitable, because the number of weights in the first layer of the network is reduced. This can advance the learning speed.
 
 \subsection{Cropping}
-Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo and to shift the view of the viewer to specific areas. However, the authors guess that cropping an image will worsen performance of the neural network, because information of the relative sizes are partly lost. It basically compares to zooming into the image.
+Cropping an image can remove unnecessary or unwanted parts of an image by simply cutting off areas. This is often wanted in photography to only keep what is interesting in a photo and to shift the view of the viewer to specific areas. However, the authors guess that cropping an image will worsen performance of the neural network, because information of the relative sizes is partly lost. It compares to zooming into the image.
 
 Such a cropped image produced by the following code can be found in Figure~\ref{pic:implementation_opencv_cropping}.
 
@@ -215,7 +215,7 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), crop_img)
 \end{figure}
 
 \subsection{Saturated}
-A saturated image means stronger colours, basically making them more distinguishable from each other. If an image is not saturated enough, colours appear as "washed out" and differences in colour are difficult to determine. Therefore, in order to help the neural network, the authors decided to also test with saturated versions of these images.
+A saturated image means stronger colours, making them more distinguishable from each other. If an image is not saturated enough, colours appear as "washed out" and differences in colour are difficult to determine. Therefore, in order to help the neural network, the authors decided to also test with saturated versions of these images.
 
 \begin{lstlisting}[language=python]
 import cv2
@@ -236,7 +236,7 @@ To saturate an image using OpenCV it has to be converted into the HSV colour rep
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{img/implementation_opencv_saturated.jpg}
-	\caption{Comparison between normal and saturated image.}
+	\caption{A saturated version of Fig.~\ref{pic:implementation_opencv_original}.}
 	\label{pic:implementation_opencv_saturated}
 \end{figure}
 
@@ -273,18 +273,23 @@ Using Python and TensorFlow enabled the authors to exchange the components of th
 	\label{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model}
 \end{figure}
 
-In the first test run only 50 greyscale images where used. This encourages overfitting and was only intended to test if the neural network was syntactically set up correctly. At this point in time the first problem arose. The accuracy from the beginning always was one, meaning that the distance to the object in all images was estimated correctly, which does not seem plausible. Even if the neural network was overfitted at least in the beginning the accuracy should be less than one.
+In the first test run only 50 greyscale images where used. This encourages overfitting and was only intended to test if the neural network was syntactically set up correctly.
+
+As an optimizer the authors chose stochastic gradient descent as the other optimizers available in TensorFlow are only variations of this optimizer.
+
+\subsection{Problems encountered: Normalizing}
+At this point in time the first problem arose. The accuracy when training the neural network always was equal to one, meaning that the distance to the object in all images was estimated correctly to the last millimetre, which does not seem plausible. Even if the neural network was overfitting, the accuracy should at least in the beginning have a value less than one.
 
 It appeared later that this was due to the fact, that the true as well as the estimated output values were not normalized. In a neural network the output of each node has to be between zero and one. As all true values (the distance to the object outputted by Blender) where above one they where simply converted to a value of one. The neural network was trained to only output one, which it easily managed to do, and therefore received an accuracy of one.
 
 Normalizing the distances was a simple task as the maximum distance in the generated images was 10 meters. Therefore simply dividing by the maximum possible value reduced the range of the values into the normalized form. This however had the consequence that the accuracy of the neural network was zero, however long it was trained.
 
+\subsection{Problems encountered: Accuracy and Metrics}
 At this point it is noteworthy that in machine learning one can distinguish between classification and regression problems. In classification problems the output value can only be one of a discrete set of values. For example image classification, where a machine learning algorithm labels images as either depicting a cat or a dog. In this example two possible output values are defined. Regression problems however are identified by the output value being able to take any continuous value. The distance estimation problem the described in this thesis is a regression problem, as the distance to the object can be any value between zero and ten.
 
 Accuracy is a system of measurement which describes how often the machine learning algorithm ``guessed'' the correct output. If the output differs in the last decimal place (in our case less than a nano meter) the accuracy does not get increased. Therefore accuracy is only used in classification problems, where the accuracy gets increased for example for correctly guessing that an image depicts a cat (the output matching the actual value exactly). The equivalent used in regression problems is called metric. The metric chosen by the authors is the mean absolute percentage error. It represents a difference between the actual and the output value as a percentage. The lower this percentage the better the performance of the neural network.
 
-As an optimizer the authors chose stochastic gradient descent as the other optimizers available in TensorFlow are only variations of this optimizer.
-
+\subsection{Problems encountered: Number of Training Images}
 After these modifications the output seemed plausible enough to increase the number of training images from 50 to 10000. Up to this point all images where loaded and converted into tensors before the actual training began. This posed no problem when loading 50 images, however loading 10000 images was not possible with the limited RAM installed on the machine. Since the process was running on a Linux machine, the kernel killed the process due to resource starvation.
 
 The most obvious solution was to split the images into smaller sections and only load and process one of these batches at a time. Additionally the authors chose to store the computed weights after each of these batches, enabling the user to stop the training at any given point in time and still have the relatively new weights stored. When starting the program again, the weights are loaded and training can resume.
@@ -341,7 +346,7 @@ The weights of this trained neural network are visualized in Fig.~\ref{pic:imple
 \newpage
 
 \subsection{Modifications to the Neural Network}
-Since the authors wanted to reach an accuracy of $\pm 10\%$ and the first test only performed with an accuracy of around $\pm 13\%$ possible modifications to the neural network where tested. One of these settings is the number of epochs. This controls how often the input data is looped through. E.g. setting the number of epochs to three makes the fit method go through all input images three times. As it turned out increasing the number of epochs does not have any measurable affects on the performance. Therefore the value was set to a count of two epochs.
+Since the authors wanted to reach an accuracy of $\pm 10\%$ and the first test only performed with an accuracy of around $\pm 14\%$ possible modifications to the neural network where tested. One of these settings is the number of epochs. This controls how often the input data is looped through. E.g. setting the number of epochs to three makes the fit method go through all input images three times. As it turned out increasing the number of epochs does not have any measurable affects on the performance. Therefore the value was set to a count of two epochs.
 
 The next change to the structure of the neural network was the introduction of a momentum term. A momentum term helps to avoid getting stuck in a local, but not the lowest, minimum. One can imagine the optimizer as a mechanism which lets a sphere ``roll'' down a surface to find the minimum value. A two dimensional version of this is visualized in Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN}. When no momentum term is defined training behaves as if the sphere had no inertia, which can lead to it getting stuck in a valley, which is not the lowest reachable point. When inertia is added the change in the position of the sphere depends not only on the gradient of the curve in the current position of the sphere, but also on the last few gradients the sphere ``rolled'' along. Therefore the sphere in Subfig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_b} manages to find a lower minimum of the curve.
 
