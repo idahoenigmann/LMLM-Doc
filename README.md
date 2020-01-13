@@ -1,6 +1,6 @@
 # Localisation-via-ML-Methods
 
-
+**Dieses Repository enthält die Diplomschrift von Ida Hönigmann und Peter Kain aus dem Schuljahr 2019/20.**
 
 ## Meetings
 
@@ -72,3 +72,10 @@
 * mehr Statistik in der Diplomschrift (siehe Korrelation ...)
 * auf Heizhaus PC rendern :-) (ab Freitag?)
 * Bessere Loss-Function?
+
+### 13.01.2020
+
+* Ferien für Entwicklung von C++ genutzt
+* Vergleich Tensorflow in Python und C++ von Peter z.B. mit XOR
+* Funktioniert Blender NN auch auf echter Drohne? (Benchmark)
+* PC wird aufgesetzt
