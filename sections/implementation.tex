@@ -388,7 +388,64 @@ The next step for the authors was implementing a neural network in C++ from scra
 
 \subsection{Structure}
 
-\subsubsection{The NeuralNetwork class}
+The C++ implementation consists of three main parts: One major part is the neural network itself. The second part is for measuring time and the third part is for all math, such as some activation functions. Because the second and the third part should be self-explanatory the authors will just focus on the first and also largest part - the neural network.
+
+\subsubsection{The Neural Network in C++}
+
+The neural network is designed to be a sequence of layers, which consist of several nodes. There are three types of layers:
+
+\begin{enumerate}
+	\item Input Layers
+	\item Hidden Layers
+	\item Output Layers
+\end{enumerate}
+
+There can only be one input layer and one output layer. The main difference between the three types is that input layers have no connection to them, since they represent the input. Output Layers have no connection from them, because the are the final output. Hidden layers have both connections to and from them. Connections are achieved in the Node class via two lists (in C++ as a std::vector): One list stores all weights and the second list stores the neighbours of the next layer. 
+\newline
+So to conclude: A node references the nth neighbour via the nth weight. The connection of layers happens in the NeuralNetwork class with a call to NeuralNetwork::create(). Before this call is made, the layers have to be added with NeuralNetwork::add\_layer() first. As parameters this method requires the type of layer, the number of nodes in the layer and the number of connections per node to the next layer's nodes, which is regarded to as the dimension of the layer. If the dimension is one then every node has exactly one neighbour in the next layer (except for nodes in the output layer, of course. In this case the dimension is always 0). If the dimension is the number of nodes in the next layer, we speak of a dense layer, where every node of the added layer is connected to every node of the next layer.
+
+\subsubsection{The Application class}
+
+With the neural network implementation done the first major part is finished, but we are still missing the learning process. In order to abstract that there exists the Application class. The authors tried to make it as simple and user-friendly as possible, so all needed to train your created neural network is creating an instance of this class, which means calling the constructor. The constructor needs a few things: 
+
+\begin{enumerate}
+	\item The reference to the created neural network
+	\item The inputs for the neural network
+	\item The expected outputs for the neural network
+	\item The number of epochs (The number of times it should train)
+	\item The learning rate it should train with
+	\item (Optional) A logging stream (can be a filestream or stdout, for example)
+	\item (Optional) (Bool) More verbose output (increases training time)
+\end{enumerate}
+
+The inputs are used to initialize the nodes in the input layer. With help of the hidden layers the goal of the training procedure is to have an output layer holding the values of the outputs. Putting it all together - the following code achieves learning bitwise AND with 10000 epochs and a learning rate of 0.15 in just under 37 milliseconds:
+
+
+\begin{lstlisting}[language=C++]
+#include <vector>
+#include <fstream>
+
+#include "NeuralNetwork.h"
+#include "Timer.h"
+
+int main()
+{
+	nn::core::NeuralNetwork neural_net;
+	neural_net.add_layer(2, 2, nn::core::LayerType::Input);
+	neural_net.add_layer(2, 1, nn::core::LayerType::Hidden);
+	neural_net.add_layer(1, 1, nn::core::LayerType::Output);
+	neural_net.create();
+
+	// Expected inputs/outputs
+	std::vector<std::vector<float>> input_sets{{1.f, 1.f}, {1.f, 0.f}, {0.f, 1.f}, {0.f, 0.f}};
+	std::vector<std::vector<float>> output_sets{{1.f}, {0.f}, {0.f}, {0.f}};
+
+	std::ofstream log{"logfile.log"};
+	nn::benchmark::Timer t{"AND learning"};
+
+	nn::core::Application and_training{neural_net, input_sets, output_sets, 10000, 0.15f, log};
+}
+\end{lstlisting}
 
 \section{Technical difficulties}
 
