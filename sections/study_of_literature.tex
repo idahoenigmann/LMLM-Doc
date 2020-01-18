@@ -11,12 +11,22 @@ The challenge of sensing distances to various objects has been solved using ster
 \subsection{Distortion}
 One of the distortions that have to be undone before the images can be processed any further is called barrel distortion. It occurs when the lens used by the camera has a higher magnification at the centre of the image than at the sides. This distortion can be visualized as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_barrelDistortion}.
 
-\begin{figure}[h!]
+\begin{figure*}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/methodology_stereoCamera_distortion_barrelDistortion.png}
-	\caption{The left shows the original image composed of straight horizontal and vertical lines. On the right image the effect of the barrel distortion can be seen. The distortion causes the lines to curve toward the outside of the image, causing the lines to appear in a barrel like shape. [TODO: change image to own]}
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/study_of_literature_stereo_camera_distortion_barell_distortion1.png}
+		\caption{Original image.}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.3\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/study_of_literature_stereo_camera_distortion_barell_distortion2.png}
+		\caption{Distorted image.}
+	\end{subfigure}
+	\caption{The left shows the original image composed of straight horizontal and vertical lines. On the right image the effect of the barrel distortion can be seen. The distortion causes the lines to curve toward the outside of the image, causing the lines to appear in a barrel like shape.}
 	\label{pic:methodology_stereoCamera_distortion_barrelDistortion}
-\end{figure}
+\end{figure*}
 
 Gribbon et.al. \footcite{Gribbon_Barrel_Distortion_Correction_Algorithm} propose equations, which calculate the pixel values in the undistorted image based on the pixel values in the distorted image.
 
