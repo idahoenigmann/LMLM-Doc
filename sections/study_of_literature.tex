@@ -72,8 +72,10 @@ Structure from Motion can be used whenever it is necessary to take multiple imag
 \section{Depth Maps from Structured Light}
 By taking an image of an specially illuminated scene the structured light approach is able to calculate a depth map. Scharstein et al. present an approach that constructs high accuracy depth maps without the need to calibrate the light sources. \footcite{Scharstein_High-accuracy_stereo_depth_maps_using_structured_light} So get information on specific distances to objects additional data, such as a different sensor measuring the distance to some (other) point in the image, is needed.
 
-\section{Depth Perception}
+\section{Human Depth Perception}
 In medicine depth perception defined as the ability to see three dimensional space and judge distance accurately. Humans achieve depth perception by combining information from multiple depth cues. A depth cue is a feature of the environment or the person itself, that can be used to judge distance to objects. Depth cues can be classified in either of two categories: binocular and monocular, where binocular depth cues require two eyes and monocular only require one eye to work.
+
+Which depth cue is used by humans in which situation was researched by Schrater et al. \footcite{Schrater_How_optimal_depth_cue_integration_depends_on_the_task}.
 
 \begin{table}[h!]
 	\begin{tabularx}{\textwidth}{|l|X|}
@@ -84,31 +86,70 @@ In medicine depth perception defined as the ability to see three dimensional spa
 		\hline
 		convergence & To focus on objects farther away the eyes have to be less crossed than when focusing on near objects. It is debatable whether the information on how crossed the eyes look is used by all humans to gather information on depth. Richards et al. designed a test and found that approximately two thirds of the population can use convergence as a depth cue. \footcite{Richards_Convergence_as_a_cue_to_depth} \\
 		\hline
-		\multicolumn{2}{|l|}{\textbf{monocular depth cues}} \\
-		\hline
-		accommodation & As the eye focusses on an object the lens changes its thickness. The difference in thickness may be used to determine distance similar to convergence.\\
-		\hline
-		linear perspective & \footcite{Yonas_Infants_distance_perception_from_linear_perspective_and_texture_gradients} \\
-		\hline
-		light and shadow & \\
-		\hline
-		texture gradients & \\
-		\hline
-		overlap & \\
-		\hline
-		aerial perspective & \\
-		\hline
-		relative motion & \\
-		\hline
 	\end{tabularx}
-	\label{tab:study_of_literature_depth_cues}
-	\caption{A short overview of different depth cues used by humans to see three dimensional space and judge distance.}
+	\label{tab:study_of_literature_binocular_depth_cues}
+	\caption{A short overview of different binocular depth cues used by humans to see three dimensional space and judge distance.}
 \end{table}
 
-[TODO: humans, two eyes - gleich wie bei unserem Aufbau]
+\begin{table}[h!]
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\multicolumn{2}{|l|}{\textbf{monocular depth cues}} \\
+		\hline
+		accommodation & As the eye focusses on an object the lens changes its thickness. The difference in thickness may be used to determine distance similar to convergence.
+		\\
+		\hline
+		light and shadow & The position on which a shadow of an object falls can give information on its position in three dimensional space. This phenomenon can be observed in Fig.~\ref{pic:study_of_literature_depth_perception_two_shperes}.
+		\\
+		\hline
+	\end{tabularx}
+	\label{tab:study_of_literature_monocular_depth_cues1}
+	\caption{A short overview of different monocular depth cues used by humans to see three dimensional space and judge distance.}
+\end{table}
+
+
+\begin{table}[h!]
+	\begin{tabularx}{\textwidth}{|l|X|}
+		\hline
+		\multicolumn{2}{|l|}{\textbf{monocular depth cues}} \\
+		\hline
+		linear perspective & Parallel lines in the environment, such as railroad tracks, appear to converge in one point. Therefore when shown an image containing converging lines, such as Fig.~\ref{pic:study_of_literature_depth_perception_two_shperes}, the two dimensional picture conveys depth. Yonas et al. performed an experiment, showing at what point in their life infants develop the ability to use linear perspective.  \footcite{Yonas_Infants_distance_perception_from_linear_perspective_and_texture_gradients}
+		\\
+		\hline
+		texture gradients & According to Ganong \footcite{Ganong_Review_of_Medical_Physiology} the retina takes up two thirds of the inner side of the eyeball. It is covered with cone cells, which are able to detect light. Since the retina only contains a finite number of cone cells, which are placed some distance apart, the eye can only detect its surrounding at a limited resolution. Therefore objects farther away seem smoother as fine details can not be detected as easily.
+		\\
+		\hline
+		overlap & Overlapping is a depth cue humans develop early in their life. It is described as getting information on the order of objects sorted by their distance by looking at the way objects hide parts of other objects. Hagen tested sensitivity of overlapping as a depth cue in three, five and seven year old children and found that all where able to perceive depth based on this information. \footcite{Hagen_Development_of_ability_to_perceive_and_produce_pictorial_depth_cue_of_overlapping}
+		\\
+		\hline
+		aerial perspective & Very far distanced objects may appear hazy in certain weather conditions. The distance to these objects can be estimated by the haziness at which they appear.
+		\\
+		\hline
+		relative motion & When the observer changes position the position at which objects are sensed change. The distance the objects change position in the eyes of the observer can be used to determine the how far it is away. Closer objects move further while farther objects move less when the observer moves. This depth cue is called relative motion or motion parallax. According to Rogers et al. humans can reliably reconstruct distance from relative motion alone. \footcite{Rogers_Motion_parallax_as_an_independent_cue_for_depth_perception}.
+		\\
+		\hline
+	\end{tabularx}
+	\label{tab:study_of_literature_monocular_depth_cues2}
+	\caption{A short overview of different monocular depth cues used by humans to see three dimensional space and judge distance.}
+\end{table}
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=4in]{img/study_of_literature_depth_perception_two_shperes.png}
+	\caption{A two dimensional image conveying depth using linear perspective. The blue sphere seems closer than the red one, because of its shadow. Meanwhile the red sphere appears bigger as it is farther away and has the same relative size in the two dimensional image.}
+	\label{pic:study_of_literature_depth_perception_two_shperes}
+\end{figure}
 
 \subsection{Depth Sensation}
-[TODO: Pigeons, deer, children (visual cliff)]
+Since it is not clear to what extent animals and infants can determine depth and sense their three dimensional environment the term depth perception is not used. It has been shown however that at least some animals can sense depth and therefore experience depth sensation.
 
+One experiment which tests depth sensation is called visual cliff. \footcite{Gibson_The_visual_cliff} The task of the test subjects is to identify a sharp drop over which they must move to reach a desired destination. The setup of the experiment can be found in Fig.~\ref{pic:study_of_literature_depth_perception_depth_sensation_visual_cliff}. It has been shown that infants along with all tested animals stop as soon as they have reached the cliff. Therefore they must experience some sort of depth sensation.
+
+\begin{figure}[h!]
+	\centering
+	\includegraphics[width=3in]{img/study_of_literature_depth_perception_depth_sensation_visual_cliff.png}
+	\caption{Setup of the visual cliff experiment. The arrow marks the starting point of the test subject. At the position of the X a desirable object is placed. Therefore the test subject starts moving toward the goal. If the subject has depth sensation it will stop before the cliff, while subjects without depth sensation won't be able to detect the cliff and therefore won't stop.}
+	\label{pic:study_of_literature_depth_perception_depth_sensation_visual_cliff}
+\end{figure}
 
 \filbreak
