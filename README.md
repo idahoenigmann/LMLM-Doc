@@ -79,3 +79,11 @@
 * Vergleich Tensorflow in Python und C++ von Peter z.B. mit XOR
 * Funktioniert Blender NN auch auf echter Drohne? (Benchmark)
 * PC wird aufgesetzt
+
+### 20.01.2020
+
+* C++ Implementierung weitergeschrieben
+* neue Blender Render generiert
+* Daten auf x- y- und z-Entfernung umgestellt 
+* alte Bebop auf Funktionalität testen
+* mit Manuel ros gazebo durchgehen
