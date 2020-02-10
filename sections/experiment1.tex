@@ -2,15 +2,16 @@
 
 \textbf{Author: } 
 
-The first experiment tests whether the trained neural network from Section~\ref{sec:implementation_neural_network} generalises to other objects.
+The first experiment tests whether the trained neural network from Section~\ref{sec:implementation_neural_network} generalises to other objects. Since it is impossible to train the neural network for all existing objects, this experiment tests if the neural network can, by learning from one object, determine the distance to other objects as well.
 
 \section{Setup}
-The neural network was trained ...
+To train the neural network, the authors chose the monkey head object, as depicted in Figure~\ref{pic:implementation_generatingData_testObject}. This neural network is trained exclusively on the monkey head until the mean error is confirmed to be less than 15\%. For training the authors use 500 distinct images each for monkey heads of 5 different sizes.
 
 [TODO: viele Fotos]
 [TODO: welche Objekte (Größe, Farbe, wie viele (mindestens 3)?, ...), Kameras, Entfernung zu Objekten]
 
 \section{Sequence of Events}
+After the neural network has been trained and reached a respectable accuracy, the authors will then test the neural network with images of another object. This object can again be seen in Figure~\ref{pic:implementation_generatingData_testObject}. Again, 500 distinct images for each of the 5 sizes are used.
 
 \section{Results}
 

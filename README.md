@@ -87,3 +87,11 @@
 * Daten auf x- y- und z-Entfernung umgestellt 
 * alte Bebop auf Funktionalität testen
 * mit Manuel ros gazebo durchgehen
+
+### 27.01.2020
+
+* TensorFlow < C++ Implementierung (xor)
+* Bilder jetzt in rgb und floats
+* mehr Testdaten
+* Trainieren auf Heizhaus PC
+* bis Mittwoch: neueste Version abgeben

@@ -448,6 +448,69 @@ int main()
 }
 \end{lstlisting}
 
+\subsection{Implementation details}
+
+Because the neural network in C++ is written from scratch, the authors had to implement fundamental features for the neural network to work. This section describes those features in greater detail.
+
+\subsubsection{Error Backpropagation}
+Finding and adjusting errors is a very important part of a neural network, because this is the component which enables the neural network to learn and evolve. Error Backpropagation is called like it is, because it does its work from back to front of a neural network, or from the output layer to the input layer. So, the explanation will start at the output layer as well.
+
+\subsubsection{Calculating the errors}
+
+Our first goal is to find deviations of the neural network's output from expected outputs. In order to do this we first calculate the difference of the two outputs and then multiply that difference by the first derivative of the activation function applied to the output node's value of the neural network. In the C++ implementation this would just be the first derivative of the sigmoid function, and this calculation is implemented like this:
+
+\begin{lstlisting}[language=C++]
+// Calculate error of the output layer
+for (std::size_t node{0}; node != nn.layers.back().nodes.size(); ++node)
+{
+	float output_node_value{nn.layers.back().nodes[node].value};
+	float error{outputs[curr_training_set][node] - output_node_value};
+	delta.front().push_back(error * math::sigmoid1(output_node_value));
+}
+\end{lstlisting}
+
+For the hidden layers the steps are similar, but we also have to take the weights into account: For each node of the current layer its weights to nodes of the next layer are multiplied with the error of the node in the next layer. All of these products are summed and again multiplied by the first derivative of the activation function applied to the hidden node's value. This can be difficult to understand by text alone, so you will find the relevant code again below:
+
+\begin{lstlisting}[language=C++]
+// Calculate errors of the hidden layers
+for (std::size_t layer{nn.layers.size() - 2}; layer != 0; --layer)
+{
+	delta.push_front(std::vector<float>());
+	for (std::size_t node{0}; node != nn.layers[layer].nodes.size(); ++node)
+	{
+		float error{0.f};
+		for (unsigned next_layer_node{0}; next_layer_node != nn.layers[layer + 1].dim; ++next_layer_node)
+		{
+			error += delta[1][next_layer_node] * nn.layers[layer].nodes[node].weights[next_layer_node];
+		}
+		delta.front().push_back(error * math::sigmoid1(nn.layers[layer].nodes[node].value));
+	}
+}
+\end{lstlisting}
+
+\subsubsection{Adjusting the Neural Network}
+Now that we have calculated the errors we have to adjust the neural network so that the errors approach 0, which is also where the learning rate comes into play. We traverse the network from back to front again. First we have to calculate the bias for each node. For this we loop through the previous layer's dimension and then calculate the bias as the sum of the error of each previous layer's node times the learning rate. Now we can adjust the weights. This is done by adding the product of the value of the previous layer's nodes, the error of the current layer's nodes and the learning rate to the weight of the previous layer's nodes. This is again better understood by looking at the code: 
+
+\begin{lstlisting}[language=C++]
+// Adjust neural network
+for (std::size_t layer{nn.layers.size() - 1}; layer != 0; --layer)
+{
+	for (unsigned node{0}; node != nn.layers[layer].size; ++node)
+	{
+		nn.layers[layer].nodes[node].bias += delta[layer - 1][node] * learning_rate;
+	}
+	for (unsigned node{0}; node != nn.layers[layer - 1].dim; ++node)
+	{
+		for (auto& prev_layer_node : nn.layers[layer - 1].nodes)
+		{
+			prev_layer_node.weights[node] += prev_layer_node.value * delta[layer - 1][node] * learning_rate;
+		}
+	}
+}
+\end{lstlisting}
+
+Keep in mind that we don't store errors for the input layer, hence "delta[layer - 1]" actually refers to the current layer instead of the previous layer.
+
 \section{Technical difficulties}
 
 \filbreak
