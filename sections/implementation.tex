@@ -281,7 +281,7 @@ As an optimizer the authors chose stochastic gradient descent as the other optim
 \subsection{Problems Encountered: Normalizing}
 At this point in time the first problem arose. The accuracy when training the neural network always was equal to one, meaning that the distance to the object in all images was estimated correctly to the last millimetre, which does not seem plausible. Even if the neural network was overfitting, the accuracy should at least in the beginning have a value less than one.
 
-It appeared later that this was due to the fact, that the true as well as the estimated output values were not normalized. In a neural network the output of each node has to be between zero and one. As all true values (the distance to the object outputted by Blender) where above one they where simply converted to a value of one. The neural network was trained to only output one, which it easily managed to do, and therefore received an accuracy of one.
+It appeared later that this was due to the fact, that the true as well as the estimated output values were not normalized. In a neural network the output of each node depends on the activation function used by this layer. A sigmoid activation function, as used by the authors in the last layer, reduces the output values to numbers between zero and one. As all true values (the distance to the object outputted by Blender) where above one they where simply converted to a value of one. The neural network was trained to only output one, which it easily managed to do, and therefore received an accuracy of one.
 
 Normalizing the distances was a simple task as the maximum distance in the generated images was 10 meters. Therefore simply dividing by the maximum possible value reduced the range of the values into the normalized form. This however had the consequence that the accuracy of the neural network was zero, however long it was trained.
 
@@ -376,12 +376,12 @@ Since the modification of the neural network using a momentum term was not suffi
 
 \begin{figure*}[h!]
 	\centering
-	\includegraphics[width=2in]{img/implementation_neuralNetwork_modificationsToTheNN_model.png}
-	\caption{The layer structure from Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model} modified to include an additional convolutional layer.}
+	\includegraphics[width=1.8in]{img/implementation_neuralNetwork_modificationsToTheNN_model.png}
+	\caption{The layer structure from Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model} modified to include three convolutional layer.}
 	\label{pic:implementation_neuralNetwork_modificationsToTheNN_model}
 \end{figure*}
 
-With this new setup the neural network was able to recognise the distance to a single object with a 13\% accuracy after having seen as little as 300 images of the object. While this still does not reach the desired accuracy, needing fewer images to train the neural network is still an improvement.
+This new setup, having 156739 trainable parameters, is too large to train on the laptop used to this point. Therefore the training from this point on was performed on a PC satisfying the requirements for a neural network this size. The details of this process are described in Experiment 1 (Chapter~\ref{cap:experiment1}).
 
 \section{C++ Implementation}
 
