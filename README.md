@@ -95,3 +95,10 @@
 * mehr Testdaten
 * Trainieren auf Heizhaus PC
 * bis Mittwoch: neueste Version abgeben
+
+### 24.02.2020
+
+* aktueller Stand heute (wegen Plagiatscan)
+* gemeinsame Abnahme am 6. März
+* Experiment 1 durchgeführt und DA dazu geschrieben
+* Todo: Experiment 2 in nächster Zeit machen
