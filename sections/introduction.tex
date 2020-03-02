@@ -7,12 +7,16 @@
 Robots are getting more and more mobile. While a few years ago their usage was mostly limited to aid factory automation, robots have found widespread adoption in a multitude of industries, such as self driving cars and autonomous delivery drones.
 A challenge frequently encountered is navigating in unknown environments, which either requires the robot to sense specific characteristics of its surroundings or to communicate with some external system.
 
-The problem of navigation has been looked at from many different angles. One popular approach in mobile robotics is to use the GPS, an external positioning system. In order to determine the position of a robot using the GPS, it has to establish communication with at least four satellites. The exact position of each satellite as well as the current time is broadcast by the satellites. By measuring the time needed for the signal to reach the robot, the position can be calculated up to three meters accurately.
+The problem of navigation has been looked at from many different angles. One popular approach in mobile robotics is to use the GPS, an external positioning system.
+To determine the position of a robot with GPS, it has to establish communication with a minimum of four satellites. The exact position of each satellite and its current time is broadcast by the satellites.
+By measuring the time needed for the signal to reach the robot, the position can be calculated up to three meters accurately.
 
 However, in some cases positioning a robot using external positioning methods is not possible. In the case of the GPS this can be due to obstacles interfering with the radio signals send by the satellites, for example occurring inside a building. In comparison this work focuses on a system that can navigate in outdoor as well as in indoor environments. 
 
 \section{Goal}
-The goal of this diploma thesis is to implement a system which can localize a robot using no other sensors than a camera. This limitation was purposely chosen as the system will be used by future robotic students at the HTBLuVA (Technical Secondary College) and many robot systems used in the field of education are only poorly equipped with sensors that are able to detect its environment. One sensor used in the field of educational robotics is the either already equipped, or easily mountable camera.
+The goal of this diploma thesis is to implement a system which can localize a robot using no other sensors than a camera.
+
+This limitation was purposely chosen as the result of this thesis will find application by future robotics students at the HTBLuVA (Technical Secondary College) Wiener Neustadt and many robot systems used for educational purposes are only poorly equipped with sensors that detect the robot's environment. One sensor used in educational robotics is the either already equipped, or easily mountable camera.
 
 As part of this thesis the authors not only want to implement an easy to use API for future robotic students, but to also show the possibilities and advantages of machine learning in localisation.
 
@@ -22,7 +26,7 @@ In order to accomplish precise localisation in various different surroundings, t
 \label{sec:introduction_motivation}
 In July 2019 the two authors of this work participated in the aerial tournament at the Global Conference on Educational Robotics held in Norman, Oklahoma. One of the two main challenges encountered at this tournament was landing a drone next to some randomly placed object, which colour, shape and size was known in advance.
 
-The second challenge the participants at the tournament faced was flying from one side of randomly placed cardboard boxes to the other. The cardboard boxes, representing a mountain, are placed in one of various configurations, one of which can be seen in figure~\ref{pic:introduction_motivation_mountain}.
+The second challenge the participants at the tournament faced was flying from one side of randomly placed cardboard boxes to the other. The cardboard boxes, representing a mountain, are placed in one of various configurations, one example can be seen in figure~\ref{pic:introduction_motivation_mountain}.
 
 \begin{figure}[h]
 	\centering
@@ -31,7 +35,7 @@ The second challenge the participants at the tournament faced was flying from on
 	\label{pic:introduction_motivation_mountain}
 \end{figure}
 
-The drones used at this aerial tournament are equipped with a camera, while lacking any other sensor that can be used to detect the obstacles and game items. Therefore the participants needed to be able to detect the distance to the object and the cardboard boxes using only the camera. At the Global Conference on Educational Robotics the authors of this work decided to detect the object based on its colour, but had to invest quite some time tweaking the values to get the localisation working correctly. Therefore the authors want to research and implement a method that is more robust than the colour based one.
+The drones used at this aerial tournament have a front-facing camera mounted, while lacking any other sensor that can be used for detection of obstacles and game items. Therefore the participants needed to determine the distance to the object and the cardboard boxes using only the camera. At the Global Conference on Educational Robotics the authors of this work decided to detect the object based on its colour, but had to invest quite some time tweaking the values to get the localisation working correctly. Therefore the authors want to research and implement a method that is more robust than the colour based one.
 
 \section{Outlook and Perspective}
 The objective of this work is to create a system which uses machine learning methods in localising objects. After having trained the system, it should reliably return the x, y and z distances to an object, shown in two pictures taken from different angles. If this task turns out to be too complex the system should be simplified by only returning one output number corresponding to distance from the drone to the object.
@@ -61,8 +65,6 @@ A picture of the Parrot Bebop 2 can be seen in Figure~\ref{pic:introduction_equi
 	\label{pic:introduction_equipment_parrotBebop2}
 \end{figure}
 
-\newpage
-
-It is assumed that the distance estimation using the system described in this thesis will work on various robotic systems. However, it will only be tested on this specific drone as other drones with a similar camera setup will behave similarly.
+Though only tested on a Parrot Bebop 2 drone the distance estimation using this method generalises to various other robotic systems, as the drones will only be used to take images, that will be evaluated by a neural network.
 
 \filbreak

@@ -3,13 +3,19 @@
 \textbf{Author: } 
 
 \section{Different Approaches to the Problem}
-Localising a robot in an unknown surrounding can be achieved by a multitude of different sensors. To name a few stereo cameras, LIDAR systems, ultrasonic sensors and time-of-flight cameras all measure the distance to the objects located around the robot. This data can then be used to gather information about the current location of the robot or aid navigation.
+Localising a robot in an unknown surrounding can be achieved by a multitude of different sensors. To name a few stereo cameras, LIDAR systems, ultrasonic sensors and time-of-flight cameras all measure the distance to the objects located around the robot.
+The gathered data is used for localization and to aid navigation of the robot.
 
 \section{Stereo Camera}
-The challenge of sensing distances to various objects has been solved using stereo vision cameras. Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to gather the information on the depth of the images. This process can be rather complicated as the distortions of the images have to be undone, before the two images can be projected onto a common plane, a disparity map can be created by comparing the two images and a 3d point cloud can be generated from this comparison. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
+The challenge of sensing distances to various objects has been solved using stereo vision cameras.
+Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to gather the depth information of the images.
+This process can be rather complicated as the distortions of the images have to be undone, before the two images can be projected onto a common plane, a disparity map can be created by comparing the two images and a 3d point cloud can be generated from this comparison. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
 
 \subsection{Distortion}
-One of the distortions that have to be undone before the images can be processed any further is called barrel distortion. It occurs when the lens used by the camera has a higher magnification at the centre of the image than at the sides. This distortion can be visualized as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_barrelDistortion}.
+One of the distortions that have to be undone before the images can be processed any further is called barrel distortion.
+
+When the lens used by the camera has a lower magnification at the corners and the sides of the image than at the centre, barrel distortion can occur.
+This distortion can be visualized as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_barrelDistortion}.
 
 \begin{figure*}[h!]
 	\centering
@@ -28,9 +34,9 @@ One of the distortions that have to be undone before the images can be processed
 	\label{pic:methodology_stereoCamera_distortion_barrelDistortion}
 \end{figure*}
 
-Gribbon et.al. \footcite{Gribbon_Barrel_Distortion_Correction_Algorithm} propose equations, which calculate the pixel values in the undistorted image based on the pixel values in the distorted image.
+Gribbon et.al. \footcite{Gribbon_Barrel_Distortion_Correction_Algorithm} propose equations, calculating the pixel values in the final image based on the pixel values in the original image.
 
-In comparison to barrel distortion tangential distortion displaces points along the tangent of a circle placed at the centre of the image as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion}.
+When comparing barrel distortion to tangential distortion, the latter displaces points along the tangent of a circle placed centrally on the image as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion}.
 
 \begin{figure}[h!]
 	\centering
@@ -39,7 +45,7 @@ In comparison to barrel distortion tangential distortion displaces points along 
 	\label{pic:methodology_stereoCamera_distortion_tangentialDistortion}
 \end{figure}
 
-The radius of the circle in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion} is dependent on the point $P$. It can be calculated as the length between $P$ and $C$. The length of the vector $PP'$ is not uniform for all points and therefore depends on point $P$.
+The radius of the circle in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion} depends on the point $P$. It can be calculated as the length between $P$ and $C$. The length of the vector $PP'$ is not uniform for all points and therefore depends on point $P$.
 
 \subsection{Image Rectification}
 Image Rectification projects multiple images taken from different points of view onto a common plane. 
@@ -64,13 +70,13 @@ Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_R
 \subsection{Disparity Map}
 A disparity map represents the depth of an image. It can be calculated by comparing the position of pixels in two images made for example by a stereo camera. Objects, that are closer, have a larger difference in their relative position on the two image, than objects that are farther away.
 
-One approach, which focuses not only on the quality of the disparity, but also on the time needed to compute the result, is described in the work of Mühlmann et.al\footcite{Muehlmann_Calculating_Dense_Disparity_Maps_from_Color_Stereo_Images}.
+One approach, which focuses not solely on the quality of the disparity, but additionally on the time needed for computation of the result, is described in the work of Mühlmann et.al\footcite{Muehlmann_Calculating_Dense_Disparity_Maps_from_Color_Stereo_Images}.
 
 \subsection{3D Point Cloud}
 To generate a 3D point cloud out of the disparity map a two dimensional image has to be converted into a three dimensional space. This is done by extracting the information about the depth for each pixel from the disparity map. In our use case the resulting 3d point cloud then has to be filtered in search of the object, which distance to was sought after.
 
 \section{LIDAR}
-A lidar is a sensor that can be used to gather information about the environment. The sensor sends out light in a particular direction. Then the time needed for the light to return to the lidar is measured and the distance is calculated from that. By sending and receiving the light from multiple different directions data points from the entire two or three dimensional surrounding can be detected.
+A lidar is a sensor that is used to collect data about the environment. The sensor sends out light in a particular direction. Then the time needed for the light to return to the lidar is measured and the distance is calculated from that. By sending and receiving the light from multiple different directions data points from the entire two or three dimensional surrounding can be detected.
 
 One example of a use case for a lidar sensor is demonstrated in the paper on Lidar-based teach-and-repeat of mobile robot trajectores of Spunk et al.\footcite{Sprunk_Lidar-based_teach-and-repeat_of_mobile_robot_trajectories}. The objective of their work is to teach a robot some trajectory by demonstration and then have the robot repeat the same trajectory as closely as possible. Their use of a lidar sensor enables them to follow the given trajectory with an accuracy of a few millimetres.
 
@@ -92,7 +98,7 @@ Which depth cue is used by humans in which situation was researched by Schrater 
 		\hline
 		\multicolumn{2}{|l|}{\textbf{binocular depth cues}} \\
 		\hline
-		retinal disparity & Because the two eyes of a human person are separated by a few centimetres each eye perceives the environment from a slightly different point of view. These differences in the position of objects on the retina can be calculated as described by Cormack et al. \footcite{Cormack_The_computation_of_retinal_disparity}.\\
+		retinal disparity & Because the two eyes of a human person are separated by a few centimetres each eye perceives the environment from a slightly different point of view. The vertical displacement of objects on the retina are used to determine distance and can be calculated as described by Cormack et al. \footcite{Cormack_The_computation_of_retinal_disparity}.\\
 		\hline
 		convergence & To focus on objects farther away the eyes have to be less crossed than when focusing on near objects. It is debatable whether the information on how crossed the eyes look is used by all humans to gather information on depth. Richards et al. designed a test and found that approximately two thirds of the population can use convergence as a depth cue. \footcite{Richards_Convergence_as_a_cue_to_depth} \\
 		\hline
@@ -135,7 +141,7 @@ Which depth cue is used by humans in which situation was researched by Schrater 
 		aerial perspective & Very far distanced objects may appear hazy in certain weather conditions. The distance to these objects can be estimated by the haziness at which they appear.
 		\\
 		\hline
-		relative motion & When the observer changes position the position at which objects are sensed change. The distance the objects change position in the eyes of the observer can be used to determine the how far it is away. Closer objects move further while farther objects move less when the observer moves. This depth cue is called relative motion or motion parallax. According to Rogers et al. humans can reliably reconstruct distance from relative motion alone. \footcite{Rogers_Motion_parallax_as_an_independent_cue_for_depth_perception}.
+		relative motion & When the observer changes position the position at which objects are sensed change. The distance between the two positions as viewed by the observer are used to determine the how far the object is away. Closer objects move further while farther objects move less when the observer moves. This depth cue is called relative motion or motion parallax. According to Rogers et al. humans can reliably reconstruct distance from relative motion alone. \footcite{Rogers_Motion_parallax_as_an_independent_cue_for_depth_perception}.
 		\\
 		\hline
 	\end{tabularx}
@@ -151,7 +157,7 @@ Which depth cue is used by humans in which situation was researched by Schrater 
 \end{figure}
 
 \subsection{Depth Sensation}
-Since it is not clear to what extent animals and infants can determine depth and sense their three dimensional environment the term depth perception is not used. It has been shown however that at least some animals can sense depth and therefore experience depth sensation.
+Since it is unclear if and to what extent animals and infants can determine depth and sense their three dimensional environment the term depth perception is not used. It has been shown however that at least some animals can sense depth and therefore experience depth sensation.
 
 One experiment which tests depth sensation is called visual cliff. \footcite{Gibson_The_visual_cliff} The task of the test subjects is to identify a sharp drop over which they must move to reach a desired destination. The setup of the experiment can be found in Fig.~\ref{pic:study_of_literature_depth_perception_depth_sensation_visual_cliff}. It has been shown that infants along with all tested animals stop as soon as they have reached the cliff. Therefore they must experience some sort of depth sensation.
 

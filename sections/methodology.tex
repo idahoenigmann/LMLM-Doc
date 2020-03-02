@@ -3,9 +3,9 @@
 \textbf{Author: } 
 
 \section{Challenges in the Use of Stereo Cameras}
-Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the functionality of a stereo camera on such a drone system can be mimicked by taking the first image, flying to a second position, located horizontally next to the first one and taking the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliable. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images can have an effect on the accuracy.
+Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the functionality of a stereo camera on such a drone system can be mimicked by taking the first image, flying to a second position, located horizontally next to the first one and taking the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliable. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images influence and mostly worsen the accuracy.
 
-Therefore the authors try to approach this challenge from the machine learning point of view. Neural networks can be taught to work with different changes in the environment and still return results with superior quality as opposed to a conventional implementation.
+Therefore the authors try to approach this challenge with the help of machine learning. Neural networks can be taught to work with different changes in the environment and still return results with superior quality as opposed to a conventional implementation.
 
 \section{Generating Data}
 Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with Python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the two cameras, which point to a specific object in the scene. This enables the authors create enough images to train a neural network, since shooting the amount of pictures needed by hand would take too long to consider. 
@@ -43,19 +43,19 @@ material.diffuse_color = (0.8, 0.1, 0.1, 1)
 bpy.context.active_object.data.materials.append(material)
 \end{lstlisting}
 
-This code first clears the scene from other meshes (running the script twice would otherwise place the new cube inside the old cube). Then a new mesh in form of a cube is added at the given location. Next colour is added to the new cube by applying a material. A material is a specification of how the surface of the object should look. Advanced materials can represent raw or reflective surfaces, however the authors decided to keep it simple. The chosen material represents a red surface (the red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255) are specified). Lastly the created material is applied to the object. The final result can be seen below:
+This code first clears the scene from other meshes (running the script twice would otherwise place the new cube inside the old cube). Then a new mesh in form of a cube is added at the given location. Next colour is added to the new cube by applying a material. A material is a specification of how the surface of the object should look. Advanced materials can represent raw or reflective surfaces, however the authors decided to keep it simple. The chosen material represents a red surface (the red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255) are specified). Lastly the created material is applied to the object. The resulting images is shown below:
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=6.5in]{img/methodology_generatingData_blender_exampleScriptResult.png}
-	\caption{The result of the above code. After the default cube is deleted, a new one is added with a red material and translated via the 'location' argument.}
+	\caption{The result when running above code. After the default cube is deleted, a new one is added with a red material and translated via the 'location' argument.}
 	\label{pic:methodology_generatingData_blender_exampleScriptResult}
 \end{figure}
 
 Using similar Python scripts the authors will generate the image data necessary as well as perform the calculation of the distance which will be specified as the correct values to train the neural network on.
 
 \section{Image Preprocessing}
-After the test images have been rendered with the help of Blender some image preprocessing is required. For example the machine learning component of this project should take two images as an input. To simplify the input the two images will be placed next to each other to form a new image twice as wide as the original images. This process is visualized in Figure~\ref{pic:methodology_imagePreprocessing_imageMerge}. Other preprocessing measures that have to be taken are downscaling the image, as to not have too many weights in the first layer of the neural network.
+After the test images have been rendered with the help of Blender some image preprocessing is required. For example the machine learning component of this project should take two images as an input. To simplify the input the two images will be placed next to each other to form a new image twice as wide as the original images. The concatenation of two example images is visualized in Figure~\ref{pic:methodology_imagePreprocessing_imageMerge}. Other preprocessing measures that have to be taken are downscaling the image, as to not have too many weights in the input layer of the neural network.
 
 \begin{figure}[h!]
 	\centering
@@ -75,7 +75,7 @@ Additionally, the authors decided to experiment if manipulating these test image
 		& blue colour channels, resulting in different shades of grey instead of usual \\
 		& colours. \\
 		\hline
-		Resolution & Resolution refers to the number of pixels placed in each dimension \\
+		Resolution & Resolution refers to the count of pixels in each dimension \\
 		& (width and height). \\
 		\hline
 		Cropping & When cropping an image an unwanted part located at the peripheral areas \\
@@ -94,7 +94,9 @@ Additionally, the authors decided to experiment if manipulating these test image
 
 
 \section{Neural Network}
-A neural network is a tool used in machine learning. It consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. By forming multiple connections between the nodes the neural network can perform more complex tasks. A vanilla neural network consists of multiple layers, where each node receives all output values of all nodes in the previous layer as an input. A visualization of a vanilla neural network can be seen in Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN}. By manipulating the weights associated to each input value the network can learn to solve a given task.
+A neural network is a tool used in machine learning. It consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. By connecting the nodes of consecutive layers the neural network can perform more complex tasks.
+A vanilla neural network is formed of multiple layers, where the input of each node, except the input nodes, is calculated from all output values of all nodes in the previous layer.
+Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN} depicts a visualization of a vanilla neural network. By manipulating the weights associated to each input value the network can learn to solve a given task.
 
 \begin{figure}[h!]
 	\centering
@@ -104,7 +106,7 @@ A neural network is a tool used in machine learning. It consists of nodes, each 
 \end{figure}
 
 \subsection{Convolutional Neural Network}
-One of the disadvantages of neural networks is that they need huge amounts of data in order to optimize the values of all weights. Therefore a modified version of neural networks was invented. Convolutional neural networks simplify the optimization of the weights by stating that some weights are shared between multiple connections of nodes. This results in fewer weights having to be optimized. Additionally convolutional neural networks perform similar actions in multiple parts of the input data which especially makes sense when working with images, e.g. search for edges in all sections of an image.
+Neural networks need huge amounts of data to optimize the values of all weights, in such a way that the neural network is able to evaluate unseen data with a reasonable accuracy. Convolutional neural networks simplify the optimization of the weights by stating that some weights are shared between multiple connections of nodes. This results in fewer weights having to be optimized. Additionally convolutional neural networks perform similar actions in multiple parts of the input data which especially makes sense when working with images, e.g. search for edges in all sections of an image.
 
 \begin{figure}[h!]
 	\centering
@@ -116,7 +118,7 @@ One of the disadvantages of neural networks is that they need huge amounts of da
 \newpage
 
 \subsection{Loss Function}
-A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some loss functions commonly used in machine learning are:
+A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some commonly used loss functions commonly are:
 
 \subsubsection{Mean Squared Error}
 \begin{displaymath}
@@ -151,7 +153,7 @@ where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is t
 \subsubsection{Kullback Leibler Divergence}
 
 \subsection{Activation Function}
-The activation function defines the output of a node based on the input values it receives. Some of the most widely used activation functions are displayed in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction1} and Fig.~\ref{pic:methodology_neuralNetwork_activationFunction2}.
+The activation function defines the output of a node based on the input values it receives. Some of the most common activation functions are displayed in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction1} and Fig.~\ref{pic:methodology_neuralNetwork_activationFunction2}.
 
 \begin{figure*}[h!]
 	\centering
@@ -178,7 +180,7 @@ The activation function defines the output of a node based on the input values i
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
 		\caption{Rectified Linear Unit can be described as $f(x) = \begin{cases} x & x \geq 0 \\ 0 & x < 0 \end{cases}$}
 	\end{subfigure}
-	\caption{An excerpt of the most common activation functions used in machine learning. The rest can be found in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction2}. Non-linear functions allow the neural network to solve more complex tasks. All activation functions are plotted from -4 to 4 as the most interesting features of these functions often occur around 0.}
+	\caption{An excerpt of the most common activation functions used in machine learning. The rest can be found in Figure~\ref{pic:methodology_neuralNetwork_activationFunction2}. Non-linear functions allow the neural network to solve more complex tasks. All activation functions are plotted from -4 to 4 as the most interesting features of these functions often occur around 0.}
 	\label{pic:methodology_neuralNetwork_activationFunction1}
 \end{figure*}
 
@@ -267,7 +269,7 @@ In neural networks the initial weights of all layers have to be set before train
 \end{figure*}
 
 \subsection{Optimizer}
-The objective of an optimizer is to optimize (find a local minimum of) the loss function. Some of the most widely used optimizers are:
+The objective of an optimizer is to optimize the loss function (find a local minimum). Some of the most commonly used optimizers are:
 
 \begin{itemize}
 	\item Stochastic gradient descent (SGD)
