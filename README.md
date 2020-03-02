@@ -102,3 +102,9 @@
 * gemeinsame Abnahme am 6. März
 * Experiment 1 durchgeführt und DA dazu geschrieben
 * Todo: Experiment 2 in nächster Zeit machen
+
+### 2.03.2020
+
+* am 6. März zwischen 15:30 und 15:30 im K03
+* 3D Druck fertig
+* Experiment 2 in nächster Zeit zu tun
