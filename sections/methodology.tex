@@ -106,6 +106,7 @@ Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN} depicts a visualiz
 \end{figure}
 
 \subsection{Convolutional Neural Network}
+\label{sec:convolutional_nn}
 Neural networks need huge amounts of data to optimize the values of all weights, in such a way that the neural network is able to evaluate unseen data with a reasonable accuracy. Convolutional neural networks simplify the optimization of the weights by stating that some weights are shared between multiple connections of nodes. This results in fewer weights having to be optimized. Additionally convolutional neural networks perform similar actions in multiple parts of the input data which especially makes sense when working with images, e.g. search for edges in all sections of an image.
 
 \begin{figure}[h!]
@@ -372,36 +373,33 @@ For example Keras provides several different layers, that can be used to put tog
 			\hline
 			\bfseries Name & \bfseries Description \\
 			\hline
-			Dense & regular densely connected layer \\
+			Dense & Regular densely connected layer \\
 			\hline
-			Activation & Applies an activation function to an output \\
+			Activation & An activation function is applied to the output \\
 			\hline
-			Dropout & Applies Dropout to the input \\
+			Flatten & Reduces the shape (e.g. flattens the input to be one-dimensional) \\
 			\hline
-			Flatten & Flattens the input down to shape \\
+			Conv1D/2D & Convolution layer, as described in Section~\ref{sec:convolutional_nn} \\
 			\hline
-			Conv1D & 1D convolution layer (e.g. temporal convolution)  \\
+			MaxPooling1D/2D & Resizes the tensor by calculating the max of each group \\
 			\hline
-			MaxPooling1D & Max pooling operation for temporal data \\
+			AveragePooling1D/2D & Resizes the tensor by calculating the average of each group \\
 			\hline
-			LocallyConnected1D & Locally-connected layer for 1D inputs \\
-			\hline
+			LocallyConnected1D/2D & A node is only connected to few other nodes (with unshared weights) \\
 			SimpleRNN & Fully-connected RNN where the output is to be fed back to input \\
+			LSTM & Long short-term memory layer \\
 			\hline
-			
 		\end{tabular}
-		\caption{Short description of layers available in Keras, that can be used to assemble a neural network, with little effort.}
+		\caption{Short description of layers available in Keras, that can be used to assemble a neural network, with little effort. A more detailed description of these layers can be found in the keras documentation \footcite{kerasDocumentation}}.
 		\label{tab:methodology_tensorflow_alternativesToTensorflow_kerasLayers}
 	\end{table}
 \end{center}
-
-\newpage
 
 Another feature Keras offers is image preprocessing. In comparison to the authors use of this phrase, Keras offers transformations of the image that alter the image only slightly, which prevents overfitting, when using only a small input data set of images. Examples of the transformations offered are: rotating the image, shifting the image along the vertical or horizontal axis, changing the brightness of the image, zooming, flipping the image vertically or horizontally and rescaling the image.
 
 \vspace{0.5cm}
 
-Other machine learning frameworks are:
+Other available machine learning frameworks are:
 
 \begin{itemize}
 	\item PyTorch
@@ -413,5 +411,7 @@ Other machine learning frameworks are:
 	\item Theano
 	\item DeepLearning4j
 \end{itemize}
+
+These frameworks were not chosen as the authors already had a basic understanding of Tensorflow and Keras. Additionally Keras and Tensorflow are open source (available on GitHub at \url{https://github.com/tensorflow/tensorflow} and \url{https://github.com/keras-team/keras}), widely used and free of charge.
 
 \filbreak
