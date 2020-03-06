@@ -4,12 +4,12 @@
 
 \section{Different Approaches to the Problem}
 Localising a robot in an unknown surrounding can be achieved by a multitude of different sensors. To name a few stereo cameras, LIDAR systems, ultrasonic sensors and time-of-flight cameras all measure the distance to the objects located around the robot.
-The gathered data is used for localization and to aid navigation of the robot.
+The data gathered by these sensors can then be used for localization and to aid navigation of the robot.
 
 \section{Stereo Camera}
 The challenge of sensing distances to various objects has been solved using stereo vision cameras.
-Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to gather the depth information of the images.
-This process can be rather complicated as the distortions of the images have to be undone, before the two images can be projected onto a common plane, a disparity map can be created by comparing the two images and a 3d point cloud can be generated from this comparison. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
+Computer stereo vision systems use two horizontally displaced cameras to take two images which then are both processed together to calculate depth information of the images.
+This process can be rather complicated as the distortions of the images have to be undone, before the two images can be projected onto a common plane, a disparity map can be created by comparing the two images and a 3d point cloud can be generated from this comparison \footcite{Bradski_Learning_OpenCV}. In most robotics applications this point cloud is then filtered in search of some object, which distance was sought-after.
 
 \subsection{Distortion}
 One of the distortions that have to be undone before the images can be processed any further is called barrel distortion.
@@ -36,7 +36,7 @@ This distortion can be visualized as seen in Figure~\ref{pic:methodology_stereoC
 
 Gribbon et.al. \footcite{Gribbon_Barrel_Distortion_Correction_Algorithm} propose equations, calculating the pixel values in the final image based on the pixel values in the original image.
 
-When comparing barrel distortion to tangential distortion, the latter displaces points along the tangent of a circle placed centrally on the image as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion}.
+A different distortion is called tangential distortion. It displaces points along the tangent of a circle placed centrally on the image as seen in Figure~\ref{pic:methodology_stereoCamera_distortion_tangentialDistortion}.
 
 \begin{figure}[h!]
 	\centering
@@ -76,7 +76,7 @@ One approach, which focuses not solely on the quality of the disparity, but addi
 To generate a 3D point cloud out of the disparity map a two dimensional image has to be converted into a three dimensional space. This is done by extracting the information about the depth for each pixel from the disparity map. In our use case the resulting 3d point cloud then has to be filtered in search of the object, which distance to was sought after.
 
 \section{LIDAR}
-A lidar is a sensor that is used to collect data about the environment. The sensor sends out light in a particular direction. Then the time needed for the light to return to the lidar is measured and the distance is calculated from that. By sending and receiving the light from multiple different directions data points from the entire two or three dimensional surrounding can be detected.
+A lidar is a sensor that is used to collect data about the environment. The sensor sends out light in a particular direction. Then the time needed for the light to return to the lidar is measured and the distance is calculated from that. By sending and receiving the light from multiple different directions, data points from the entire two or three dimensional surrounding can be detected.
 
 One example of a use case for a lidar sensor is demonstrated in the paper on Lidar-based teach-and-repeat of mobile robot trajectores of Spunk et al.\footcite{Sprunk_Lidar-based_teach-and-repeat_of_mobile_robot_trajectories}. The objective of their work is to teach a robot some trajectory by demonstration and then have the robot repeat the same trajectory as closely as possible. Their use of a lidar sensor enables them to follow the given trajectory with an accuracy of a few millimetres.
 
@@ -86,10 +86,10 @@ Similar to a stereo camera structure from motion estimates the three dimensional
 Structure from Motion can be used whenever it is necessary to take multiple images. This can be the case when one image can not include all of the relevant data that should be processed, for example when modelling terrain.
 
 \section{Depth Maps from Structured Light}
-By taking an image of an specially illuminated scene the structured light approach is able to calculate a depth map. Scharstein et al. present an approach that constructs high accuracy depth maps without the need to calibrate the light sources. \footcite{Scharstein_High-accuracy_stereo_depth_maps_using_structured_light} So get information on specific distances to objects additional data, such as a different sensor measuring the distance to some (other) point in the image, is needed.
+By taking an image of an specially illuminated scene the structured light approach is able to calculate a depth map. Scharstein et al. present an approach that constructs high accuracy depth maps without the need to calibrate the light sources. \footcite{Scharstein_High-accuracy_stereo_depth_maps_using_structured_light} To get information on specific distances to objects additional data, such as a different sensor measuring the distance to some (other) point in the image, is needed.
 
 \section{Human Depth Perception}
-In medicine depth perception defined as the ability to see three dimensional space and judge distance accurately. Humans achieve depth perception by combining information from multiple depth cues. A depth cue is a feature of the environment or the person itself, that can be used to judge distance to objects. Depth cues can be classified in either of two categories: binocular and monocular, where binocular depth cues require two eyes and monocular only require one eye to work.
+In medicine depth perception is defined as the ability to see three dimensional space and judge distance accurately. Humans achieve depth perception by combining information from multiple depth cues. A depth cue is a feature of the environment or the person itself, that can be used to judge distance to objects. Depth cues can be classified in either of two categories: binocular and monocular, where binocular depth cues require two eyes and monocular only require one eye to work.
 
 Which depth cue is used by humans in which situation was researched by Schrater et al. \footcite{Schrater_How_optimal_depth_cue_integration_depends_on_the_task}.
 
