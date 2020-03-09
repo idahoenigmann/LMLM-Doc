@@ -18,19 +18,49 @@ After the neural network has been trained and reached a respectable accuracy, th
 Then the training aspect will be enabled again and the time and effort needed to reach an accuracy of under 15\% when retraining exclusively for the new object with the already pre-trained weights will be measured.
 
 \section{Results}
-After training the neural network with the monkey head object, the values predicted by the neural network for the vase object differed from the actual values by the following averages (average results after predicting all vase images):
+After training the neural network with the monkey head object, the values predicted by the neural network for the vase object differed from the actual values by the following values for all vase images:
+
 \begin{table}[h!]
-\begin{tabular}{ll}
-                     & \textbf{Difference in meters} \\
-\textbf{average x}   & 3.023                         \\
-\textbf{average y}   & 0.443                         \\
-\textbf{average z}   & 3.18                          \\
-\textbf{average all} & 2.215                        
-\end{tabular}
+	\begin{tabular}{ll|l}
+		&     & \textbf{Difference in meters} \\
+		\hline
+		\textbf{average} & x   & 3.023                         \\
+		& y   & 0.443                         \\
+		& z   & 3.18                          \\
+		& all & 2.215                         \\
+		\hline
+		\textbf{minimum} & x   & 0.011                         \\
+		& y   & 0.011                         \\
+		& z   & 2.259                         \\
+		\hline
+		\textbf{maximum} & x   & 6.577                         \\
+		& y   & 1.224                         \\
+		& z   & 7.132                                                  
+	\end{tabular}
 \end{table}
 
 So overall this resulted in an average error of 2.215 meters.
+
 The time needed to train the neural network with the vase images, which resulted in the desired accuracy of more than 85\%, was 40.62 seconds, training with 1220 images of the vase object.
+
+
+\begin{figure*}[h!]
+	\centering
+	\begin{subfigure}[t]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/experiment1_results_lossOverTime.png}
+		\caption{...}
+	\end{subfigure}
+	~ 
+	\begin{subfigure}[t]{\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/experiment1_results_MeanAbsolutePercentageErrorOverTime.png}
+		\caption{...}
+	\end{subfigure}
+	\caption{...}
+	\label{pic:experiment1_results_loss_and_percentageLoss}
+\end{figure*}
+
 
 \section{Lessons Learned}
 
