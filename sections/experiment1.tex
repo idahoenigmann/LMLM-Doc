@@ -8,7 +8,7 @@ The first experiment tests whether the trained neural network from Section~\ref{
 \section{Setup}
 The addition of the third convolutional layer (see Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_model}) allowed to solve problems of a higher complexity, as compared to before. For this experiment the neural network was further developed to attain a colour image as an input and output the corresponding x-, y- and z-coordinate. These changes dramatically increased the number of parameters and therefore the need for RAM and computation power. 
 
-The best system available at that time was a pc with a NVIDIA 2080 TI, which has 11 GB of VRAM (or "video random access memory"). To also fully take advantage of the cuda cores (parallel processors for graphical computing), the authors decided to use tensorflow with the GPU only. These changes resulted in much greater performance than before (10s to train with ten images on the previous configuration opposed to 32 ms on the current one). One disadvantage of this solution is, that only the GPU is used for computing, which means that only the VRAM can be used. But, since the performance was so much better, it was worth it to lower the batch size from 40 to 20 images at a time, which, after testing, is the optimal value and uses about 10.8 of the 11 GB of VRAM available.
+The best system available at that time was equipped with a NVIDIA 2080 TI, which has 11 GB of VRAM (or "video random access memory"). To also fully take advantage of the CUDA cores (parallel processors for graphical computing), the authors decided to use Tensorflow with the GPU only. These changes resulted in much greater performance than before (10s to train with ten images on the previous configuration opposed to 0.32s on the current one). One disadvantage of this solution is, that only the GPU is used for computing, which means that only the VRAM can be used. But, since the performance was so much better, it was worth it to lower the batch size from 40 to 20 images at a time, which, after testing, is the optimal value and uses about 10.8 of the 11 GB of VRAM available.
 
 \section{Sequence of Events}
 To train the neural network, the authors chose the monkey head object, as depicted in Figure~\ref{pic:implementation_generatingData_testObject}. This neural network is trained exclusively on the monkey head until the mean error is confirmed to be less than 10\%. For training the authors use 500 distinct images each for monkey heads of 5 different sizes, totalling in 2500 images.
@@ -18,7 +18,7 @@ After the neural network has been trained and reached a respectable accuracy, th
 Then the training aspect will be enabled again and the time and effort needed to reach an accuracy of under 15\% when retraining exclusively for the new object with the already pre-trained weights will be measured.
 
 \section{Results}
-After training the neural network with the monkey head object, the values predicted by the neural network for the vase object differed from the actual values by the following values for all vase images:
+After training the neural network with the monkey head object, the values predicted by the neural network for the vase object differed from the actual values as the following table depicts:
 
 \begin{table}[h!]
 	\begin{tabular}{ll|l}
@@ -27,7 +27,7 @@ After training the neural network with the monkey head object, the values predic
 		\textbf{average} & x   & 3.023                         \\
 		& y   & 0.443                         \\
 		& z   & 3.18                          \\
-		& all & 2.215                         \\
+		& \textbf{all} & \textbf{2.215}                         \\
 		\hline
 		\textbf{minimum} & x   & 0.011                         \\
 		& y   & 0.011                         \\
@@ -37,31 +37,33 @@ After training the neural network with the monkey head object, the values predic
 		& y   & 1.224                         \\
 		& z   & 7.132                                                  
 	\end{tabular}
+	\caption{Aggregated predictions of the neural network for all vase images.}
 \end{table}
 
 So overall this resulted in an average error of 2.215 meters.
 
 The time needed to train the neural network with the vase images, which resulted in the desired accuracy of more than 85\%, was 40.62 seconds, training with 1220 images of the vase object.
 
+The history of the loss values during the training on the vase images can be seen in Fig.~\ref{pic:experiment1_results_loss_and_percentageLoss}. This function is decaying exponentially, but it can be seen that the horizontal asymptote is relatively high. The same is true for the mean absolute percentage error over time. This means that there will always be some error and the maximum reachable accuracy is not 100\%. This was expected, as not even humans are able to judge distance with 100\% accuracy.
 
 \begin{figure*}[h!]
 	\centering
 	\begin{subfigure}[t]{\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/experiment1_results_lossOverTime.png}
-		\caption{...}
+		\caption{Loss over time when training with the vase images.}
 	\end{subfigure}
 	~ 
 	\begin{subfigure}[t]{\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/experiment1_results_MeanAbsolutePercentageErrorOverTime.png}
-		\caption{...}
+		\caption{Mean absolute percentage error over time when training with the vase images}
 	\end{subfigure}
-	\caption{...}
+	\caption{Both, the loss and the mean absolute percentage error, decrease over time which means the predictions on vase images are getting more and more accurate.}
 	\label{pic:experiment1_results_loss_and_percentageLoss}
 \end{figure*}
 
-
 \section{Lessons Learned}
+Looking back the most time consuming part of the Tensorflow implementation was modifications to the already existing neural network of Section~\ref{sec:implementation_neural_network}. This could have been avoided if the authors would have developed the prototype with the new hardware, where this experiment was run on, but this hardware was unavailable at the time of working on Section~\ref{sec:implementation_neural_network}, so in the future the authors will try to perform all preparations, including developing the prototype, on the same machine used in experiments.
 
 \filbreak
