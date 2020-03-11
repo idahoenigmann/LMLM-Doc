@@ -5,7 +5,7 @@
 
 The first experiment tests whether the trained neural network from Section~\ref{sec:implementation_neural_network} generalises to other objects. Since it is impossible to train the neural network for all existing objects, this experiment tests if the neural network can, by learning from one object, determine the distance to other objects as well.
 
-\section{Setup}
+\section{Setup and Environment}
 The addition of the third convolutional layer (see Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_model}) allowed to solve problems of a higher complexity, as compared to before. For this experiment the neural network was further developed to attain a colour image as an input and output the corresponding x-, y- and z-coordinate. These changes dramatically increased the number of parameters and therefore the need for RAM and computation power. 
 
 The best system available at that time was equipped with a NVIDIA 2080 TI, which has 11 GB of VRAM (or "video random access memory"). To also fully take advantage of the CUDA cores (parallel processors for graphical computing), the authors decided to use Tensorflow with the GPU only. These changes resulted in much greater performance than before (10s to train with ten images on the previous configuration opposed to 0.32s on the current one). One disadvantage of this solution is, that only the GPU is used for computing, which means that only the VRAM can be used. But, since the performance was so much better, it was worth it to lower the batch size from 40 to 20 images at a time, which, after testing, is the optimal value and uses about 10.8 of the 11 GB of VRAM available.
