@@ -49,5 +49,23 @@ Lastly the authors feed the final, undistorted images into the Neural Network, w
 \end{figure*}
 
 \section{Results}
+Because the preparation of the images made with the Bebop Parrot 2 camera was time consuming only one pair of images was tested. The result of the prediction of this image pair was the following:
+
+\begin{lstlisting}[]
+images 0 to 1:
+prediction - [3.451700 0.146270 -1.12407]    actual - [0.130000 0.030000 0.020000]
+\end{lstlisting}
+
+The fact that the prediction is off by more than one meter shows that the neural network was not able to generalise to real images. This could have multiple reasons:
+
+\begin{itemize}
+	\item the units of the scenes in Blender could not be compatible with real world units this easily,
+	\item the complexity of estimating real world distances could be a more complex problem, than the limited layer neural network build by the authors can solve,
+	\item the different colours of the real objects, compared to the ones in Blender, could cause confusion,
+	\item the neural network could have been trained for too long (overfitting) or
+	\item the missing shadow, due to the different lighting situation could have caused the problem.
+\end{itemize}
+
+It is also possible that a completely different circumstance caused the problem, but the authors could not test any hypothesis due to the limited time frame of this work.
 
 \filbreak
