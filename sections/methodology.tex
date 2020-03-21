@@ -313,6 +313,8 @@ The authors decided to use a software framework called TensorFlow for the first 
 
 After it has been shown that the challenge of detecting the distance to an object can be solved using machine learning, the authors plan on implementing a neural network in C++ on their own. The knowledge gained in the TensorFlow implementation will be used in the C++ implementation, which hopefully will make the work less time consuming.
 
+\newpage
+
 \section{TensorFlow}
 As machine learning has gained popularity in recent years the demand for applicable frameworks grew. One of the most popular is called TensorFlow. It was developed by Google for internal use and was published under the Apache License 2.0 on the \nth{9} of November 2015.
 
@@ -328,12 +330,14 @@ To compute a value using TensorFlow a computation graph has to be constructed. I
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/methodology_tensorflow_computationGraph.png}
+	\includegraphics[width=4.3in]{img/methodology_tensorflow_computationGraph.png}
 	\caption{Each node represents an operation, where $const$ stands for a constant value, $add$ for addition, $mul$ for multiplication and $div$ for division. Edges, represented by arrows, connect nodes. The information shared between the nodes is described by the numbers written next to the edges. This computational graph calculates the result of the arithmetic expression $(28 * 2) + 28 / 2$.}
 	\label{pic:methodology_tensorflow_computationGraph}
 \end{figure}
 
 The implementation of the computation graph, shown in Figure~\ref{pic:methodology_tensorflow_computationGraph}, in Python could look as follows:
+
+\newpage
 
 \begin{lstlisting}[language=python]
 import tensorflow as tf
@@ -372,6 +376,8 @@ print(out)
 This code is equivalent to the first one, but uses syntactic sugar to shorten line 6 to 8 in the first code block into line 6. At this point it should be noted that while it might look like it line 6 does not calculate anything. It simply describes how the computational graph should look. The answer (42) is calculated in the session in line 9.
 
 Using the same principle, but different functions TensorFlow allows the creation of complex neural networks in a simple fashion.
+
+\newpage
 
 \subsection{Alternatives to Tensorflow}
 TensorFlow offers some abstraction libraries, such as Keras. As some code snippets are used very frequently and with only slight variation when implementing a Neural Network, Keras offers these code blocks as predefined functions, making development easier for ``standard'' use cases.
