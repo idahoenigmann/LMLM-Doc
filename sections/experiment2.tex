@@ -14,7 +14,11 @@ The authors were not specific about the lighting, because this experiment was to
 
 The monkey head was placed on the table facing away from the white wooden board. The drone was positioned at a distance of approximately 14cm from the object. The drone's camera was looking directly towards the object. After taking the first image the drone was moved to a second position, again about 14cm away and looking at the object. This resulted in the drone rotating slightly to the left to keep the object centred.
 
+The images were taken with Parrot SA's FreeFlight Pro app.
+
 \section{Sequence of Events}
+The images taken with the drone's camera from the two positions then had to be modified, in order to be recognized by our neural network, since the original output directly from the camera had a different aspect ratio and, because of the way the camera operates, was distorted. This can be seen in Figure~\ref{pic:experiment2_environment_comparison}. The authors wanted to make the images in (a) look like the images in (b), so modifications were necessary. The following modifications were executed with the program GIMP (GNU Image Manipulation Program), as the authors had previous experience with it.
+First, the authors had to rotate the images to the left by 90 degrees, since the original images were rotated. Then the authors needed to modify the aspect ratio, were cropping the image came into play. After cropping the image the final step was to get rid of the distortion. This is also the part, where GIMP was very useful, because GIMP already has a built-in distortion filter. After reversing the existing distortion the result can be seen in (c), which can then be used by our neural network to predict the distance to the drone.
 
 \begin{figure*}[h!]
 	\centering
