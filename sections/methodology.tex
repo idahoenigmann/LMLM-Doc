@@ -10,6 +10,8 @@ Therefore the authors try to approach this challenge with the help of machine le
 \section{Generating Data}
 Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with Python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the two cameras, which point to a specific object in the scene. This enables the authors to create enough images to train a neural network, since shooting the amount of pictures needed by hand would take too long to consider. 
 
+\newpage
+
 \subsection{Blender}
 Besides 3D-modelling Blender enables the user to perform various different actions, such as laying out scenes, UV-Editing, shading, animating and rendering. Additionally scenes can be modified by executing Python scripts. Figure~\ref{pic:methodology_generatingData_blender_startscreen} shows the interface of Blender 2.8 with the default file loaded.
 
@@ -21,6 +23,8 @@ Besides 3D-modelling Blender enables the user to perform various different actio
 \end{figure}
 
 The authors decided to extensively use the scripting function in their work. One example of a Python script, that can be executed in Blender is the following code:
+
+\newpage
 
 \begin{lstlisting}[language=python]
 import bpy
@@ -47,7 +51,7 @@ This code first clears the scene from other meshes (running the script twice wou
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=6.5in]{img/methodology_generatingData_blender_exampleScriptResult.png}
+	\includegraphics[width=0.8\textwidth]{img/methodology_generatingData_blender_exampleScriptResult.png}
 	\caption{The result when running above code. After the default cube is deleted, a new one is added with a red material and translated via the 'location' argument.}
 	\label{pic:methodology_generatingData_blender_exampleScriptResult}
 \end{figure}
@@ -92,6 +96,7 @@ Additionally, the authors decided to experiment if manipulating these test image
 	\end{tabular}
 \end{table}
 
+\newpage
 
 \section{Neural Network}
 A neural network is a tool used in machine learning. It consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. By connecting the nodes of consecutive layers the neural network can perform more complex tasks.
@@ -116,101 +121,109 @@ Neural networks need huge amounts of data to optimize the values of all weights,
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
 
-\newpage
-
 \subsection{Loss Function}
 A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some commonly used loss functions commonly are:
 
-\subsubsection{Mean Squared Error}
+\noindent
+\textbf{Mean Squared Error}
+
 \begin{displaymath}
 mse = \frac{1}{n} \sum_{i=1}^{n} (x_i - \hat{x}_i)^2
 \end{displaymath}
 
 where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value. Squaring the difference of the correct and estimated value is necessary, as negative and positive differences could otherwise annul each other.
 
-\subsubsection{Mean Absolute Error}
+\noindent
+\textbf{Mean Absolute Error}
+
 \begin{displaymath}
 mae = \frac{1}{n} \sum_{i=1}^{n} \abs{\hat{x}_i - x_i}
 \end{displaymath}
 
 where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value. In comparison to the mean squared error, this method uses the absolute value of the difference.
 
-\subsubsection{Mean Absolute Percentage Error}
+\noindent
+\textbf{Mean Absolute Percentage Error}
+
 \begin{displaymath}
 mape = \frac{100\%}{n}\sum_{i=1}^{n}\abs{\frac{x_i - \hat{x}_i}{x_i}}
 \end{displaymath}
 
 where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value. The mean absolute percentage error returns the average percentage by which the estimated value differs from the actual one.
 
-\subsubsection{Mean Squared Logarithmic Error}
+\noindent
+\textbf{Mean Squared Logarithmic Error}
+
 \begin{displaymath}
 msle = \frac{1}{n} \sum_{i=1}^{n} log(\hat{x}_i + 1) - log(x_i + 1)
 \end{displaymath}
 
 where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is the estimated value.
 
-\subsubsection{Logcosh}
+\noindent
+\textbf{Logcosh}
 
-\subsubsection{Kullback Leibler Divergence}
+\noindent
+\textbf{Kullback Leibler Divergence}
 
 \subsection{Activation Function}
 The activation function defines the output of a node based on the input values it receives. Some of the most common activation functions are displayed in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction1} and Fig.~\ref{pic:methodology_neuralNetwork_activationFunction2}.
-
 \begin{figure*}[h!]
 	\centering
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_elu.png}
 		\caption{The Exponential Linear Unit function is defined as $f(\alpha, x) = \begin{cases} x & x \geq 0 \\ \alpha (e^x - 1) & x < 0 \end{cases}$.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.45\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_softplus.png}
 		\caption{The SoftPlus function is is defined as $f(x) = ln(1 + e^x)$.}
-	\end{subfigure}
-	~
-	\begin{subfigure}[t]{0.5\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_softsign.png}
-		\caption{Softsign is defined as $f(x) = \frac{x}{1 + \abs{x}}$.}
-	\end{subfigure}%
-	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
-		\centering
-		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
-		\caption{Rectified Linear Unit can be described as $f(x) = \begin{cases} x & x \geq 0 \\ 0 & x < 0 \end{cases}$}
 	\end{subfigure}
 	\caption{An excerpt of the most common activation functions used in machine learning. The rest can be found in Figure~\ref{pic:methodology_neuralNetwork_activationFunction2}. Non-linear functions allow the neural network to solve more complex tasks. All activation functions are plotted from -4 to 4 as the most interesting features of these functions often occur around 0.}
 	\label{pic:methodology_neuralNetwork_activationFunction1}
 \end{figure*}
 
+
 \begin{figure*}[h!]
-\centering
-	\begin{subfigure}[t]{0.5\textwidth}
+	\centering
+	\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_softsign.png}
+		\caption{Softsign is defined as $f(x) = \frac{x}{1 + \abs{x}}$.}
+	\end{subfigure}%
+	~ 
+	\begin{subfigure}[t]{0.45\textwidth}
+		\centering
+		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
+		\caption{Rectified Linear Unit can be described as $f(x) = \begin{cases} x & x \geq 0 \\ 0 & x < 0 \end{cases}$}
+	\end{subfigure}
+	~
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_tanh.png}
 		\caption{The Tanh activation function is defined as $f(x) = tanh(x)$.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_sigmoid.png}
 		\caption{The Sigmoid function is defines as $f(x) = \frac{1}{1 + e^{-x}}$.}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_exponential.png}
 		\caption{The Exponential activation function is defined as $f(x) = e^x$.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_linear.png}
 		\caption{The Linear activation function, also called identity function, is defined as $f(x) = x$.}
 	\end{subfigure}
-	\caption{Other common activation functions used in machine learning. Once again all activation functions are plotted from -4 to 4 for the same reason.}
+	\caption{Other common activation functions used in machine learning. Once again all activation functions are plotted from -4 to 4 for the same reason as in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction1}.}
 	\label{pic:methodology_neuralNetwork_activationFunction2}
 \end{figure*}
 
@@ -219,29 +232,27 @@ The activation function defines the output of a node based on the input values i
 \subsection{Initializer}
 In neural networks the initial weights of all layers have to be set before training can begin. These weights can either be set to some constant value or initialized by random values from some distribution. Some basic initializer distributions are plotted in Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions1} and Fig~\ref{pic:methodology_neuralNetwork_initializerFunctions2}.
 
-\newpage
-
 \begin{figure*}[h!]
 	\centering
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_zeros.png}
 		\caption{All output values of this function are zero.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_ones.png}
 		\caption{All output values of this function are one.}
 	\end{subfigure}
 	~
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_constant.png}
 		\caption{All output values of this function are one constant value. In this example 0.5 was chosen as the output value.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_randomNormal.png}
 		\caption{A random normal distribution where the mean is set to 0 and the standard deviation is set to 0.05. Values closer to the mean value are more likely.}
@@ -250,17 +261,15 @@ In neural networks the initial weights of all layers have to be set before train
 	\label{pic:methodology_neuralNetwork_initializerFunctions1}
 \end{figure*}
 
-\newpage
-
 \begin{figure*}[h!]
 \centering
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_randomUniform.png}
 		\caption{In a random uniform function all values between the set minimum and maximum value are equally likely.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.5\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_truncatedNormal.png}
 		\caption{A distribution based on the normal distribution, where all values outside of two standard deviations away from the mean are redrawn.}
@@ -268,6 +277,8 @@ In neural networks the initial weights of all layers have to be set before train
 	\caption{More basic distribution initializer functions of weights and biases are often based on.}
 	\label{pic:methodology_neuralNetwork_initializerFunctions2}
 \end{figure*}
+
+\newpage
 
 \subsection{Optimizer}
 The objective of an optimizer is to optimize the loss function (find a local minimum). Some of the most commonly used optimizers are:
