@@ -26,6 +26,25 @@ The other approach to improving the accuracy is to modify the structure of the n
 
 \section{Outlook}
 
+\subsection{Possibilities of further development}
+
+The authors suggest possibilities of further development of the developed code and the idea of this thesis:
+
+\textbf{Distance estimation in mono vision cameras with the help of a neural network}
+
+According to the visual clues used by humans to judge distance, described in Section~\ref{sec:studyOfLiterature_humanDepthPerception}, humans are able to use a multitude of monocular depth cues. The possibility of developing a working program, which estimates distance based on monocular depth cues and a neural network seems possible.
+
+\textbf{Comparison between the work of this thesis and a stereo camera}
+
+One way to determine if the principles described in this thesis are sufficient to get acceptable results is the comparison with a stereo camera. One could set up both methods next to each other and explore the differences in the results.
+
+\textbf{Generating realistic Blender scenes}
+
+One of the missing parts, to get the neural network to work in the use case described in section~\ref{sec:introduction_motivation}, is the training with realistic images. The situation of having some given object and a unknown background has to be modelled in Blender and then feed into the neural network. Afterwards one could test if this is an improvement compared to experiment 2.
+
+\textbf{Writing a ROS (robot operating system) node from the existing code}
+
+Lastly the authors suggest all persons wanting to use the methods described in this thesis to integrate them into a ROS node. This makes the communication to the drone more easy and completely removes the problem of the image modifications needed to perform the second experiment. Capsuling the distance estimation into a node has the following advantages: debugging the code is easy as all messages send and received by the node can be printed, the node can easily be replaced by some different new code and the calculation can be distributed onto many different computers.
 
 
 \filbreak
