@@ -2,6 +2,12 @@
 
 \textbf{Author: } 
 
-Human error when judging distance -> NN kann nicht wirklich besser sein
+To conclude this diploma thesis, two things became apparent: First, it does not seem possible to train a neural network with computer-generated images and estimating distances with real images. Second, even when evaluating distances depicted by computer-generated images, there is still some sort or error involved. How can one fix these issues in order that neural networks become usable for this use case?\\
+In order to estimate distances on real images there currently seem to be two choices: Either taking pictures of the object by hand, or modelling a scene in blender, which looks very realistic and take pictures the same way the authors did. The drawback of the first choice is clearly the given effort. Taking pictures by hand is something the authors wanted to avoid from the beginning, because it is just too time consuming, as you would need a lot of pictures and you would have to measure the distances to the object when taking a picture as well. Modelling with blender clearly seems more reasonable, because it is something you get done after some time and you can easily swap out objects or backgrounds as you please. But the effort is still there and you will need some advanced modelling skill to convincingly create a realistic scene and there is still that little factor of insecurity: It is not known if it would work, therefore something that required testing.\\
+Now for the second fact, which is that there always are errors in the retrieved distance from the neural network: This is something that cannot really be fixed. Neural networks are not 100\% accurate. This can as well be explained by the fact that humans are not perfect at estimating distance as well. The author's neural network estimates distances with an accuracy of two decimal places. Humans generally can not do that with only their eyes and brain, because we do not really measure distance, rather we have a feeling of how distant something is. Since the idea of neural networks is to train similar to the human brain, the authors do not think that small but existing errors can be eliminated. 
+
+%However, this does not mean that they cannot be reduced: The experiments one and two both used a neural network which outputs the distances in x, y and z coordinates away from the object. This can easily be simplified to just be the length of this three-dimensional vector, foregoing the information of x, y and z distance and just using the length of the vector as distance to the object. This should increase the accuracy of the neural network, because the use case is made simpler and 
+
+
 
 \filbreak
