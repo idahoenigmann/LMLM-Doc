@@ -4,15 +4,27 @@
 
 To conclude this diploma thesis, two things became apparent: First, it does not seem possible to train a neural network with computer-generated images only and then estimate distances of real images. Second, even when evaluating distances depicted by computer-generated images, there is still some error involved. How can one fix these issues and make the neural networks more reliable for this use case?
 
+\section{Possible Improvements}
+
+\subsection{Input data}
+
 In order to estimate distances of real images there currently seem to be two choices: Either taking pictures of the object by hand, or modelling a scene in Blender, which look more realistic and take pictures the same way the authors did.
 
 Clearly the first choice has a drawback: the effort needed. Taking pictures by hand is something the authors wanted to avoid from the beginning, because it is just too time consuming. One would need at least 1000 pictures of the object and would have to measure the distances to the object in the required accuracy for every picture taken.
 
 Modelling the scene with Blender clearly seems more reasonable, because it is something one can get done with some effort. Additionally the object and background can easily be changed to accommodate to a new situation. But some effort is still present and one will need some advanced modelling skill to convincingly create a realistic scene. There also is a factor of insecurity: Before adequate testing one can not be sure if the program is working.
 
+\subsection{Improving the Accuracy}
+
 Now for the second fact, the always present errors in the retrieved distance from the neural network: This is something that cannot really be fixed. Neural networks are not 100\% accurate. This can be explained by the fact that not even humans are perfect at estimating distances. The author's neural network managed to estimate distances with an accuracy of two decimal places after all the modification described in this thesis. Humans generally can not judge distance with only their eyes and brain with this high accuracy. This is because we do not really measure distance, rather we have a feeling of how distant something is. For example when picking up an object rather than estimating the distance and then moving our arm to this distance, we intuitively know how we have to move our muscles to reach the desired position. Since the idea of neural networks is to train similar to the human brain, the authors do not think that small but existing errors can be eliminated. 
 
-%However, this does not mean that the always present error cannot be reduced: The experiments one and two both used a neural network which outputs the distances in x, y and z coordinates away from the object. This can easily be simplified to just be the length of this three-dimensional vector, foregoing the information of x, y and z distance and just using the length of the vector as distance to the object. This should increase the accuracy of the neural network, because the use case is made simpler and 
+However, this does not mean that the always present error cannot be reduced: Both experiments use a neural network which outputs the distances to the object in x, y and z components. This can easily be simplified by just using the length of this three-dimensional vector, foregoing the information of x, y and z distance and just using the length of the vector as distance to the object. This should increase the accuracy of the neural network, as the complexity is reduced. Similarly using images, which have been further downscaled simplify the problem at hand.
+
+The other approach to improving the accuracy is to modify the structure of the neural network and the rest of the setup to cope with more complex problems. This could be achieved by adding more layers, increasing the number of trainable parameters; using different kinds of layers in the neural network; generating more input images, to decrease overfitting or using images of various objects on different backgrounds in the training data.
+
+
+
+\section{Outlook}
 
 
 
