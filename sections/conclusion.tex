@@ -22,9 +22,36 @@ However, this does not mean that the always present error cannot be reduced: Bot
 
 The other approach to improving the accuracy is to modify the structure of the neural network and the rest of the setup to cope with more complex problems. This could be achieved by adding more layers, increasing the number of trainable parameters; using different kinds of layers in the neural network; generating more input images, to decrease overfitting or using images of various objects on different backgrounds in the training data.
 
+\subsection{Switching from TensorFlow to a C++ implementation}
+Since the workings of a neural network are not dependent on the programming language used, the theoretical part of this diploma thesis can be applied to self implemented neural networks as well. The C++ implementation of a neural network written by the authors will be made available to all future robotic students and can be extended to include all features necessary to perform the required estimations.
 
+The missing features are for the most part in the development of the different layers described in Section~\ref{sec:modificationsToTheNeuralNetwork}.
+
+Moving from a TensorFlow implementation to a C++ one can give an advantage in competitions, which often limit the time a team can take to complete the given challenge. This is because C++ is faster when performing calculations, mostly due to the fact that C++ code is compiled before being executed, in comparison to Python, which is interpreted.
 
 \section{Outlook}
+
+\subsection{Usability of this method}
+
+Still some problems encountered during this work are unsolved, but the authors think that the main challenge of using a neural network for this task was thoroughly explained in this thesis. Therefore the work sill needed to get a working prototype running on a drone are limited to getting more realistic training data and wrapping the code in a few lines of instructions to the drone itself. In pseudo code these few lines looks like the following:
+
+\newpage
+
+\begin{lstlisting}[language=PHP]	%actually pseudo code, but php shows no syntax highlighting
+takeoff drone
+fly toward the general direction where the object is suspected to lie
+turn toward the suspected position of the object
+take the first image
+fly some given distance to the side
+again turn toward the suspected position of the object
+take the second image
+merge both images into one and perform image modifications as wished
+send merged image to neural network
+fly toward the given output of the neural network
+now the drone should be approximately at the position of the object
+\end{lstlisting}
+
+The authors conclude that future robotic students will be able to use the knowledge presented in this thesis in upcoming drone competitions, if similar challenges to the ones described in Section~\ref{sec:introduction_motivation} are posed.
 
 \subsection{Possibilities of further development}
 
@@ -46,5 +73,8 @@ One of the missing parts, to get the neural network to work in the use case desc
 
 Lastly the authors suggest all persons wanting to use the methods described in this thesis to integrate them into a ROS node. This makes the communication to the drone more easy and completely removes the problem of the image modifications needed to perform the second experiment. Capsuling the distance estimation into a node has the following advantages: debugging the code is easy as all messages send and received by the node can be printed, the node can easily be replaced by some different new code and the calculation can be distributed onto many different computers.
 
+\section{Final thoughts}
+
+All in all the authors hope to have given all readers of this thesis a deeper understanding of neural networks, their limits when it comes to processing images in search of depth information and the reasons behind computer-aided training data generation. They hope that the reader can use the obtained knowledge to get started in the development of neural networks more easily or, if they already have previous experience with this topic, deepen their insight.
 
 \filbreak
