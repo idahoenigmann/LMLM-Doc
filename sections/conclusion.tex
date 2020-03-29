@@ -8,34 +8,36 @@ To conclude this diploma thesis, two things became apparent: First, it does not 
 
 \subsection{Input data}
 
-In order to estimate distances of real images there currently seem to be two choices: Either taking pictures of the object by hand, or modelling a scene in Blender, which look more realistic and take pictures the same way the authors did.
+In order to estimate distances of real images there currently seem to be two choices: Either taking pictures of the object by hand, or modelling a more realistic scene in Blender and take pictures the same way the authors did.
 
-Clearly the first choice has a drawback: the effort needed. Taking pictures by hand is something the authors wanted to avoid from the beginning, because it is just too time consuming. One would need at least 1000 pictures of the object and would have to measure the distances to the object in the required accuracy for every picture taken.
+Clearly the first choice has a drawback, which is the effort needed. Taking pictures by hand is something the authors wanted to avoid from the beginning, because it is just too time consuming. One would need at least 1000 pictures of the object and would have to measure the distances to the object in the required accuracy for every picture taken.
 
-Modelling the scene with Blender clearly seems more reasonable, because it is something one can get done with some effort. Additionally the object and background can easily be changed to accommodate to a new situation. But some effort is still present and one will need some advanced modelling skill to convincingly create a realistic scene. There also is a factor of insecurity: Before adequate testing one can not be sure if the program is working.
+Modelling the scene with Blender clearly seems more reasonable, because it is something one can get done with some effort. Additionally the object and background can easily be changed to accommodate to a new situation. But some effort is still present and one will need some advanced modelling skills to convincingly create a realistic scene. There also is a factor of insecurity: Before adequate testing one can not be sure if this method is working.
 
 \subsection{Improving the Accuracy}
 
 Now for the second fact, the always present errors in the retrieved distance from the neural network: This is something that cannot really be fixed. Neural networks are not 100\% accurate. This can be explained by the fact that not even humans are perfect at estimating distances. The author's neural network managed to estimate distances with an accuracy of two decimal places after all the modification described in this thesis. Humans generally can not judge distance with only their eyes and brain with this high accuracy. This is because we do not really measure distance, rather we have a feeling of how distant something is. For example when picking up an object rather than estimating the distance and then moving our arm to this distance, we intuitively know how we have to move our muscles to reach the desired position. Since the idea of neural networks is to train similar to the human brain, the authors do not think that small but existing errors can be eliminated. 
 
-However, this does not mean that the always present error cannot be reduced: Both experiments use a neural network which outputs the distances to the object in x, y and z components. This can easily be simplified by just using the length of this three-dimensional vector, foregoing the information of x, y and z distance and just using the length of the vector as distance to the object. This should increase the accuracy of the neural network, as the complexity is reduced. Similarly using images, which have been further downscaled simplify the problem at hand.
+However, this does not mean that the always present error cannot be reduced: Both experiments use a neural network which outputs the distances to the object in x, y and z components. This can easily be simplified by just using the length of this three-dimensional vector, foregoing the information of the x, y and z coordinates and just using the length of the vector as distance to the object. This should increase the accuracy of the neural network, as the complexity is reduced. Similarly using images, which have been further downscaled simplify the problem at hand.
 
-The other approach to improving the accuracy is to modify the structure of the neural network and the rest of the setup to cope with more complex problems. This could be achieved by adding more layers, increasing the number of trainable parameters; using different kinds of layers in the neural network; generating more input images, to decrease overfitting or using images of various objects on different backgrounds in the training data.
+The other approach to improve the accuracy is to modify the structure of the neural network and the rest of the setup to cope with more complex problems. This could be achieved by adding more layers, increasing the number of trainable parameters; using different kinds of layers in the neural network; generating more input images, to decrease overfitting or using images of various objects on different backgrounds in the training data.
+
+There is another approach: Staying minimalistic when it comes to input data. As seen in Section~\ref{sec:implementation_neural_network} when only training with one object and the same background, the neural network's error was 14\%, which is acceptable. In a tournament situation you may not need to train for multiple objects and backgrounds, because you may only have that one obstacle you normally would have to setup an external camera system for, and evaluate the images retrieved by the camera with a script you wrote, as was the author's case. In this case training the neural network for this one obstacle and the same background can yield results which compare to Section~\ref{sec:implementation_neural_network}, so you could expect an accuracy of around 85\%, which is not that bad, since you do not want to steer close to the obstacle anyway.
 
 \subsection{Switching from TensorFlow to a C++ implementation}
 Since the workings of a neural network are not dependent on the programming language used, the theoretical part of this diploma thesis can be applied to self implemented neural networks as well. The C++ implementation of a neural network written by the authors will be made available to all future robotic students and can be extended to include all features necessary to perform the required estimations.
 
 The missing features are for the most part in the development of the different layers described in Section~\ref{sec:modificationsToTheNeuralNetwork}.
 
-Moving from a TensorFlow implementation to a C++ one can give an advantage in competitions, which often limit the time a team can take to complete the given challenge. This is because C++ is faster when performing calculations, mostly due to the fact that C++ code is compiled before being executed, in comparison to Python, which is interpreted.
+Moving from a TensorFlow implementation to a C++ one can give an advantage in competitions, because you are not bound to a specific api probably everyone is using and you can expand the C++ API by adding features or optimizations specifically for the given challenge.
 
 \section{Outlook}
 
 \subsection{Usability of this method}
 
-Still some problems encountered during this work are unsolved, but the authors think that the main challenge of using a neural network for this task was thoroughly explained in this thesis. Therefore the work sill needed to get a working prototype running on a drone are limited to getting more realistic training data and wrapping the code in a few lines of instructions to the drone itself. In pseudo code these few lines looks like the following:
+Still some problems encountered during this work are unsolved, but the authors think that the main challenge of using a neural network for this task was thoroughly explained in this thesis. Therefore the remaining work needed to get a working prototype running on a drone are limited to getting more realistic training data and wrapping the code in a few lines of instructions to the drone itself. In pseudo code these few lines looks like the following:
 
-\newpage
+%\newpage
 
 \begin{lstlisting}[language=PHP]	%actually pseudo code, but php shows no syntax highlighting
 takeoff drone
