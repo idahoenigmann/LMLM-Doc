@@ -1,7 +1,7 @@
 \chapter{Experiment 1}
 \label{cap:experiment1}
 
-\textbf{Author: } 
+\textbf{Author: Peter Kain} 
 
 The first experiment tests whether the trained neural network from Section~\ref{sec:implementation_neural_network} generalises to other objects. Since it is impossible to train the neural network for all existing objects, this experiment tests if the neural network can, by learning from one object, determine the distance to other objects as well.
 
@@ -16,6 +16,10 @@ To train the neural network, the authors chose the monkey head object, as depict
 After the neural network has been trained and reached a respectable accuracy of around 85\%, the authors will then test the neural network with images of another object. This object can again be seen in Figure~\ref{pic:implementation_generatingData_testObject}. Because we are not training with these images, only 50 images for each of the 5 sizes are evaluated. First the training aspect (changing the weights of the neural network according to the new input) will be disabled, allowing the authors to figure out the accuracy of the neural network when viewing new images for the first time, without changing the neural network itself.
 
 Then the training aspect will be enabled again and the time and effort needed to reach an accuracy of under 15\% when retraining exclusively for the new object with the already pre-trained weights will be measured.
+
+\vspace{5mm}
+\noindent
+\textbf{Author: Ida Hönigmann}
 
 \section{Results}
 After training the neural network with the monkey head object, the data predicted by the neural network for the vase object differed from the actual values as the following table depicts:

@@ -1,6 +1,6 @@
 \chapter{Methodology}
 
-\textbf{Author: } 
+\textbf{Author: Peter Kain} 
 
 \section{Challenges in the Use of Stereo Cameras}
 Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the functionality of a stereo camera on such a drone system can be mimicked by taking the first image, flying to a second position, located horizontally next to the first one and taking the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliably. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images influence and mostly worsen the accuracy.
@@ -98,6 +98,10 @@ Additionally, the authors decided to experiment if manipulating these test image
 
 \newpage
 
+\vspace{5mm}
+\noindent
+\textbf{Author: Ida Hönigmann} 
+
 \section{Neural Network}
 A neural network is a tool used in machine learning. It consists of nodes, each receiving some input values as well as some weights associated to each input value and outputs some output value. The calculation returning the output value is relatively simple. Many of these nodes form what is called a layer. By connecting the nodes of consecutive layers the neural network can perform more complex tasks.
 A vanilla neural network is formed of multiple layers, where the input of each node, except the input nodes, is calculated from all output values of all nodes in the previous layer.
@@ -120,6 +124,8 @@ Neural networks need huge amounts of data to optimize the values of all weights,
 	\caption{Segment of a convolutional neural network. In comparison to a vanilla neural network each node is only connected to its closest neighbours. Additionally all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
+
+\newpage
 
 \subsection{Loss Function}
 A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some commonly used loss functions commonly are:
@@ -331,7 +337,7 @@ To compute a value using TensorFlow a computation graph has to be constructed. I
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.3in]{img/methodology_tensorflow_computationGraph.png}
-	\caption{Each node represents an operation, where $const$ stands for a constant value, $add$ for addition, $mul$ for multiplication and $div$ for division. Edges, represented by arrows, connect nodes. The information shared between the nodes is described by the numbers written next to the edges. This computational graph calculates the result of the arithmetic expression $(28 * 2) + 28 / 2$.}
+	\caption{Each node represents an operation, where $const$ stands for a constant value, $add$ for addition, $mul$ for multiplication and $div$ for division. Edges, represented by arrows, connect nodes. The information shared between the nodes is described by the numbers written next to the edges. This computational graph calculates the result of the arithmetic expression $(28 * 2 + 28) / 2$.}
 	\label{pic:methodology_tensorflow_computationGraph}
 \end{figure}
 

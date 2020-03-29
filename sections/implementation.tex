@@ -1,6 +1,6 @@
 \chapter{Implementation}
 
-\textbf{Author: } 
+\textbf{Author: Peter Kain}
 
 \section{Generating test data}
 Good test data is of utmost importance in machine learning. The system can only know information that is depicted in the training data, which is why it is important to include as many aspects of the problem as possible in this data.
@@ -270,6 +270,10 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
 
 \newpage
 
+\vspace{5mm}
+\noindent
+\textbf{Author: Ida Hönigmann}
+
 \section{Neural Network}
 \label{sec:implementation_neural_network}
 \subsection{Setting up the Neural Network}
@@ -391,6 +395,10 @@ Since the modification of the neural network using a momentum term was not suffi
 \end{figure*}
 
 This new setup, having 156739 trainable parameters, is too large to train on the laptop used to this point. Therefore the training from this point on was performed on a PC satisfying the requirements for a neural network this size. The details of this process are described in Experiment 1 (Chapter~\ref{cap:experiment1}).
+
+\vspace{5mm}
+\noindent
+\textbf{Author: Peter Kain}
 
 \section{C++ Implementation}
 
