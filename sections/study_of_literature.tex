@@ -3,7 +3,7 @@
 \textbf{Author: Ida Hönigmann}
 
 \section{Different Approaches to the Problem}
-Localising a robot in an unknown surrounding can be achieved by a multitude of different sensors. To name a few stereo cameras, LIDAR systems, ultrasonic sensors and time-of-flight cameras all measure the distance to the objects located around the robot.
+Localising a robot in an unknown surrounding can be achieved by a multitude of different sensors. To name a few: stereo cameras, LIDAR systems, ultrasonic sensors and time-of-flight cameras all measure the distance to objects located around the robot.
 The data gathered by these sensors can then be used for localization and to aid navigation of the robot.
 
 \section{Stereo Camera}
@@ -73,7 +73,7 @@ A disparity map represents the depth of an image. It can be calculated by compar
 One approach, which focuses not solely on the quality of the disparity, but additionally on the time needed for computation of the result, is described in the work of Mühlmann et.al\footcite{Muehlmann_Calculating_Dense_Disparity_Maps_from_Color_Stereo_Images}.
 
 \subsection{3D Point Cloud}
-To generate a 3D point cloud out of the disparity map a two dimensional image has to be converted into a three dimensional space. This is done by extracting the information about the depth for each pixel from the disparity map. In our use case the resulting 3d point cloud then has to be filtered in search of the object, which distance to was sought after.
+To generate a 3D point cloud out of the disparity map a two dimensional image has to be converted into a three dimensional space. This is done by extracting the information about the depth for each pixel from the disparity map. In our use case the resulting 3d point cloud then has to be filtered in search of the object, which distance was sought after.
 
 \section{LIDAR}
 A lidar is a sensor that is used to collect data about the environment. The sensor sends out light in a particular direction. Then the time needed for the light to return to the lidar is measured and the distance is calculated from that. By sending and receiving the light from multiple different directions, data points from the entire two or three dimensional surrounding can be detected.
@@ -88,7 +88,7 @@ Structure from Motion can be used whenever it is necessary to take multiple imag
 \newpage
 
 \section{Depth Maps from Structured Light}
-By taking an image of an specially illuminated scene the structured light approach is able to calculate a depth map. Scharstein et al. present an approach that constructs high accuracy depth maps without the need to calibrate the light sources. \footcite{Scharstein_High-accuracy_stereo_depth_maps_using_structured_light} To get information on specific distances to objects additional data, such as a different sensor measuring the distance to some (other) point in the image, is needed.
+By taking an image of a specially illuminated scene the structured light approach is able to calculate a depth map. Scharstein et al. present an approach that constructs high accuracy depth maps without the need to calibrate the light sources. \footcite{Scharstein_High-accuracy_stereo_depth_maps_using_structured_light} To get information on specific distances to objects, additional data, such as a different sensor measuring the distance to some (other) point in the image, is needed.
 
 \section{Human Depth Perception}
 \label{sec:studyOfLiterature_humanDepthPerception}
@@ -102,7 +102,7 @@ Which depth cue is used by humans in which situation was researched by Schrater 
 		\hline
 		\multicolumn{2}{|l|}{\textbf{binocular depth cues}} \\
 		\hline
-		retinal disparity & Because the two eyes of a human person are separated by a few centimetres each eye perceives the environment from a slightly different point of view. The vertical displacement of objects on the retina are used to determine distance and can be calculated as described by Cormack et al. \footcite{Cormack_The_computation_of_retinal_disparity}.\\
+		retinal disparity & Because the two eyes of a human person are separated by a few centimetres each eye perceives the environment from a slightly different point of view. The vertical displacement of objects on the retina is used to determine distance and can be calculated as described by Cormack et al. \footcite{Cormack_The_computation_of_retinal_disparity}.\\
 		\hline
 		convergence & To focus on objects farther away the eyes have to be less crossed than when focusing on near objects. It is debatable whether the information on how crossed the eyes look is used by all humans to gather information on depth. Richards et al. designed a test and found that approximately two thirds of the population can use convergence as a depth cue. \footcite{Richards_Convergence_as_a_cue_to_depth} \\
 		\hline
