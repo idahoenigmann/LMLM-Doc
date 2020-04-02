@@ -109,8 +109,8 @@ Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN} depicts a visualiz
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_visualizationOfANN.png}
-	\caption{Depiction of a vanilla neural network. Each circle represents a node and the arrows show the flow of information. All nodes on the same level are collectively called a layer.}
+	\includegraphics[width=4.25in]{img/methodology_neuralNetwork_visualizationOfANN.png}
+	\caption{Depiction af a vanilla neural network. Each circle represents a node and the arrows show the flow of information. All nodes on the same level are collectively called a layer.}
 	\label{pic:methodology_neuralNetwork_visualizationOfANN}
 \end{figure}
 
@@ -120,12 +120,10 @@ Neural networks need huge amounts of data to optimize the values of all weights,
 
 \begin{figure}[h!]
 	\centering
-	\includegraphics[width=3.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
-	\caption{Segment of a convolutional neural network. In comparison to a vanilla neural network each node is only connected to its closest neighbours. Additionally, all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
+	\includegraphics[width=3in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
+	\caption{Segment of a convolutional neural network. In comparison to a vanilla neural network each node is only connected to its closest neighbours. Additionally all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
-
-\newpage
 
 \subsection{Loss Function}
 A loss function is used in optimization problems to determine the loss or cost of some operation. Therefore a low loss is desired. Some commonly used loss functions commonly are:
@@ -176,13 +174,13 @@ where $n$ is the number of elements, $x$ is the correct value and $\hat{x}$ is t
 The activation function defines the output of a node based on the input values it receives. Some of the most common activation functions are displayed in Fig.~\ref{pic:methodology_neuralNetwork_activationFunction1} and Fig.~\ref{pic:methodology_neuralNetwork_activationFunction2}.
 \begin{figure*}[h!]
 	\centering
-	\begin{subfigure}[t]{0.45\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_elu.png}
 		\caption{The Exponential Linear Unit function is defined as $f(\alpha, x) = \begin{cases} x & x \geq 0 \\ \alpha (e^x - 1) & x < 0 \end{cases}$.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.45\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_softplus.png}
 		\caption{The SoftPlus function is is defined as $f(x) = ln(1 + e^x)$.}
@@ -194,13 +192,13 @@ The activation function defines the output of a node based on the input values i
 
 \begin{figure*}[h!]
 	\centering
-	\begin{subfigure}[t]{0.45\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_softsign.png}
 		\caption{Softsign is defined as $f(x) = \frac{x}{1 + \abs{x}}$.}
 	\end{subfigure}%
 	~ 
-	\begin{subfigure}[t]{0.45\textwidth}
+	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_activationFunction_relu.png}
 		\caption{Rectified Linear Unit can be described as $f(x) = \begin{cases} x & x \geq 0 \\ 0 & x < 0 \end{cases}$}
