@@ -20,7 +20,7 @@ This limitation was purposely chosen as the result of this thesis will find appl
 
 As part of this thesis the authors not only want to implement an easy to use API for future robotic students, but to also show the possibilities and advantages of machine learning in localisation.
 
-In order to accomplish precise localisation in various different surroundings, the authors plan on implementing a neural network. The neural network should take images, taken by the camera, as an input, and outputs the relative distance to any object shown in the images. By using machine learning the system should be less dependent on a specific situation or setup in comparison to different camera based localisation methods. For example the localisation should work on objects varying in size and shape, as well as in different situations of lighting.
+In order to accomplish precise localisation in various different surroundings, the authors plan to implement a neural network. The neural network should take images, taken by the camera, as an input, and output the relative distance to the most centred object shown in the images. By using machine learning the system should be less dependent on a specific situation or setup in comparison to different camera based localisation methods. For example the localisation should work on objects varying in size and shape, as well as in different situations of lighting.
 
 \section{Motivation}
 \label{sec:introduction_motivation}
@@ -38,9 +38,9 @@ The second challenge the participants at the tournament faced was flying from on
 The drones used at this aerial tournament have a front-facing camera mounted, while lacking any other sensor that can be used for detection of obstacles and game items. Therefore the participants needed to determine the distance to the object and the cardboard boxes using only the camera. At the Global Conference on Educational Robotics the authors of this work decided to detect the object based on its colour, but had to invest quite some time tweaking the values to get the localisation working correctly. Therefore the authors want to research and implement a method that is more robust than the colour based one.
 
 \section{Outlook and Perspective}
-The objective of this work is to create a system which uses machine learning methods in localising objects. After having trained the system, it should reliably return the x, y and z distances to an object, shown in two pictures taken from different angles. If this task turns out to be too complex the system should be simplified by only returning one output number corresponding to distance from the drone to the object.
+The objective of this work is to create a system which uses machine learning methods in localising objects. After having trained the system, it should reliably return the x, y and z distances to an object, shown in two pictures taken from different angles. If this task turns out to be too complex, the system should be simplified by only returning one output number corresponding to distance from the drone to the object.
 
-It is planned that the distance will be measured from the second camera position to the centre of object, as seen in Figure~\ref{pic:introduction_outlookPerspective_pointsOfView}.
+It is planned that the distance will be measured from the second camera position to the centre of the object, as seen in Figure~\ref{pic:introduction_outlookPerspective_pointsOfView}.
 
 \begin{figure}[h]
 	\centering
@@ -50,7 +50,7 @@ It is planned that the distance will be measured from the second camera position
 \end{figure}
 
 \section{Equipment}
-Testing of the functionality of the localisation is to be performed on a Parrot Bebop 2. This drone was chosen as it is available to the authors during their time of research on this subject. This drone offers 1080p full HD video, which is believed be more than sufficient for this project.
+Testing of the functionality of the localisation is to be performed on a Parrot Bebop 2. This drone was chosen as it is available to the authors during their time of research on this subject. It offers 1080p Full HD video, which is believed to be more than sufficient for this project.
 
 The Parrot Bebop 2 weighs 500g. The drone was not designed to carry any additional weight, therefore mounting a stereo camera, a LIDAR sensor or any other method of localisation using additional hardware is not recommended.
 

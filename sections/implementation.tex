@@ -86,7 +86,7 @@ render(RENDERFILEPATH, i, 2)
 del_cameras()
 \end{lstlisting}
 
-This code can seem overwhelming at first, so the authors decided to explain each part of it.
+This code can seem overwhelming at first, so the authors decided to explain it in three parts.
 
 \newpage
 
@@ -129,7 +129,7 @@ render(RENDERFILEPATH, i, 2)
 del_cameras()
 \end{lstlisting}
 
-This last code block is mostly the same for each camera. The first camera uses 'Y1' for its placement, centered on 'target\_name' (the object). Then, from the location of the first camera, the distance to the object is calculated and written to a file. After the calculation of the actual distance blender renders an image from the first camera's point of view, after which the first camera is being deleted. This is the same for the second camera, except 'Y2' is used for its placement.
+This last code block is mostly the same for each camera. The first camera uses 'Y1' for its placement, centered on 'target\_name' (the object). Then, from the location of the first camera, the distance to the object is calculated and written to a file. After the calculation of the actual distance, blender renders an image from the first camera's point of view, after which the first camera is being deleted. This is the same for the second camera, except 'Y2' is used for its placement.
 
 \section{OpenCV}
 OpenCV is a framework for image manipulation. Some of its use cases are changing the colour spectrum, filtering the image by colour and cropping images. The authors use OpenCV to test whether there are differences between filters for the images in the training data, for example greyscale images compared to coloured images. An example render, which OpenCV gets as an input can be seen in Figure~\ref{pic:implementation_opencv_original}.
@@ -163,7 +163,7 @@ This code first reads the image into 'image'. Then it converts the color of 'ima
 
 The advantage of using greyscale images in neural networks is the simplification of the input layer. In greyscale images each pixel can be represented by a single decimal value between 0 and 1. This enables the first layer of the neural network to be two dimensional instead of the three dimensional counterpart, where each pixel is represented by the three decimal values for the red, green and blue colour channels.
 
-\subsection{Resolution}
+\subsection{Downscaling}
 By reducing the resolution of an image the density of pixels is lessened. In this process information, that can not be regained, is lost. The OpenCV code for downscaling the images used by the authors is the following:
 
 \begin{lstlisting}[language=python]
@@ -187,7 +187,7 @@ The output image of this code can be found in Figure~\ref{pic:implementation_ope
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{img/implementation_opencv_resolution.jpg}
-	\caption{Image with lower resolution than the original one. Due to the fact that the image is displayed in the same size as Figure~\ref{pic:implementation_opencv_original}, the pixel size in this image appears larger.}
+	\caption{Image with a lower resolution than the original one. Due to the fact that the image is displayed in the same size as Figure~\ref{pic:implementation_opencv_original}, the pixel size in this image appears larger.}
 	\label{pic:implementation_opencv_resolution}
 \end{figure}
 
@@ -214,14 +214,14 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), crop_img)
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{img/implementation_opencv_cropping.jpg}
-	\caption{In this image five percent of each side was removed, therefore the object appears closer if the image is displayed in the same size. Some information positioned in the outer areas of the image are lost during the cropping process.}
+	\caption{In this image five percent of each side was removed, therefore the object appears closer if the image is displayed in the same size. Some information of outer areas of the image are lost during the cropping process.}
 	\label{pic:implementation_opencv_cropping}
 \end{figure}
 
 \newpage
 
-\subsection{Saturated}
-A saturated image means stronger colours, making them more distinguishable from each other. If an image is not saturated enough, colours appear as "washed out" and differences in colour are difficult to determine. Therefore, in order to help the neural network, the authors decided to also test with saturated versions of these images.
+\subsection{Saturation}
+Saturation means stronger colours, making them more distinguishable from each other. If an image is not saturated enough, colours appear as "washed out" and differences in colour are difficult to determine. Therefore, in order to help the neural network, the authors decided to also test with saturated versions of these images.
 
 \begin{lstlisting}[language=python]
 import cv2
@@ -237,7 +237,7 @@ saturated = cv2.cvtColor(hsv.astype('uint8'), cv2.COLOR_HSV2BGR)
 cv2.imwrite('{}/{}'.format(newdir_path, filename), saturated)
 \end{lstlisting}
 
-To saturate an image using OpenCV it has to be converted into the HSV colour representation. The HSV representation specifies each colour as a hue, a saturation and a value. Therefore changing the saturation in this model is relatively easy, as the saturation value of each pixel can simply be multiplied by a constant. Before the image can be converted back into the bgr colour representation the saturation values are restricted between 0 and 255, the lowest and highest saturation possible. The result achieved by this code can be seen in Figure~\ref{pic:implementation_opencv_saturated}.
+To saturate an image using OpenCV it has to be converted into the HSV colour representation. The HSV representation specifies each colour as a hue, a saturation and a value. Therefore changing the saturation in this model is relatively easy, as the saturation value of each pixel can simply be multiplied by a constant. Before the image is converted back into the bgr colour representation, the saturation values are restricted between 0 and 255, the lowest and highest saturation possible. The result achieved by this code can be seen in Figure~\ref{pic:implementation_opencv_saturated}.
 
 \begin{figure}[h!]
 	\centering
@@ -247,7 +247,7 @@ To saturate an image using OpenCV it has to be converted into the HSV colour rep
 \end{figure}
 
 \subsection{Brightness}
-Because the neural network should also work in different environment, where other methods could have problems, the authors also tested with overly bright images. This makes it very hard to notice dark areas, such as shadows, to help with distances between objects and scaling of objects.
+Because the neural network should also work in different environments, where other methods could have problems, the authors also tested with overly bright images. This makes it very hard to notice dark areas, such as shadows, to help with distances between objects and scaling of objects.
 
 \begin{lstlisting}[language=python]
 import cv2
@@ -264,7 +264,7 @@ cv2.imwrite('{}/{}'.format(newdir_path, filename), bright_img)
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4in]{img/implementation_opencv_brightness.jpg}
-	\caption{The original image (Figure~\ref{pic:implementation_opencv_original}) modified by the brightening code. The image appears more washed out, as all colours are move similar due to them having moved closer to white.}
+	\caption{The original image (Figure~\ref{pic:implementation_opencv_original}) modified by the brightening code. The image appears more washed out, as all colours have been equally moved closer to white.}
 	\label{pic:implementation_opencv_brightness}
 \end{figure}
 
@@ -288,31 +288,31 @@ Using Python and TensorFlow enabled the authors to exchange the components of th
 
 In the first test run only 50 greyscale images where used. This encourages overfitting and was only intended to test if the neural network was syntactically set up correctly.
 
-As an optimizer the authors chose stochastic gradient descent as the other optimizers available in TensorFlow are only variations of this optimizer.
+As an optimizer the authors chose stochastic gradient descent, as the other optimizers available in TensorFlow are only variations of this optimizer.
 
 \subsection{Problems Encountered: Normalizing}
-At this point in time the first problem arose. The accuracy when training the neural network always was equal to one, meaning that the distance to the object in all images was estimated correctly to the last millimetre, which does not seem plausible. Even if the neural network was overfitting, the accuracy should at least in the beginning have a value less than one.
+At this point in time the first problem arose. The accuracy when training the neural network was always equal to one, meaning that the distance to the object in all images was estimated correctly to the last millimetre, which does not seem plausible. Even if the neural network was overfitting, the accuracy should at least in the beginning have a value less than one.
 
-It appeared later that this was due to the fact, that the true as well as the estimated output values were not normalized. In a neural network the output of each node depends on the activation function used by this layer. A sigmoid activation function, as used by the authors in the last layer, reduces the output values to numbers between zero and one. As all true values (the distance to the object outputted by Blender) where above one they where simply converted to a value of one. The neural network was trained to only output one, which it easily managed to do, and therefore received an accuracy of one.
+It appeared later that this was due to the fact that the true, as well as the estimated output values were not normalized. In a neural network the output of each node depends on the activation function used by this layer. A sigmoid activation function, as used by the authors in the last layer, reduces the output values to numbers between zero and one. As all true values (the distance to the object outputted by Blender) where above one they where simply converted to a value of one. The neural network was trained to only output one, which it easily managed to do, and therefore received an accuracy of one.
 
 Normalizing the distances was a simple task as the maximum distance in the generated images was 10 meters. Therefore simply dividing by the maximum possible value reduced the range of the values into the normalized form. This however had the consequence that the accuracy of the neural network was zero, however long it was trained.
 
 \subsection{Problems Encountered: Accuracy and Metrics}
-At this point it is noteworthy that in machine learning one can distinguish between classification and regression problems. In classification problems the output value can only be one of a discrete set of values. For example image classification, where a machine learning algorithm labels images as either depicting a cat or a dog. In this example two possible output values are defined. Regression problems however are identified by the output value being able to take any continuous value. The distance estimation problem the described in this thesis is a regression problem, as the distance to the object can be any value between zero and ten.
+At this point it is noteworthy that in machine learning one can distinguish between classification and regression problems. In classification problems the output value can only be one of a discrete set of values. For example image classification, where a machine learning algorithm labels images as either depicting a cat or a dog. In this example two possible output values are defined. Regression problems however are identified by the output value being able to take any continuous value. The distance estimation problem described in this thesis is a regression problem, as the distance to the object can be any value between zero and ten.
 
-Accuracy is a system of measurement which describes how often the machine learning algorithm ``guessed'' the correct output. If the output differs in the last decimal place (in our case less than a nano meter) the accuracy does not get increased. Therefore accuracy is only used in classification problems, where the accuracy gets increased for example for correctly guessing that an image depicts a cat (the output matching the actual value exactly). The equivalent used in regression problems is called metric. The metric chosen by the authors is the mean absolute percentage error. It represents a difference between the actual and the output value as a percentage. The lower this percentage the better the performance of the neural network.
+Accuracy is a system of measurement, which describes how often the machine learning algorithm ``guessed'' the correct output. If the output differs in the last decimal place (in our case less than a nano meter) the accuracy does not get increased. Therefore accuracy is only used in classification problems, where the accuracy gets increased for example for correctly guessing that an image depicts a cat (the output matching the actual value exactly). The equivalent used in regression problems is called metric. The metric chosen by the authors is the mean absolute percentage error. It represents a difference between the actual and the output value as a percentage. The lower this percentage the better the performance of the neural network.
 
 \subsection{Problems Encountered: Number of Training Images}
-After these modifications the output seemed plausible enough to increase the number of training images from 50 to 10000. Up to this point all images where loaded and converted into tensors before the actual training began. This posed no problem when loading 50 images, however loading 10000 images was not possible with the limited RAM installed on the machine. Since the process was running on a Linux machine, the kernel killed the process due to resource starvation.
+After these modifications the output seemed plausible enough to increase the number of training images from 50 to 10000. Up to this point all images where loaded and converted into tensors before the actual training began. This posed no problem when loading 50 images, however, loading 10000 images was not possible with the limited amount of RAM available on the machine. Since the process was running on a Linux machine, the kernel killed the process due to resource starvation.
 
-The most obvious solution was to split the images into smaller sections and only load and process one of these batches at a time. Additionally the authors chose to store the computed weights after each of these batches, enabling the user to stop the training at any given point in time and still have the relatively new weights stored. When starting the program again, the weights are loaded and training can resume.
+The most obvious solution was to split the images into smaller sections and only load and process one of these batches at a time. Additionally, the authors chose to store the computed weights after each of these batches, enabling the user to stop the training at any given point in time and still have the new weights stored. When starting the program again, the weights are loaded and training can resume.
 
 \subsection{First Results}
 The first serious training run was performed on 2500 binocular images of a single object. Therefore it was expected, that the neural network would overfit and not work on any other objects. The setup of layers chosen was the one depicted in Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model}.
 
-While training the loss sank to a value fluctuating between 0.21 and 0.27 while the mean absolute percentage error decreased to values fluctuating between 11.1\% and 16.5\%.
+While training, the loss sank to a value fluctuating between 0.21 and 0.27 while the mean absolute percentage error decreased to values fluctuating between 11.1\% and 16.5\%.
 
-The weights of this trained neural network are visualized in Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights1} and Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights2}. While interpreting weights of a neural network is a vague science, some features of these weights are worth mentioning. For example a few of the matrices shown in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_a} have a dark blue blob appear in the upper middle part, while the bottom left and right pixels show the brightest colours. Since brighter colours mean more influence of the input value received, the authors guess, that the size of objects could be determined by these convolution windows. These convolution windows could for example react to the size of the mount of the object, which is located in the lower part of the image. The second convolutional layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}) is hard to interpret, as the tensors are already quite abstract at this point. The dense layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c}), however, gives a low weight to most input values, only using some for the calculation of the final output. Even more interesting are the horizontal stripes appearing in the weights of the dense layer. To get a better understanding of why these stripes appear the authors decided to group the weights of this layer into the sizes of the output of the last convolutional layer. The resulting image can be found in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}. From this it is apparent, that the neural network is able to work out that the input image consists of two separate renders. Most of these units focus on the two middle part of the two images separately, some on a larger a region, while other only on the exact place where the object is located. Only few units focus on the section where the shadow of the object is located.
+The weights of this trained neural network are visualized in Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights1} and Fig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights2}. While interpreting weights of a neural network is a vague science, some features of these weights are worth mentioning. For example a few of the matrices shown in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_a} have a dark blue blob appear in the upper middle part, while the bottom left and right pixels show the brightest colours. Since brighter colours mean more influence of the input value received, the authors guess, that the size of objects could be determined by these convolution windows. These convolution windows could for example react to the size of the mount of the object, which is located in the lower part of the image. The second convolutional layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_b}) is hard to interpret, as the tensors are already quite abstract at this point. The dense layer (Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_c}), however, gives a low weight to most input values, only using some for the calculation of the final output. Even more interesting are the horizontal stripes appearing in the weights of the dense layer. To get a better understanding of why these stripes appear, the authors decided to group the weights of this layer into the sizes of the output of the last convolutional layer. The resulting image can be found in Subfig.~\ref{pic:implementation_neuralNetwork_structureOfOurNeuralNetwork_weights_d}. From this it is apparent, that the neural network is able to figure out that the input image consists of two separate renders. Most of these units focus on the two middle parts of the two images separately, some on a larger region, while others only on the exact place where the object is located. Only few units focus on the section where the shadow of the object is located.
 
 \newpage
 
@@ -360,9 +360,9 @@ The weights of this trained neural network are visualized in Fig.~\ref{pic:imple
 
 \subsection{Modifications to the Neural Network}
 \label{sec:modificationsToTheNeuralNetwork}
-Since the authors wanted to reach an accuracy of $\pm 10\%$ and the first test only performed with an accuracy of around $\pm 14\%$ possible modifications to the neural network where tested. One of these modifications is the number of epochs, which control how often all images in the input data are used to train the neural network with. E.g. setting the number of epochs to three makes the fit method go through all input images three times. As it turned out increasing the number of epochs does not have any measurable affects on the performance. Therefore the value was set to a count of two epochs.
+Since the authors wanted the retrieved distance to be within 10\% range of the real distance and the first test's retrieved distance was within 14\%, possible modifications to the neural network were tested. One of these modifications is the number of epochs, which control how often all images in the input data are used to train the neural network with. E.g. setting the number of epochs to three makes the fit method go through all input images three times. As it turned out increasing the number of epochs does not have any measurable positive effects on the retrieved distances. Therefore the value was set to a count of two epochs to keep a high performance.
 
-The next change to the structure of the neural network was the introduction of a momentum term. A momentum term helps to avoid getting stuck in a local, but not the lowest, minimum. One can imagine the optimizer as a mechanism which lets a sphere ``roll'' down a surface to find the minimum value. A two dimensional version of this is visualized in Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN}. When no momentum term is defined training behaves as if the sphere had no inertia, which can lead to it getting stuck in a valley, which is not the lowest reachable point. When inertia is added the change in the position of the sphere depends not only on the gradient of the curve in the current position of the sphere, but also on the last few gradients the sphere ``rolled'' along. Therefore the sphere in Subfig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_b} manages to find a lower minimum of the curve.
+The next change to the structure of the neural network was the introduction of a momentum term. A momentum term helps to avoid getting stuck in a local, but not the lowest, minimum. One can imagine the optimizer as a mechanism which lets a sphere ``roll'' down a surface to find the minimum value. A two dimensional version of this is visualized in Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN}. When no momentum term is defined, training behaves as if the sphere had no inertia, which can lead to it getting stuck in a valley, which is not the lowest reachable point. When inertia is added, the change in the position of the sphere depends not only on the gradient of the curve in the current position of the sphere, but also on the last few gradients the sphere ``rolled'' along. Therefore the sphere in Subfig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_b} manages to find a lower minimum of the curve.
 
 \begin{figure*}[h!]
 	\centering
@@ -385,16 +385,16 @@ The next change to the structure of the neural network was the introduction of a
 
 In the case of the Neural Network described in the previous sections the addition of a momentum term sadly did not produce better results, as the mean absolute percentage error once again reached a value of around 14\% before fluctuating by the same divergence as before.
 
-Since the modification of the neural network using a momentum term was not sufficient the authors decided to test whether changing the number and type of layers would change the results. At first one of the convolutional layers was swapped for a dense layer. This led to a remarkable decrease in the accuracy reached after training on only 500 images. Therefore the authors decided to test if increasing the number of convolutional layers would yield the opposite results. The resulting layer setup of the neural network can be found in Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_model}.
+Since the modification of the neural network using a momentum term was not sufficient, the authors decided to test, whether changing the number and type of layers would change the results. At first, one of the convolutional layers was swapped for a dense layer. This led to a remarkable decrease in the accuracy reached after training on only 500 images. Therefore the authors decided to test if increasing the number of convolutional layers would yield the opposite results. The resulting layer setup of the neural network can be found in Fig.~\ref{pic:implementation_neuralNetwork_modificationsToTheNN_model}.
 
 \begin{figure*}[h!]
 	\centering
 	\includegraphics[width=1.8in]{img/implementation_neuralNetwork_modificationsToTheNN_model.png}
-	\caption{The layer structure from Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model} modified to include three convolutional layer.}
+	\caption{The layer structure from Fig.~\ref{pic:implementation_neuralNetwork_testringTheStructureOfTheNeuralNetwork_model} modified to include three convolutional layers.}
 	\label{pic:implementation_neuralNetwork_modificationsToTheNN_model}
 \end{figure*}
 
-This new setup, having 156739 trainable parameters, is too large to train on the laptop used to this point. Therefore the training from this point on was performed on a PC satisfying the requirements for a neural network this size. The details of this process are described in Experiment 1 (Chapter~\ref{cap:experiment1}).
+This new setup, having 156739 trainable parameters, is too large to train on the laptop used up until this point. Therefore the training from this point on was performed on a PC satisfying the requirements for a neural network of this size. The details of this process are described in Experiment 1 (Chapter~\ref{cap:experiment1}).
 
 \vspace{5mm}
 \noindent
@@ -402,11 +402,11 @@ This new setup, having 156739 trainable parameters, is too large to train on the
 
 \section{C++ Implementation}
 
-The next step for the authors was implementing a neural network in C++ from scratch. This implementation would then be compared to Tensorflow by solving the same task with a neural network. The reason for this comparison is for the authors to see, how much a neural network can be optimized in order to achieve machine learning faster. Therefore the C++ implementation will not be heavily optimized, but rather just usable for any kind of machine learning with neural networks in order to see the difference.
+The next step for the authors was implementing a neural network in C++ from scratch. This implementation would then be compared to Tensorflow by solving the same task with a neural network. The reason for this comparison is for the authors to see, how much a neural network can be optimized in order to achieve machine learning faster. Therefore the C++ implementation will not be heavily optimized, but rather just usable for any kind of machine learning with neural networks in order to see the difference to Tensorflow.
 
 \subsection{Structure}
 
-The C++ implementation consists of three main parts: One major part is the neural network itself. The second part is for measuring time and the third part is for all math, such as some activation functions. Because the second and the third part should be self-explanatory the authors will just focus on the first and also largest part - the neural network.
+The C++ implementation consists of three main parts: One major part is the neural network itself. The second part is for measuring time and the third part is for math, such as some activation functions. Because the second and the third part should be self-explanatory the authors will just focus on the first and also largest part - the neural network.
 
 \subsubsection{The Neural Network in C++}
 
@@ -431,11 +431,11 @@ So to conclude: A node references the nth neighbour via the nth weight. The conn
 	\item The type of layer
 \end{enumerate}
 	
-If the dimension is one then every node has exactly one neighbour in the next layer (except for nodes in the output layer, of course. In this case the dimension is always 0). If the dimension is the number of nodes in the next layer, we speak of a dense layer, where every node of the added layer is connected to every node of the next layer.
+If the dimension is one, then every node has exactly one neighbour in the next layer (except for nodes in the output layer, of course. In this case the dimension is always 0). If the dimension is equal to the number of nodes in the next layer, we speak of a dense layer, where every node of the added layer is connected to every node of the next layer.
 
 \subsubsection{The Application class}
 
-With the neural network implementation done the first major part is finished, but we are still missing the learning process. In order to abstract that there exists the Application class. The authors tried to make it as simple and user-friendly as possible, so all needed to train your created neural network is creating an instance of this class, which means calling the constructor. The constructor needs a few things: 
+With the neural network implementation done the first major part is finished, but we are still missing the learning process. In order to abstract, there exists the Application class. The authors tried to make it as simple and user-friendly as possible, so all needed to train your created neural network is creating an instance of this class, which means calling the constructor. The constructor needs a few things: 
 
 \begin{enumerate}
 	\item The reference to the created neural network
@@ -486,11 +486,11 @@ int main()
 Because the neural network in C++ is written from scratch, the authors had to implement fundamental features for the neural network to work. This section describes those features in greater detail.
 
 \subsubsection{Error Backpropagation}
-Finding and adjusting errors is a very important part of a neural network, because this is the component which enables the neural network to learn and evolve. Error Backpropagation is called like it is, because it does its work from back to front of a neural network, or from the output layer to the input layer. So, the explanation will start at the output layer as well.
+Finding and adjusting errors is a very important part of a neural network, because this is the component which enables the neural network to learn. Error Backpropagation is called like it is, because it does its work from back to front of a neural network, or from the output layer to the input layer. So, the explanation will start at the output layer as well.
 
 \subsubsection{Calculating the errors}
 
-Our first goal is to find deviations of the neural network's output from expected outputs. In order to do this we first calculate the difference of the two outputs and then multiply that difference by the first derivative of the activation function applied to the output node's value of the neural network. This calculation is implemented like this:
+Our first goal is to find deviations of the neural network's output from expected outputs. In order to do this we first calculate the difference of the two outputs and then multiply that difference by the first derivative of the activation function applied to the output node's value. This calculation is implemented like this:
 
 \begin{lstlisting}[language=C++]
 // Calculate error of the output layer

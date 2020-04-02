@@ -68,17 +68,17 @@ Chan et. al. propose an image rectification algorithm \footcite{Chen_New_Image_R
 \end{enumerate}
 
 \subsection{Disparity Map}
-A disparity map represents the depth of an image. It can be calculated by comparing the position of pixels in two images made for example by a stereo camera. Objects, that are closer, have a larger difference in their relative position on the two image, than objects that are farther away.
+A disparity map represents the depth of an image. It can be calculated by comparing the position of pixels in two images made for example by a stereo camera. Objects, that are closer, have a larger difference in their relative position on the two images, than objects which are farther away.
 
 One approach, which focuses not solely on the quality of the disparity, but additionally on the time needed for computation of the result, is described in the work of Mühlmann et.al\footcite{Muehlmann_Calculating_Dense_Disparity_Maps_from_Color_Stereo_Images}.
 
 \subsection{3D Point Cloud}
-To generate a 3D point cloud out of the disparity map a two dimensional image has to be converted into a three dimensional space. This is done by extracting the information about the depth for each pixel from the disparity map. In our use case the resulting 3d point cloud then has to be filtered in search of the object, which distance was sought after.
+To generate a 3D point cloud out of the disparity map, a two dimensional image has to be converted into a three dimensional space. This is done by extracting the information about the depth for each pixel from the disparity map. In our use case the resulting 3d point cloud then has to be filtered in search of the object, whose distance was sought after.
 
 \section{LIDAR}
 A lidar is a sensor that is used to collect data about the environment. The sensor sends out light in a particular direction. Then the time needed for the light to return to the lidar is measured and the distance is calculated from that. By sending and receiving the light from multiple different directions, data points from the entire two or three dimensional surrounding can be detected.
 
-One example of a use case for a lidar sensor is demonstrated in the paper on Lidar-based teach-and-repeat of mobile robot trajectores of Spunk et al.\footcite{Sprunk_Lidar-based_teach-and-repeat_of_mobile_robot_trajectories}. The objective of their work is to teach a robot some trajectory by demonstration and then have the robot repeat the same trajectory as closely as possible. Their use of a lidar sensor enables them to follow the given trajectory with an accuracy of a few millimetres.
+One example of a use case for a lidar sensor is demonstrated in the paper on Lidar-based teach-and-repeat of mobile robot trajectories of Spunk et al.\footcite{Sprunk_Lidar-based_teach-and-repeat_of_mobile_robot_trajectories}. The objective of their work is to teach a robot some trajectory by demonstration and then have the robot repeat the same trajectory as closely as possible. Their use of a lidar sensor enables them to follow the given trajectory with an accuracy of a few millimetres.
 
 \section{Structure from Motion}
 Similar to a stereo camera structure from motion estimates the three dimensional structure of the surrounding from the information of two dimensional images. The difference lies in the number of images typically used. While stereo cameras use two images, structure from motion commonly takes more images to reconstruct the three dimensional scene.
@@ -88,12 +88,12 @@ Structure from Motion can be used whenever it is necessary to take multiple imag
 \newpage
 
 \section{Depth Maps from Structured Light}
-By taking an image of a specially illuminated scene the structured light approach is able to calculate a depth map. Scharstein et al. present an approach that constructs high accuracy depth maps without the need to calibrate the light sources. \footcite{Scharstein_High-accuracy_stereo_depth_maps_using_structured_light} To get information on specific distances to objects, additional data, such as a different sensor measuring the distance to some (other) point in the image, is needed.
+By taking an image of a specially illuminated scene, the structured light approach is able to calculate a depth map. Scharstein et al. presented an approach that constructs high accuracy depth maps without the need to calibrate the light sources. \footcite{Scharstein_High-accuracy_stereo_depth_maps_using_structured_light} To get information on specific distances to objects, additional data, such as a different sensor measuring the distance to some (other) point in the image, is needed.
 
 \section{Human Depth Perception}
 \label{sec:studyOfLiterature_humanDepthPerception}
 
-In medicine depth perception is defined as the ability to see three dimensional space and judge distance accurately. Humans achieve depth perception by combining information from multiple depth cues. A depth cue is a feature of the environment or the person itself, that can be used to judge distance to objects. Depth cues can be classified in either of two categories: binocular and monocular, where binocular depth cues require two eyes and monocular only require one eye to work.
+In medicine, depth perception is defined as the ability to see three dimensional space and judge distance accurately. Humans achieve depth perception by combining information from multiple depth cues. A depth cue is a feature of the environment or the person itself, that can be used to judge distance to objects. Depth cues can be classified in either of two categories: binocular and monocular, where binocular depth cues require two eyes and monocular only require one eye to work.
 
 Which depth cue is used by humans in which situation was researched by Schrater et al. \footcite{Schrater_How_optimal_depth_cue_integration_depends_on_the_task}.
 
@@ -104,7 +104,7 @@ Which depth cue is used by humans in which situation was researched by Schrater 
 		\hline
 		retinal disparity & Because the two eyes of a human person are separated by a few centimetres each eye perceives the environment from a slightly different point of view. The vertical displacement of objects on the retina is used to determine distance and can be calculated as described by Cormack et al. \footcite{Cormack_The_computation_of_retinal_disparity}.\\
 		\hline
-		convergence & To focus on objects farther away the eyes have to be less crossed than when focusing on near objects. It is debatable whether the information on how crossed the eyes look is used by all humans to gather information on depth. Richards et al. designed a test and found that approximately two thirds of the population can use convergence as a depth cue. \footcite{Richards_Convergence_as_a_cue_to_depth} \\
+		convergence & To focus on objects farther away, the eyes have to be less crossed than when focusing on near objects. It is debatable whether the information on how crossed the eyes are is used by all humans to gather information on depth. Richards et al. designed a test and found that approximately two thirds of the population can use convergence as a depth cue. \footcite{Richards_Convergence_as_a_cue_to_depth} \\
 		\hline
 	\end{tabularx}
 	\label{tab:study_of_literature_binocular_depth_cues}
@@ -127,7 +127,7 @@ Which depth cue is used by humans in which situation was researched by Schrater 
 		linear perspective & Parallel lines in the environment, such as railroad tracks, appear to converge in one point. Therefore when shown an image containing converging lines, such as Fig.~\ref{pic:study_of_literature_depth_perception_two_shperes}, the two dimensional picture conveys depth. Yonas et al. performed an experiment, showing at what point in their life infants develop the ability to use linear perspective.  \footcite{Yonas_Infants_distance_perception_from_linear_perspective_and_texture_gradients}
 		\\
 		\hline
-		texture gradients & According to Ganong \footcite{Ganong_Review_of_Medical_Physiology} the retina takes up two thirds of the inner side of the eyeball. It is covered with cone cells, which are able to detect light. Since the retina only contains a finite number of cone cells, which are placed some distance apart, the eye can only detect its surrounding at a limited resolution. Therefore objects farther away seem smoother as fine details can not be detected as easily.
+		texture gradients & According to Ganong \footcite{Ganong_Review_of_Medical_Physiology}, the retina takes up two thirds of the inner side of the eyeball. It is covered with cone cells, which are able to detect light. Since the retina only contains a finite number of cone cells, which are placed some distance apart, the eye can only detect its surrounding at a limited resolution. Therefore objects farther away seem smoother as fine details can not be detected as easily.
 		\\
 		\hline
 		overlap & Overlapping is a depth cue humans develop early in their life. It is described as getting information on the order of objects sorted by their distance by looking at the way objects hide parts of other objects. Hagen tested sensitivity of overlapping as a depth cue in three, five and seven year old children and found that all where able to perceive depth based on this information. \footcite{Hagen_Development_of_ability_to_perceive_and_produce_pictorial_depth_cue_of_overlapping}
@@ -165,7 +165,7 @@ Which depth cue is used by humans in which situation was researched by Schrater 
 \newpage
 
 \subsection{Depth Sensation}
-Since it is unclear if and to what extent animals and infants can determine depth and sense their three dimensional environment the term depth perception is not used. It has been shown however that at least some animals can sense depth and therefore experience depth sensation.
+Since it is unclear if and to what extent animals and infants can determine depth and sense their three dimensional environment, the term depth perception is not used. It has been shown however that at least some animals can sense depth and therefore experience depth sensation.
 
 One experiment which tests depth sensation is called visual cliff. \footcite{Gibson_The_visual_cliff} The task of the test subjects is to identify a sharp drop over which they must move to reach a desired destination. The setup of the experiment can be found in Fig.~\ref{pic:study_of_literature_depth_perception_depth_sensation_visual_cliff}. It has been shown that infants along with all tested animals stop as soon as they have reached the cliff. Therefore they must experience some sort of depth sensation.
 

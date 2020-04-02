@@ -3,17 +3,17 @@
 \textbf{Author: Peter Kain} 
 
 \section{Challenges in the Use of Stereo Cameras}
-Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the functionality of a stereo camera on such a drone system can be mimicked by taking the first image, flying to a second position, located horizontally next to the first one and taking the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliably. Additionally other factors, such as differences in the two images due to some time passing between the taking of the images influence and mostly worsen the accuracy.
+Since many drones used in educational robotics can only carry a limited amount of weight it is not possible to attach a stereo camera to such a robot. Instead the functionality of a stereo camera on a drone system can be mimicked by taking the first image, flying to a second position located horizontally next to the first one and taking the second image. This process in not as precise as a stereo camera, where the two lenses are always positioned at an exact interval from one another. Therefore the output of this system might not work as reliably. Additionally, other factors, such as differences in the two images due to some time passing between the taking of the images influence and mostly worsen the accuracy.
 
 Therefore the authors try to approach this challenge with the help of machine learning. Neural networks can be taught to work with different changes in the environment and still return results with superior quality as opposed to a conventional implementation.
 
 \section{Generating Data}
-Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with Python to add or remove objects from a scene. The authors will use this capability to generate the huge amounts of test data needed from the perspectives of the two cameras, which point to a specific object in the scene. This enables the authors to create enough images to train a neural network, since shooting the amount of pictures needed by hand would take too long to consider. 
+Neural Networks require huge amounts of data to work reliably. Because of the author's limited time frame this test data will be generated with the help of Blender 2.8. Blender is a free program for designing and animating 3D objects, which also supports scripting with Python to add or remove objects from a scene. The authors will use this capability to generate the huge amount of test data needed from the perspectives of the two cameras, which point to a specific object in the scene. This enables the authors to create enough images to train a neural network, since taking the required amount of pictures by hand would take too long to consider. 
 
 \newpage
 
 \subsection{Blender}
-Besides 3D-modelling Blender enables the user to perform various different actions, such as laying out scenes, UV-Editing, shading, animating and rendering. Additionally scenes can be modified by executing Python scripts. Figure~\ref{pic:methodology_generatingData_blender_startscreen} shows the interface of Blender 2.8 with the default file loaded.
+Besides 3D-modelling Blender enables the user to perform different actions, such as laying out scenes, UV-Editing, shading, animating and rendering. Additionally scenes can be modified by executing Python scripts. Figure~\ref{pic:methodology_generatingData_blender_startscreen} shows the interface of Blender 2.8 with the default file loaded.
 
 \begin{figure}[h!]
 	\centering
@@ -47,7 +47,7 @@ material.diffuse_color = (0.8, 0.1, 0.1, 1)
 bpy.context.active_object.data.materials.append(material)
 \end{lstlisting}
 
-This code first clears the scene from other meshes (running the script twice would otherwise place the new cube inside the old cube). Then a new mesh in form of a cube is added at the given location. Next colour is added to the new cube by applying a material. A material is a specification of how the surface of the object should look. Advanced materials can represent raw or reflective surfaces, however the authors decided to keep it simple. The chosen material represents a red surface (the red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255) are specified). Lastly the created material is applied to the object. The resulting images is shown below:
+This code first clears the scene from other meshes (running the script twice would otherwise place the new cube inside the old cube). Then a new mesh in form of a cube is added at the given location. Next, colour is added to the new cube by applying a material. A material is a specification of how the surface of the object should look. Advanced materials can represent raw or reflective surfaces. However, the authors decided to keep it simple. The chosen material represents a red surface (the red/green/blue/alpha channels ranging from 0.0 (for 0) to 1.0 (for 255) are specified). Lastly the created material is applied to the object. The resulting image is shown below:
 
 \begin{figure}[h!]
 	\centering
@@ -56,10 +56,10 @@ This code first clears the scene from other meshes (running the script twice wou
 	\label{pic:methodology_generatingData_blender_exampleScriptResult}
 \end{figure}
 
-Using similar Python scripts the authors will generate the image data necessary as well as perform the calculation of the distance which will be specified as the correct values to train the neural network on.
+Using similar Python scripts, the authors will generate the image data necessary as well as perform the calculation of the distances, which will be the values for training the neural network.
 
 \section{Image Preprocessing}
-After the test images have been rendered with the help of Blender some image preprocessing is required. For example the machine learning component of this project should take two images as an input. To simplify the input the two images will be placed next to each other to form a new image twice as wide as the original images. The concatenation of two example images is visualized in Figure~\ref{pic:methodology_imagePreprocessing_imageMerge}. Other preprocessing measures that have to be taken are downscaling the image, as to not have too many weights in the input layer of the neural network.
+After the test images have been rendered with the help of Blender, some image preprocessing is required. For example, the machine learning component of this project should take two images as an input. To simplify the input, the two images will be horizontally concatenated. This concatenation of two example images is visualized in Figure~\ref{pic:methodology_imagePreprocessing_imageMerge}. Other preprocessing that has to be done is downscaling the image in order to not have too many weights in the input layer of the neural network.
 
 \begin{figure}[h!]
 	\centering
@@ -79,13 +79,13 @@ Additionally, the authors decided to experiment if manipulating these test image
 		& blue colour channels, resulting in different shades of grey instead of usual \\
 		& colours. \\
 		\hline
-		Resolution & Resolution refers to the count of pixels in each dimension \\
+		Downscaling & Downscaling refers to the count of pixels in each dimension \\
 		& (width and height). \\
 		\hline
 		Cropping & When cropping an image an unwanted part located at the peripheral areas \\
 		& of the image is removed. \\
 		\hline
-		Saturated & Saturated images feature stronger colours, which makes them easier to \\
+		Saturation & Saturated images feature stronger colours, which makes them easier to \\
 		& distinguish from another. \\
 		\hline
 		Brightness & Brightening images can make colours harder to distinguish from another. \\
@@ -110,18 +110,18 @@ Figure~\ref{pic:methodology_neuralNetwork_visualizationOfANN} depicts a visualiz
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=4.5in]{img/methodology_neuralNetwork_visualizationOfANN.png}
-	\caption{Depiction af a vanilla neural network. Each circle represents a node and the arrows show the flow of information. All nodes on the same level are collectively called a layer.}
+	\caption{Depiction of a vanilla neural network. Each circle represents a node and the arrows show the flow of information. All nodes on the same level are collectively called a layer.}
 	\label{pic:methodology_neuralNetwork_visualizationOfANN}
 \end{figure}
 
 \subsection{Convolutional Neural Network}
 \label{sec:convolutional_nn}
-Neural networks need huge amounts of data to optimize the values of all weights, in such a way that the neural network is able to evaluate unseen data with a reasonable accuracy. Convolutional neural networks simplify the optimization of the weights by stating that some weights are shared between multiple connections of nodes. This results in fewer weights having to be optimized. Additionally convolutional neural networks perform similar actions in multiple parts of the input data which especially makes sense when working with images, e.g. search for edges in all sections of an image.
+Neural networks need huge amounts of data to optimize the values of all weights, in such a way that the neural network is able to evaluate unseen data with a reasonable accuracy. Convolutional neural networks simplify the optimization of the weights by stating that some weights are shared between multiple connections of nodes. This results in fewer weights having to be optimized. Additionally, convolutional neural networks perform similar actions in multiple parts of the input data, which especially makes sense when working with images, e.g. search for edges in all sections of an image.
 
 \begin{figure}[h!]
 	\centering
 	\includegraphics[width=3.5in]{img/methodology_neuralNetwork_visualizationOfACNN.png}
-	\caption{Segment of a convolutional neural network. In comparison to a vanilla neural network each node is only connected to its closest neighbours. Additionally all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
+	\caption{Segment of a convolutional neural network. In comparison to a vanilla neural network each node is only connected to its closest neighbours. Additionally, all arrows connected to another node in the same relative position (same colour) have the same weight attached.}
 	\label{pic:methodology_neuralNetwork_visualizationOfACNN}
 \end{figure}
 
@@ -255,7 +255,7 @@ In neural networks the initial weights of all layers have to be set before train
 	\begin{subfigure}[t]{0.4\textwidth}
 		\centering
 		\includegraphics[width=\textwidth]{img/methodology_neuralNetwork_initializerFunctions_constant.png}
-		\caption{All output values of this function are one constant value. In this example 0.5 was chosen as the output value.}
+		\caption{All output values of this function are one constant value. In this example -0.5 was chosen as the output value.}
 	\end{subfigure}%
 	~ 
 	\begin{subfigure}[t]{0.4\textwidth}
@@ -312,7 +312,7 @@ Overfitting occurs if the data sample is replicated too closely. One example of 
 	\label{pic:methodology_neuralNetwork_overfitting}
 \end{figure}
 
-The goal is to find a function, that has just enough complexity to fit the data points. The opposite of overfitting is called underfitting. When underfitting a more complex problem is approximated using too simple methods, again resulting in poor results.
+The goal is to find a function, that has just enough complexity to fit the data points. The opposite of overfitting is called underfitting. When underfitting, a more complex problem is approximated using too simple methods, again resulting in poor results.
 
 \section{Neural Network Implementations}
 The authors decided to use a software framework called TensorFlow for the first implementation of the neural network. This has the following two advantages: using Tensorflow allows for a low effort proof of concept and it makes testing out different configurations (e.g. number of hidden layers or filters in image preprocessing) of the neural network easier.
@@ -325,14 +325,14 @@ After it has been shown that the challenge of detecting the distance to an objec
 As machine learning has gained popularity in recent years the demand for applicable frameworks grew. One of the most popular is called TensorFlow. It was developed by Google for internal use and was published under the Apache License 2.0 on the \nth{9} of November 2015\footcite{Wikipedia_TensorFlow}.
 
 TensorFlow supports APIs for Python, C, C++, Go, Java, JavaScript and Swift.
-Due to its popularity third party APIs for C\#, R, Scala, Rust and many more were developed.
+Due to its popularity, third party APIs for C\#, R, Scala, Rust and many more were developed.
 
-Its use cases reach from categorizing handwritten digits to YouTube video recommendations, one of the many applications Google use it for.
+Its use cases reach from categorizing handwritten digits to YouTube video recommendations, one of the many applications Google uses it for.
 
 Tom Hope et al. describe TensorFlow as a software framework for numerical computations based on dataflow graphs \footcite[page 6]{Hope_Learning_TensorFlow}.
 
 \subsection{Computation graph}
-To compute a value using TensorFlow a computation graph has to be constructed. In this graph each node corresponds to an operation, such as subtraction or division. By connecting these nodes via edges the output of one node can be fed as input into another node. One example of such a computation graph can be seen in Figure~\ref{pic:methodology_tensorflow_computationGraph}.
+To compute a value using TensorFlow a computation graph has to be constructed. In this graph each node corresponds to an operation, such as subtraction or division. By connecting these nodes via edges, the output of one node can be fed as input into another node. One example of such a computation graph can be seen in Figure~\ref{pic:methodology_tensorflow_computationGraph}.
 
 \begin{figure}[h!]
 	\centering
@@ -379,9 +379,9 @@ with tf.Session() as sess:
 print(out)
 \end{lstlisting}
 
-This code is equivalent to the first one, but uses syntactic sugar to shorten line 6 to 8 in the first code block into line 6. At this point it should be noted that while it might look like it line 6 does not calculate anything. It simply describes how the computational graph should look. The answer (42) is calculated in the session in line 9.
+This code is equivalent to the first one, but uses syntactic sugar to shorten line 6 to 8 in the first code block into line 6. At this point it should be noted that while it might look like it, line 6 does not calculate anything. It simply describes how the computational graph should look. The answer (42) is calculated in the session in line 9.
 
-Using the same principle, but different functions TensorFlow allows the creation of complex neural networks in a simple fashion.
+Using the same principle, but different functions, TensorFlow allows the creation of complex neural networks in a simple fashion.
 
 \newpage
 
@@ -418,7 +418,7 @@ For example Keras provides several different layers, that can be used to put tog
 	\end{table}
 \end{center}
 
-Another feature Keras offers is image preprocessing. In comparison to the authors use of this phrase, Keras offers transformations of the image that alter the image only slightly, which prevents overfitting, when using only a small input data set of images. Examples of the transformations offered are: rotating the image, shifting the image along the vertical or horizontal axis, changing the brightness of the image, zooming, flipping the image vertically or horizontally and rescaling the image.
+Another feature Keras offers is image preprocessing. In comparison to the authors' use of this phrase, Keras offers transformations of the image that alter the image only slightly, which prevents overfitting, when using only a small input data set of images. Examples of the transformations offered are: rotating the image, shifting the image along the vertical or horizontal axis, changing the brightness of the image, zooming, flipping the image vertically or horizontally and rescaling the image.
 
 \vspace{0.5cm}
 

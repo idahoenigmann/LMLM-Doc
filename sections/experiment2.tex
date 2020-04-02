@@ -5,23 +5,23 @@
 The second experiment is performed for the reason of testing the neural network with images of real objects. This experiment is mandatory for testing the capabilities of the neural network when it comes to real images.
 
 \section{Preparation}
-The first step of the authors was choosing a suitable object. In an effort to be time efficient once again the monkey head was chosen. This had the advantage that 3D-printing the object was easy, as all the authors had to do was exporting the existing model from Blender, and, even better, the trained weights of this object were already existing. Next the 3D model of the head was modified to include a cylindrical hole at the bottom, be able to easily mount the object. The last step was printing the object with a 3D printer. For this a Ultimaker Original and pink PLA (Polylactic acid) filament was used.
+The first step of the authors was choosing a suitable object. In an effort to be time efficient, once again the monkey head was chosen. This had the advantage, that 3D-printing the object was easy, as all the authors had to do was exporting the existing model from Blender, and, even better, the trained weights of this object were already existing. Next, the 3D model of the head was modified to include a cylindrical hole at the bottom, to be able to easily mount the object. The last step was printing the object with a 3D printer. For this one Ultimaker Original printer and pink PLA (Polylactic acid) filament was used.
 
 \section{Setup and Environment}
-The setup consisted of a Parrot Bebop 2 and the 3D printed monkey head put on a stick to simulate the height of the head in the images produced by Blender. The authors chose a mostly white background, consisting of a table and a painted wooden board leaned on the table.
+The setup consisted of a Parrot Bebop 2 and the 3D printed monkey head put on a stick to simulate the height of the head in the images produced by Blender. A mostly white background, consisting of a table and a painted wooden board leaned on the table, was chosen.
 
 The authors were not specific about the lighting, because this experiment was to be performed as realistic as possible. For example in drone competitions the lighting often can not be influenced.
 
-The monkey head was placed on the table facing away from the white wooden board. The drone was positioned at a distance of approximately 14cm from the object. The drone's camera was looking directly towards the object. After taking the first image the drone was moved to a second position, again about 14cm away and looking at the object. This resulted in the drone rotating slightly to the left to keep the object centred.
+The monkey head was placed on the table facing away from the white wooden board leaned on the table. The drone was positioned at a distance of approximately 14cm away from the object. The drone's camera was looking directly towards the object. After taking the first image the drone was moved to the right, again about 14cm away and looking at the object. This resulted in the drone rotating slightly to the left to keep the object centred.
 
 The images were taken with Parrot SA's FreeFlight Pro app.
 
 \section{Sequence of Events}
-The two images taken with the drone's camera from the different positions then had to be modified in order to be recognized by our neural network. The main differences between these images and the Blender generated ones were the different aspect ratio and a distortion, caused by to the way the camera operates. This can be seen in Figure~\ref{pic:experiment2_environment_comparison}. The authors wanted to make the images in (a) look like the images in (b), so modifications were necessary. The following modifications were executed with the program GIMP (GNU Image Manipulation Program), as the authors had previous experience with it:
+The two images taken with the drone's camera from the different positions then had to be modified in order to be recognized by our neural network. The main differences between these images and the Blender generated ones were the different aspect ratios and a distortions, caused by the way the camera operates. This can be seen in Figure~\ref{pic:experiment2_environment_comparison}. The authors wanted to make the images in (a) look like the images in (b), so modifications were necessary. The following modifications were executed with the program GIMP (GNU Image Manipulation Program), as the authors had previous experience with it:
 
-First, the authors had to rotate the images to the left by 90 degrees, since the original images were saved in landscape. Then the authors needed to modify the aspect ratio, were cropping the image came into play. After cropping the image the final step was to get rid of the distortion. This is was relatively easy as GIMP already has a built-in distortion filter. After reversing the existing distortion the result can be seen in (c), which can then be used by our neural network to predict the distance to the drone.
+First, the authors had to rotate the images to the left by 90 degrees, since the original images were rotated 90 degrees to the right. Then, the authors needed to modify the aspect ratio, where cropping the image came into play. After cropping the image, the final step was to get rid of the distortion. This was relatively easy, as GIMP already has a built-in distortion filter. After reversing the existing distortion the result can be seen in (c), which can then be used by our neural network to predict the distance to the drone.
 
-Lastly the authors feed the final, undistorted images into the Neural Network, with the trained monkey head weights loaded.
+Lastly, the authors let the Neural Network predict the distance to the final, undistorted images and with the weights from training with the monkey head object loaded.
 
 \begin{figure*}[h!]
 	\centering
@@ -53,14 +53,14 @@ Lastly the authors feed the final, undistorted images into the Neural Network, w
 \textbf{Author: Ida Hönigmann}
 
 \section{Results}
-Because the preparation of the images made with the Bebop Parrot 2 camera was time consuming only one pair of images was tested. The result of the prediction of this image pair was the following:
+Because the preparation of the images made with the Parrot Bebop 2 camera was time consuming, only one pair of images was tested. The result of the prediction for this image pair was the following:
 
 \begin{lstlisting}[]
 images 0 to 1:
 prediction - [3.451700 0.146270 -1.12407]    actual - [0.130000 0.030000 0.020000]
 \end{lstlisting}
 
-The fact that the prediction is off by more than one meter shows that the neural network was not able to generalise to real images. This could have multiple reasons:
+The fact that the prediction is off by more than three meters shows that the neural network was not able to generalise to real images. This could have multiple reasons:
 
 \begin{itemize}
 	\item the units of the scenes in Blender could not be compatible with real world units this easily,

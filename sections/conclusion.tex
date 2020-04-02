@@ -10,19 +10,19 @@ To conclude this diploma thesis, two things became apparent: First, it does not 
 
 In order to estimate distances of real images there currently seem to be two choices: Either taking pictures of the object by hand, or modelling a more realistic scene in Blender and take pictures the same way the authors did.
 
-Clearly the first choice has a drawback, which is the effort needed. Taking pictures by hand is something the authors wanted to avoid from the beginning, because it is just too time consuming. One would need at least 1000 pictures of the object and would have to measure the distances to the object in the required accuracy for every picture taken.
+Clearly the first choice has a drawback, which is the needed effort. Taking pictures by hand is something the authors wanted to avoid from the beginning, because it is just too time consuming. One would need at least 1000 pictures of the object and would have to measure the distances to the object in the required accuracy for every picture taken.
 
-Modelling the scene with Blender clearly seems more reasonable, because it is something one can get done with some effort. Additionally the object and background can easily be changed to accommodate to a new situation. But some effort is still present and one will need some advanced modelling skills to convincingly create a realistic scene. There also is a factor of insecurity: Before adequate testing one can not be sure if this method is working.
+Modelling the scene with Blender clearly seems more reasonable, because it is something one can get done after some effort. Additionally, the object and background can easily be changed to accommodate to a new situation. But some effort is still present and one will need advanced modelling skills to convincingly create a realistic scene. There also is a factor of insecurity: Before adequate testing one can not be sure if this method is working.
 
-\subsection{Improving the Precision}
+\subsection{Improving the Results}
 
-Now for the second fact, the always present errors in the retrieved distance from the neural network: This is something that cannot really be fixed. Neural networks are not 100\% accurate. This can be explained by the fact that not even humans are perfect at estimating distances. The author's neural network managed to estimate distances with an accuracy of two decimal places after all the modification described in this thesis. Humans generally can not judge distance with only their eyes and brain with this high accuracy. This is because we do not really measure distance, rather we have a feeling of how distant something is. For example when picking up an object rather than estimating the distance and then moving our arm to this distance, we intuitively know how we have to move our muscles to reach the desired position. Since the idea of neural networks is to train similar to the human brain, the authors do not think that small but existing errors can be eliminated. 
+Now for the second fact, the always present errors in the retrieved distance from the neural network: This is something that cannot really be fixed. Neural networks are not 100\% accurate. This can be explained by the fact that not even humans are perfect at estimating distances. The author's neural network managed to estimate distances with an accuracy of two decimal places after all of the modification described in this thesis. Humans generally can not judge distance with only their eyes and brain with the same accuracy. This is because we do not really measure distance, rather we have a feeling of how distant something is. For example when picking up an object, rather than estimating the distance and then moving our arm according to this distance, we intuitively know how we have to move our muscles to reach the desired position. Since the idea of neural networks is to train similar to the human brain, the authors do not think that small but existing errors can be eliminated. 
 
-However, this does not mean that the always present error cannot be reduced: Both experiments use a neural network which outputs the distances to the object in x, y and z components. This can easily be simplified by just using the length of this three-dimensional vector, foregoing the information of the x, y and z coordinates and just using the length of the vector as distance to the object. This should increase the accuracy of the neural network, as the complexity is reduced. Similarly using images, which have been further downscaled simplify the problem at hand.
+However, this does not mean that the always present error cannot be reduced: Both experiments use a neural network which outputs the distances to the object in x, y and z components. This can easily be simplified by just using the length of this three-dimensional vector, foregoing the information of the x, y and z coordinates and just using the length of the vector as distance to the object. This should increase the overall accuracy of the neural network, as the complexity is reduced. Similarly, using images, which have been further downscaled, also simplify the problem at hand.
 
 The other approach to improve the accuracy is to modify the structure of the neural network and the rest of the setup to cope with more complex problems. This could be achieved by adding more layers, increasing the number of trainable parameters; using different kinds of layers in the neural network; generating more input images, to decrease overfitting or using images of various objects on different backgrounds in the training data.
 
-There is another approach: Staying minimalistic when it comes to input data. As seen in Section~\ref{sec:implementation_neural_network} when only training with one object and the same background, the neural network's error was 14\%, which is acceptable. In a tournament situation you may not need to train for multiple objects and backgrounds, because you may only have that one obstacle you normally would have to setup an external camera system for, and evaluate the images retrieved by the camera with a script you wrote, as was the author's case. In this case training the neural network for this one obstacle and the same background can yield results which compare to Section~\ref{sec:implementation_neural_network}, which is not that bad. An average error of 15\% lets you at least detect if something is in your way and you do not want to steer close to objects anyway.
+There is another approach: Staying minimalistic when it comes to input data. As seen in Section~\ref{sec:implementation_neural_network} when training with only one object and the same background, the neural network's average error was 14\%, which is acceptable. In a tournament situation you may not need to train for multiple objects and backgrounds, because you may only have that one obstacle you normally would have to setup an external camera system for, and evaluate the images retrieved by the camera with a script you wrote, as was the author's case. In this case training the neural network for this one obstacle and the same background can yield results which compare to Section~\ref{sec:implementation_neural_network}, which are not that bad. An average error of 15\% lets you at least detect if something is in your way and you do not want to steer close to objects anyway.
 
 \subsection{Switching from TensorFlow to a C++ implementation}
 Since the workings of a neural network are not dependent on the programming language used, the theoretical part of this diploma thesis can be applied to self implemented neural networks as well. The C++ implementation of a neural network written by the authors will be made available to all future robotic students and can be extended to include all features necessary to perform the required estimations.
@@ -41,17 +41,17 @@ Moving from a TensorFlow implementation to a C++ one can give an advantage in co
 
 \subsection{Usability of this method}
 
-Still some problems encountered during this work are unsolved, but the authors think that the main challenge of using a neural network for this task was thoroughly explained in this thesis. Therefore the remaining work needed to get a working prototype running on a drone are limited to getting more realistic training data and wrapping the code in a few lines of instructions to the drone itself. In pseudo code these few lines looks like the following:
+Still, some problems encountered during this work are unsolved, but the authors think that the main challenge of using a neural network for this task was thoroughly explained in this thesis. Therefore the remaining work needed to get a working prototype running on a drone are limited to getting more realistic training data and wrapping the code in a few lines of instructions to the drone itself. In pseudo code these few lines look like the following:
 
 %\newpage
 
 \begin{lstlisting}[language=PHP]	%actually pseudo code, but php shows no syntax highlighting
 takeoff drone
-fly toward the general direction where the object is suspected to lie
+fly toward the general direction where the object is suspected to be
 turn toward the suspected position of the object
 take the first image
 fly some given distance to the side
-again turn toward the suspected position of the object
+turn toward the suspected position of the object again
 take the second image
 merge both images into one and perform image modifications as wished
 send merged image to neural network
@@ -63,11 +63,11 @@ The authors conclude that future robotic students will be able to use the knowle
 
 \subsection{Possibilities of further development}
 
-The authors suggest possibilities of further development of the developed code and the idea of this thesis:
+The authors suggest possibilities of further development of the existing code and the idea of this thesis:
 
 \textbf{Distance estimation in mono vision cameras with the help of a neural network}
 
-According to the visual clues used by humans to judge distance, described in Section~\ref{sec:studyOfLiterature_humanDepthPerception}, humans are able to use a multitude of monocular depth cues. The possibility of developing a working program, which estimates distance based on monocular depth cues and a neural network seems possible.
+According to the visual clues used by humans to judge distance, described in Section~\ref{sec:studyOfLiterature_humanDepthPerception}, humans are able to use a multitude of monocular depth cues. Developing a working program, which estimates distance based on monocular depth cues and a neural network seems possible.
 
 \textbf{Comparison between the work of this thesis and a stereo camera}
 
@@ -75,14 +75,14 @@ One way to determine if the principles described in this thesis are sufficient t
 
 \textbf{Generating realistic Blender scenes}
 
-One of the missing parts, to get the neural network to work in the use case described in section~\ref{sec:introduction_motivation}, is the training with realistic images. The situation of having some given object and a unknown background has to be modelled in Blender and then feed into the neural network. Afterwards one could test if this is an improvement compared to experiment 2.
+One of the missing parts, to get the neural network to work in the use case described in section~\ref{sec:introduction_motivation}, is the training with realistic images. The situation of having some given object and a unknown background has to be modelled in Blender and then fed into the neural network. Afterwards one could test if this is an improvement compared to experiment 2.
 
 \textbf{Writing a ROS (robot operating system) node from the existing code}
 
-Lastly the authors suggest all persons wanting to use the methods described in this thesis to integrate them into a ROS node. This makes the communication to the drone more easy and completely removes the problem of the image modifications needed to perform the second experiment. Capsuling the distance estimation into a node has the following advantages: debugging the code is easy as all messages send and received by the node can be printed, the node can easily be replaced by some different new code and the calculation can be distributed onto many different computers.
+Lastly the authors suggest all persons wanting to use the methods described in this thesis to integrate them into a ROS node. This makes the communication to the drone easier and completely removes the problem of the image modifications needed to perform the second experiment. Capsuling the distance estimation into a node has the following advantages: debugging the code is easy, as all messages sent and received by the node can be printed, the node can easily be replaced by some different new code and the calculation can be distributed onto many different computers.
 
 \section{Final thoughts}
 
-All in all the authors hope to have given all readers of this thesis a deeper understanding of neural networks, their limits when it comes to processing images in search of depth information and the reasons behind computer-aided training data generation. They hope that the reader can use the obtained knowledge to get started in the development of neural networks more easily or, if they already have previous experience with this topic, deepen their insight.
+All in all the authors hope to have given all readers of this thesis a deeper understanding of neural networks, their limits when it comes to processing images in search of depth information and the reasons behind computer-aided training data generation. They hope that the reader can use the obtained knowledge to get started in the development of neural networks more easily, or, if they already have previous experience with this topic, deepen their insight.
 
 \filbreak
